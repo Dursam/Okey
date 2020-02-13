@@ -1,24 +1,31 @@
 #include "./test.h"
 
-#define N 52
+#define N 106
 #define J 15
 
 void initTules(t_tule * jeu[N]){
 
-  int i;
+  int i,j,k;
 
   t_couleur couleur = jaune;
 
-  for (int j = 0; j < N; j++) {
-    jeu[j] = (t_tule *)malloc(sizeof(t_tule));
+  for (i = 0;i < N ; i++){
+    jeu[i] = (t_tule *)malloc(sizeof(t_tule));
   }
-
-  for(i=0;i<N;i++){
-    jeu[i]->clr = couleur;
-    jeu[i]->nbr = i%13;
-    if((i+1) % 13 == 0)
-      couleur++;
-  }
+    for(j=0;j<N;j++){
+      jeu[j]->clr = couleur;
+      jeu[j]->nbr = j%13;
+      if((j+1) % 26 == 0)
+        couleur++;
+      if(j == 104){
+        jeu[j]->clr = noire;
+        jeu[j]->nbr = 13;
+      }
+      if(j == 105){
+        jeu[j]->clr = rouge;
+        jeu[j]->nbr = 13;
+      }
+    }
 }
 
 void detruire_Tules(t_tule * jeu[N]){
@@ -41,6 +48,20 @@ void affJeu(t_tule * jeu[N]){
   }
 }
 
+void affChev(t_tule * jeu[J]){
+
+  for(int i = 0; i < J; i++){
+    printf("%i ",(jeu[i]->nbr)+1);
+    switch (jeu[i]->clr) {
+      case jaune: printf(" JAUNE\n");break;
+      case rouge: printf(" ROUGE\n");break;
+      case noire: printf(" NOIRE\n");break;
+      case bleu:  printf(" BLEU\n");break;
+    }
+  }
+}
+
+
 void creer_joueur(t_tule * joueur[J]){
 
   for (int i = 0; i < J; i++) {
@@ -56,9 +77,21 @@ void detruire_joueur(t_tule * joueur[J]){
   }
 }
 
-void distribution(t_tule * jeu[N], t_tule * j1[J], t_tule * j2[J], t_tule * j3[J], t_tule * j4[J]){
+void distribution(t_tule * jeu[N], t_tule * j1[J]){
 
+  unsigned int i,elem;
 
+  srand(time(NULL));
+
+  elem = rand() % (105 + 1 - 0) + 0;
+
+  for (i = 0; i <=14 ; i++) {
+    while((jeu[elem]->nbr == 14))
+      elem = rand() % (105 + 1 - 0) + 0;
+    j1[i]->nbr = jeu[elem]->nbr;
+    j1[i]->clr = jeu[elem]->clr;
+    jeu[elem]->nbr = 14;
+ }
 }
 
 int main (void){
@@ -72,6 +105,16 @@ int main (void){
   affJeu(jeu);
 
   creer_joueur(j1);
+
+  distribution(jeu,j1);
+
+  printf("Jeu du joueur \n\n\n");
+
+  affChev(j1);
+
+  printf("\n\n\n");
+
+  affJeu(jeu);
 
   detruire_joueur(j1);
 
