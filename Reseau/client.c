@@ -12,7 +12,7 @@
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
 #define closesocket(s) close(s)
-#define PORT 443
+#define PORT 4242
 #define errno 0
 
 
@@ -34,9 +34,9 @@ int main(){
   //Connection au serveur
   struct hostent *hostinfo = NULL;
   SOCKADDR_IN sin = { 0 }; /* initialise la structure avec des 0 */
-  char hostname[16] = "172.18.41.31";
+  char hostname[32] = "ic2s120-12.univ-lemans.fr";
   printf("Entrez l'ip du serveur: ");
-   scanf("%[^\n]s\n", hostname);
+   //scanf("%[^\n]s\n", hostname);
   hostinfo = gethostbyname(hostname); /* on récupère les informations de l'hôte auquel on veut se connecter */
   if (hostinfo == NULL){ /* l'hôte n'existe pas */
       fprintf (stderr, "Unknown host %s.\n", hostname);
