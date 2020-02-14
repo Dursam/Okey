@@ -28,40 +28,6 @@ void initTules(t_tule * jeu[N]){
     }
 }
 
-void detruire_Tules(t_tule * jeu[N]){
-
-  for (int i = 0; i < N; i++) {
-    free(jeu[i]);
-  }
-}
-
-void affJeu(t_tule * jeu[N]){
-
-  for(int i = 0; i < N; i++){
-    printf("%i ",(jeu[i]->nbr)+1);
-    switch (jeu[i]->clr) {
-      case jaune: printf(" JAUNE\n");break;
-      case rouge: printf(" ROUGE\n");break;
-      case noire: printf(" NOIRE\n");break;
-      case bleu:  printf(" BLEU\n");break;
-    }
-  }
-}
-
-void affChev(t_tule * jeu[J]){
-
-  for(int i = 0; i < J; i++){
-    printf("%i ",(jeu[i]->nbr)+1);
-    switch (jeu[i]->clr) {
-      case jaune: printf(" JAUNE\n");break;
-      case rouge: printf(" ROUGE\n");break;
-      case noire: printf(" NOIRE\n");break;
-      case bleu:  printf(" BLEU\n");break;
-    }
-  }
-}
-
-
 void creer_joueur(t_tule * joueur[J]){
 
   for (int i = 0; i < J; i++) {
@@ -70,10 +36,24 @@ void creer_joueur(t_tule * joueur[J]){
 
 }
 
-void detruire_joueur(t_tule * joueur[J]){
+void detruire_Tules(t_tule * jeu[],int taille){
 
-  for (int i = 0; i < J; i++) {
-    free(joueur[i]);
+  for (int i = 0; i < taille; i++) {
+    free(jeu[i]);
+    jeu[i] = NULL;
+  }
+}
+
+void affJeu(t_tule * jeu[],int taille){
+
+  for(int i = 0; i < taille; i++){
+    printf("%i ",(jeu[i]->nbr)+1);
+    switch (jeu[i]->clr) {
+      case jaune: printf(" JAUNE\n");break;
+      case rouge: printf(" ROUGE\n");break;
+      case noire: printf(" NOIRE\n");break;
+      case bleu:  printf(" BLEU\n");break;
+    }
   }
 }
 
@@ -86,23 +66,31 @@ void distribution(t_tule * jeu[N], t_tule * j1[J]){
   elem = rand() % (105 + 1 - 0) + 0;
 
   for (i = 0; i <=14 ; i++) {
-    while((jeu[elem]->nbr == 14))
+    while((jeu[elem] == NULL))
       elem = rand() % (105 + 1 - 0) + 0;
     j1[i]->nbr = jeu[elem]->nbr;
     j1[i]->clr = jeu[elem]->clr;
-    jeu[elem]->nbr = 14;
+    free(jeu[elem]);
+    jeu[elem] = NULL;
  }
+}
+
+int nombreTules(t_tule * jeu[],int taille_jeu){
+
+  int i = taille_jeu/sizeof(t_tule);
+
+  return i;
 }
 
 int main (void){
 
   t_tule * jeu[N],* j1[J];
 
-  int i = 0;
+  int i,j,k;
 
   initTules(jeu);
 
-  affJeu(jeu);
+  affJeu(jeu,nombreTules(jeu,sizeof(jeu)));
 
   creer_joueur(j1);
 
@@ -110,15 +98,13 @@ int main (void){
 
   printf("Jeu du joueur \n\n\n");
 
-  affChev(j1);
+  affJeu(j1,nombreTules(j1,sizeof(j1)));
 
-  printf("\n\n\n");
+  printf("\n\n");
 
-  affJeu(jeu);
+  detruire_Tules(jeu,nombreTules(jeu,sizeof(jeu)));
 
-  detruire_joueur(j1);
-
-  detruire_Tules(jeu);
+  detruire_Tules(j1,nombreTules(j1,sizeof(j1)));
 
   return 0;
 }
