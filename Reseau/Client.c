@@ -12,7 +12,7 @@
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
 #define closesocket(s) close(s)
-#define PORT 4242
+#define PORT 443
 #define errno 0
 
 

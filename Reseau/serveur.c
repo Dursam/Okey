@@ -7,6 +7,11 @@
 #include <unistd.h> /* close */
 #include <netdb.h> /* gethostbyname */
 #include <ifaddrs.h> /*get ip addr */
+#include <netdb.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
@@ -21,6 +26,27 @@ typedef struct in_addr IN_ADDR;
 
 
 int main(){
+
+  //obtention de l'adresse ip du serveur
+  char hostbuffer[256];
+  char *IPbuffer;
+  struct hostent *host_entry;
+  int hostname;
+
+  // To retrieve hostname
+  hostname = gethostname(hostbuffer, sizeof(hostbuffer));
+
+  // To retrieve host information
+  host_entry = gethostbyname(hostbuffer);
+
+  // To convert an Internet network
+  // address into ASCII string
+  IPbuffer = inet_ntoa(*((struct in_addr*)
+                         host_entry->h_addr_list[0]));
+
+  printf("Hostname: %s\n", hostbuffer);
+  printf("Host IP: %s\n", IPbuffer);
+
 
   //Création du socket
 
