@@ -4,18 +4,16 @@
 #include <string.h>
 #include <unistd.h>
 
-typedef enum { jaune , rouge , noire , bleu } t_couleur;
+#define N 106
+#define J 15
 
-typedef enum { joker_1 , joker_2 } t_joker;
+typedef enum {jaune,rouge,noire,bleu} t_couleur;
 
-typedef union { int nbr ; t_couleur; t_joker; } t_tule;
+typedef struct s_tuile {
+  int nbr;
+  t_couleur clr;
+} t_tuile;
 
-/*
-#if defined(WIN32)
-  #define NOIR "@"
-  #define BLANC "O"
-#elif defined (linux)
-  #define NOIR "●"
-  #define BLANC "○"
-#endif
-*/
+typedef struct s_element { t_tuile * tuile; struct s_element * suivant;} t_element;
+
+typedef struct s_pile { t_element * premier ;} t_pile;
