@@ -4,7 +4,7 @@
 
 void init_tuile(t_tuile * jeu[N]){
 
-  int i,j,k;
+  int i,j;
 
   t_couleur couleur = jaune;
 
@@ -74,7 +74,7 @@ void distribution_joueur(t_tuile * jeu[N], t_tuile * j1[J]){
 /* Fonction qui distribus une tuile parmi le jeu des 106 tuiles, au hasard */
 t_tuile distribution_pioche(t_tuile * jeu[N]){
 
-  unsigned int i,elem;
+  unsigned int elem;
   t_tuile tuile_okey;
 
   srand(time(NULL));
