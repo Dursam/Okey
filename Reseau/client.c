@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h> /* close */
-#include <netdb.h> /* gethostbyname */
-#include <string.h>
-
+#include "./reseau.h"
 
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1

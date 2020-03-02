@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * \file menu_principal.c
  * \brief Menu principal du jeu
@@ -28,3 +29,6 @@ void showMenu(){
 		quitter_affichage();
 	}
 }
+=======
+#include "./menu.h"
+>>>>>>> 145bdc6973453f0199ca025802b64ece446bcd0f
