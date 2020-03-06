@@ -111,7 +111,7 @@ void demarrage(t_tuile * jeu[N], t_tuile * j1[J],t_tuile * j2[J],t_tuile * j3[J]
     case 3: j3[14]->nbr = jeu[elem]->nbr;j3[14]->clr = jeu[elem]->clr;break;
     case 4: j4[14]->nbr = jeu[elem]->nbr;j4[14]->clr = jeu[elem]->clr;break;
   }
-  printf("%i\n",num_joueur);
+  //printf("%i\n",num_joueur);
 }
 
 /* Fonction qui renvoie la taille des tuiles alloués */
