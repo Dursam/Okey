@@ -1,0 +1,2 @@
+void nouvellePartie();
+void rejoindrePartie();

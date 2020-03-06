@@ -12,5 +12,6 @@ void nouvellePartie(){
 
 
 void rejoindrePartie(){
-  //char* ip = menuServeur()
+  char * ip = malloc(sizeof(char) * 16);
+  menuServeur(ip);
 }

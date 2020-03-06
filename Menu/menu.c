@@ -20,7 +20,7 @@
 void showMenu(){
 	//fond_blanc();
 	int running; //la variable qui gère le choix du menu
-	char list[3][30] = { "Nouvelle partie", "Rejoindre une partie","Charger scores", "Quitter" };
+	char list[4][30] = { "Nouvelle partie", "Rejoindre une partie","Charger scores", "Quitter" };
 	running = afficher_menu(list);
 	if(running==0){
 		nouvellePartie();

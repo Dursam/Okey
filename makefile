@@ -24,7 +24,7 @@ BIN_TERMINAL=fonctions_terminal.o affichages_terminal.o
 #objets indépendants des fichiers d'affichage
 OBJ=init.o regle.o reseau.o
 #objets dépendants des fichiers d'affichage
-OBJ_DEP_AFF=menu.o main.o jeu.o
+OBJ_DEP_AFF=jeu.o menu.o main.o 
 
 
 

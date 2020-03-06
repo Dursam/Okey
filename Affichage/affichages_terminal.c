@@ -54,19 +54,19 @@ void detecter_touches(int*running){
  * \fn void creerPerso_terminal()
  * \brief Fonction de gestion de l'édition du personnage en terminal
  */
-void menuServeur(char*name, char*class_char, char*gender){
+void menuServeur(char*ip){
 	int running = -1; //la variable qui gère le choix du menu
 	int ch, i = 0, width = 30;
 	wclear(fenetre);
 	initscr(); // initialize Ncurses
 	box( fenetre, 0, 0 ); //initialisation des bordures
 	//affichage des boutons
-	mvwprintw( fenetre, 12, 10, "ip: %s        ", name);
+	mvwprintw( fenetre, 12, 10, "ip: %s        ", ip);
 	wrefresh( fenetre ); //mise à jour de l'écran
 	noecho(); //désactivation de l'écho des caratères
 	keypad( fenetre, TRUE ); //on autorise à taper des trucs
 	curs_set( 0 ); //on cache le curseur du terminal
-  mvwscanw(fenetre, 13, 27, " %s\n", name);
+  mvwscanw(fenetre, 13, 27, " %s\n", ip);
 }
 
 
@@ -74,10 +74,7 @@ void menuServeur(char*name, char*class_char, char*gender){
 
 
 int afficher_menu(char list[][30]){
-  int taille = 3;
-  if(0 == strcmp(list[0], "1 joueur et 3 bots")){
-    taille = 4;
-  }
+  int taille = 4;
 	int ch, i = 0;
   //int width = 30;
 	box( fenetre, 0, 0 ); //initialisation des bordures
