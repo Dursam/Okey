@@ -3,7 +3,7 @@
 void debut_partie(void){
 
   /* Variables d'initialisation */
-  t_tuile * jeu[N],* j1[J],* j2[J],* j3[J],* j4[J],* pile_J1,* pile_J2,* pile_J3,* pile_J4;
+  t_tuile * jeu[N],* j1[J],* j2[J],* j3[J],* j4[J],* pile_j1,* pile_j2,* pile_j3,* pile_j4;
   init_tuile(jeu);
 
   /* On iniitialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
