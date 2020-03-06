@@ -54,7 +54,7 @@ void detecter_touches(int*running){
  * \fn void creerPerso_terminal()
  * \brief Fonction de gestion de l'édition du personnage en terminal
  */
-void afficher_creation(char*name, char*class_char, char*gender){
+void menuServeur(char*name, char*class_char, char*gender){
 	int running = -1; //la variable qui gère le choix du menu
 	int ch, i = 0, width = 30;
 	wclear(fenetre);
