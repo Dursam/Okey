@@ -50,18 +50,39 @@ void detecter_touches(int*running){
 
 
 
+/**
+ * \fn void creerPerso_terminal()
+ * \brief Fonction de gestion de l'édition du personnage en terminal
+ */
+void afficher_creation(char*name, char*class_char, char*gender){
+	int running = -1; //la variable qui gère le choix du menu
+	int ch, i = 0, width = 30;
+	wclear(fenetre);
+	initscr(); // initialize Ncurses
+	box( fenetre, 0, 0 ); //initialisation des bordures
+	//affichage des boutons
+	mvwprintw( fenetre, 12, 10, "ip: %s        ", name);
+	wrefresh( fenetre ); //mise à jour de l'écran
+	noecho(); //désactivation de l'écho des caratères
+	keypad( fenetre, TRUE ); //on autorise à taper des trucs
+	curs_set( 0 ); //on cache le curseur du terminal
+  mvwscanw(fenetre, 13, 27, " %s\n", name);
+}
 
 
 
 
 
-
-int afficher_menu(char list[3][30]){
+int afficher_menu(char list[][30]){
+  int taille = 3;
+  if(0 == strcmp(list[0], "1 joueur et 3 bots")){
+    taille = 4;
+  }
 	int ch, i = 0;
   //int width = 30;
 	box( fenetre, 0, 0 ); //initialisation des bordures
 	//affichage des boutons
-	for( i=0; i<3; i++ ) {
+	for( i=0; i<taille; i++ ) {
 			if( i == 0 )
 					wattron( fenetre, A_STANDOUT ); //on surligne le premier
 			else
@@ -80,11 +101,11 @@ int afficher_menu(char list[3][30]){
 					switch( ch ) {
 							case KEY_UP:
 													running--;
-													running = ( running<0 ) ? 3 : running;
+													running = ( running<0 ) ? taille : running;
 													break;
 							case KEY_DOWN:
 													running++;
-													running = ( running>2 ) ? 0 : running;
+													running = ( running>taille-1 ) ? 0 : running;
 													break;
 					}
 					wattron( fenetre, A_STANDOUT );

@@ -10,11 +10,13 @@ SDLINC_DIR=${SDL_DIR}/include
 AFF_DIR=./Affichage/
 MENU_DIR=./Menu/
 INIT_DIR=./Initialisation/
+REGLE_DIR=./Regle/
+JEU_DIR=./Jeu/
 
 PARAM=${1}
 INCLUDE_SDL=-L${SDLLIB_DIR} -lSDL2 -lSDL2_ttf -lSDL2_image -I${SDLINC_DIR}
 INCLUDE_NCURSES=-lncurses
-INCLUDES=-I./ -lm -I${AFF_DIR} -I${MENU_DIR} -I${INIT_DIR}
+INCLUDES=-I./ -lm -I${AFF_DIR} -I${MENU_DIR} -I${INIT_DIR} -I${REGLE_DIR} -I${JEU_DIR}
 
 BIN_SDL=fonctions_sdl.o affichages_sdl.o
 BIN_TERMINAL=fonctions_terminal.o affichages_terminal.o
@@ -50,6 +52,8 @@ affichages_terminal.o:
 #Fichiers indépendants de l'affichage
 init.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) $(INIT_DIR)init.c -o init.o
+regle.o:
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) $(REGLE_DIR)regle.c -o regle.o
 
 
 
@@ -59,6 +63,8 @@ main.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) main.c -o main.o
 menu.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${MENU_DIR}menu.c -o menu.o
+jeu.o:
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${JEU_DIR}jeu.c -o jeu.o
 
 
 clean:

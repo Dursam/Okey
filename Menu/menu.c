@@ -11,6 +11,7 @@
 #include <menu.h>
 #include <affichage.h>
 #include <fonctions_affichage.h>
+#include <jeu.h>
 
 /**
  * \fn void showMenu()
@@ -19,17 +20,18 @@
 void showMenu(){
 	//fond_blanc();
 	int running; //la variable qui gère le choix du menu
-	char list[3][30] = { "Nouvelle partie", "Charger scores", "Quitter" };
+	char list[3][30] = { "Nouvelle partie", "Rejoindre une partie","Charger scores", "Quitter" };
 	running = afficher_menu(list);
 	if(running==0){
-		//startGame( 500.0, 500.0);
+		nouvellePartie();
+
 	}
-	if(running==1){}
-	if(running==2){
+	if(running==1){
+		rejoindrePartie();
+	}
+	if(running==3){
 		//delete_player(&Personnage);
 		quitter_affichage();
 	}
+	quitter_affichage();
 }
-
-
-
