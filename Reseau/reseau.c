@@ -1,4 +1,10 @@
-
+#include <definitions.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h> /* gethostbyname */
+#include <ifaddrs.h> /*get ip addr */
 #include <reseau.h>
 
 #define INVALID_SOCKET -1
@@ -40,7 +46,7 @@ int client(){
       exit(EXIT_FAILURE);
   }
 
-  sin.sin_addr = *(IN_ADDR *) hostinfo->h_addr; /* l'adresse se trouve dans le champ h_addr de la structure hostinfo */
+  sin.sin_addr = *(IN_ADDR *) "192.168.0.1"; /* l'adresse se trouve dans le champ h_addr de la structure hostinfo */
   sin.sin_port = htons(PORT); /* on utilise htons pour le port */
   sin.sin_family = AF_INET;
 

@@ -12,18 +12,19 @@ MENU_DIR=./Menu/
 INIT_DIR=./Initialisation/
 REGLE_DIR=./Regle/
 JEU_DIR=./Jeu/
+RESEAU_DIR=./Reseau/
 
 PARAM=${1}
 INCLUDE_SDL=-L${SDLLIB_DIR} -lSDL2 -lSDL2_ttf -lSDL2_image -I${SDLINC_DIR}
 INCLUDE_NCURSES=-lncurses
-INCLUDES=-I./ -lm -I${AFF_DIR} -I${MENU_DIR} -I${INIT_DIR} -I${REGLE_DIR} -I${JEU_DIR}
+INCLUDES=-I./ -lm -I${AFF_DIR} -I${MENU_DIR} -I${INIT_DIR} -I${REGLE_DIR} -I${JEU_DIR} -I${RESEAU_DIR}
 
 BIN_SDL=fonctions_sdl.o affichages_sdl.o
 BIN_TERMINAL=fonctions_terminal.o affichages_terminal.o
 #objets indépendants des fichiers d'affichage
-OBJ=init.o
+OBJ=init.o regle.o reseau.o
 #objets dépendants des fichiers d'affichage
-OBJ_DEP_AFF=menu.o main.o
+OBJ_DEP_AFF=menu.o main.o jeu.o
 
 
 
@@ -65,6 +66,8 @@ menu.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${MENU_DIR}menu.c -o menu.o
 jeu.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${JEU_DIR}jeu.c -o jeu.o
+reseau.o:
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${RESEAU_DIR}reseau.c -o reseau.o
 
 
 clean:
