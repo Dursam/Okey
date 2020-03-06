@@ -1,1 +1,1 @@
-#include "../definitions.h"
+void debut_partie(void);
