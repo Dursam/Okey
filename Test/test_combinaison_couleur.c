@@ -71,7 +71,7 @@ void affJeu(t_tuile * jeu[],int taille){
   for(int i = 0; i < taille; i++){
 
     if(jeu[i]->nbr==14){
-        printf("\n");
+        printf("ATTENTION\n");
     }
     else{
       printf("%i ",(jeu[i]->nbr)+1);
@@ -84,6 +84,35 @@ void affJeu(t_tuile * jeu[],int taille){
     }
   }
 }
+
+/* Affiche les tuiles un par un avec boucle WHILE */
+void affJeu_2(t_tuile * jeu[],int taille){
+
+  int i = 0;
+
+  printf("La taille est de %i\n",taille);
+
+  while(i < taille){
+    if(jeu[i] == NULL)
+      printf("LA MEMOIRE EST SUPPRIMER\n");
+    else{
+      if(jeu[i]->nbr==14){
+          printf("\n");
+      }
+      else{
+        printf("%i ",(jeu[i]->nbr)+1);
+        switch (jeu[i]->clr){
+          case jaune: printf(" JAUNE\n");break;
+          case rouge: printf(" ROUGE\n");break;
+          case noire: printf(" NOIRE\n");break;
+          case bleu:  printf(" BLEU\n");break;
+        }
+      }
+    }
+    i++;
+  }
+}
+
 
 /* Fonction qui distribue 14 tuiles à un joueur */
 void distribution_joueur(t_tuile * jeu[N], t_tuile * j1[J]){
@@ -120,7 +149,7 @@ int compte_coul_diff(int tab_coul[4]){
 
 
 /* Fonction qui vérifie les ensembles de combinaisons de 3 ou 4 couleurs */
-void combinaison_coul(t_tuile * chev[J]){
+void combinaison_coul(t_tuile * chev[]){
 
   int cpt_tuil[13] = { 0 },                           // Compteur de chaque tuiles de 1 à 13
   i,j,k,                                              // Indices de parcours à incrémenter
@@ -128,7 +157,7 @@ void combinaison_coul(t_tuile * chev[J]){
   cpt_coul[4] = { 0 },                                // Compteur de tuile(s) d'une couleur
   nb_diff_coul,                                       // Nombre de couleur(s) d'une tuile
   copy_ind,                                           // Récupère le numéro de l'indice avec nbr de même numéro de tuile supérieur ou égale à 3
-  enr4_ind[4],enr3_ind[3],enr14_ind[14];        // Tableau d'enregistrement de l'indice de la couleur (3 ou 4) en fonction de l'indice du chevalet;
+  enr4_ind[4],enr3_ind[3],enr14_ind[14] = {100};        // Tableau d'enregistrement de l'indice de la couleur (3 ou 4) en fonction de l'indice du chevalet;
 /*
   for(i = 0; i < J-1; i++){
 
@@ -300,17 +329,16 @@ void combinaison_coul(t_tuile * chev[J]){
     printf("Il y en a pas\n");
   }
  } // Fin for de compte tuile
-/*
+
  for(i=0;i<14;i++){
-   //free(chev[enr3_ind[j]]);
-   //chev[enr3_ind[j]] = NULL;
+
    if(enr14_ind[i] >= 0 && enr14_ind[i] <= 14 ){
     //printf("Les indices enr14 %i\n",enr14_ind[i]);
     free(chev[enr14_ind[i]]);
     chev[enr14_ind[i]] = NULL;
     }
   }
-*/
+
 //free(chev[11]);
 //chev[11] = NULL;
 }
@@ -391,7 +419,10 @@ int main(){
   combinaison_coul(jc);
 
   printf("\n---------------APRES-------------\n");
-  affJeu(jc,taille_tuile(jc,sizeof(jc)));
+
+  if(jc[11]==NULL)
+    printf("AUCUN PROBLEME\n");
+  affJeu_2(jc,taille_tuile(jc,sizeof(jc)));
 
   /* On détruit le jeu et les chevalets */
   detruire_tuile(jeu,taille_tuile(jeu,sizeof(jeu)));
