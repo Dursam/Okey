@@ -40,7 +40,7 @@ int taille_tuile(t_tuile * jeu[],int taille_jeu){
 }
 
 /* Fonction qui alloue une mémoire dynamique à un chevalet */
-void creer_joueur(t_tuile * joueur[],int taille){
+void creer_chev(t_tuile * joueur[],int taille){
 
   for (int i = 0; i < taille; i++)
     joueur[i] = (t_tuile *)malloc(sizeof(t_tuile));
@@ -124,6 +124,29 @@ int compte_coul_diff(int tab_coul[4]){
     }
 
   return nb_diff_coul;
+}
+
+/* Fonction qui convertit un chevalet de taille 15 en taille 14, permet de vérifier si ses combinaisons sont gagnantes, l'une des tuiles du chev 15 est à NULL */
+t_tuile * conversion_15to14(t_tuile * joueur[T_CHEV]){
+
+  int i = 0;
+
+  t_tuile * chev[C_G];
+  //creer_chev(chev,C_G);
+
+  for(i = 0; i < C_G;i++){
+
+  //  if(chev[i]==NULL)
+  //    printf("\n");
+    //else{
+      chev[i] = joueur[i];
+      //chev[i]->clr = joueur[i]->clr;
+      //chev[i]->nbr = joueur[i]->nbr;
+      //chev[i] = joueur[i];
+    //}
+    //i++;
+  }
+  return chev[C_G];
 }
 
 /* Fonction qui vérifie les ensembles de combinaisons de 3 ou 4 couleurs */
@@ -313,15 +336,22 @@ void combinaison_coul(t_tuile * chev[]){
 int main(){
 
   /* On iniitialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
-  t_tuile * jeu[N_T],* j1[T_CHEV],* jc[C_G];//, *j_tuile;
+  t_tuile * jeu[N_T],* j1[T_CHEV],* j1_14[C_G],* jc[C_G];//, *j_tuile;
   init_tuile(jeu);
 
   /* On iniitialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
-  creer_joueur(j1,T_CHEV);
-  creer_joueur(jc,C_G);
+  creer_chev(j1,T_CHEV);
+  creer_chev(jc,C_G);
 
   /* Distribution des tuiles */
   distribution_joueur(jeu,j1);
+
+  /* On supprime la dernière tuile du chevalet de 15 tuiles pour mettre en condition un chevalet de 14 tuiles aléatoires */
+  free(j1[14]);
+  j1[14]=NULL;
+
+  /* On convertit d'un chevalet de 15 à 14 tuiles */
+  *j1_14 = conversion_15to14(j1);
 
   /* Creation d'une combinaison gagnante */
 
@@ -357,12 +387,7 @@ int main(){
   jc[13]->nbr=9;
   jc[13]->clr=jaune;
 
-  /* Affichage de tuiles */
-
-  //printf("Jeu du J1 %i \n\n\n",taille_tuile(j1,sizeof(j1)));
-  //affiche_tuile(j1,taille_tuile(j1,sizeof(j1)));
-
-  printf("\nEXEMPLE DE CHEVALET DE 14 TUILES\n");
+  printf("\nEXEMPLE DE CHEVALET DE 14 TUILES DEFINIS\n");
   printf("\nVERIFICATION DES COMBINAISONS DE COULEURS\n");
   printf("\n---------------AVANT-------------\n");
 
@@ -377,8 +402,26 @@ int main(){
 
   printf("\n----------------FIN--------------\n");
 
+  /* Affichage d'un chevalet de 15 tuiles aléatoires */
+  printf("\nEXEMPLE DE CHEVALET DE 14 TUILES ALEATOIRES\n");
+  printf("\nVERIFICATION DES COMBINAISONS DE COULEURS\n");
+  printf("\n---------------AVANT-------------\n");
+
+  affiche_tuile(j1,taille_tuile(j1,sizeof(j1)));
+
+  /* Affichage des répétitions */
+  combinaison_coul(j1);
+
+  printf("\n---------------APRES-------------\n");
+
+  printf("Nbr %i\n",j1_14[1]->nbr);
+  //affiche_tuile(j1_14,taille_tuile(j1_14,sizeof(j1_14)));
+
+  printf("\n----------------FIN--------------\n");
+
   /* On détruit le jeu et les chevalets */
   detruire_tuile(jeu,taille_tuile(jeu,sizeof(jeu)));
   detruire_tuile(j1,taille_tuile(j1,sizeof(j1)));
   detruire_tuile(jc,taille_tuile(jc,sizeof(jc)));
+  //detruire_tuile(j1_14,taille_tuile(j1_14,sizeof(j1_14)));
 }
