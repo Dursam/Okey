@@ -342,7 +342,6 @@ void combinaison_suite(t_tuile * chev[]){
       for(j = 0; j < 13; j++)
           enr13_coul[j] = 0;
 
-
       for(j = 0; j < 13; j++){
         for(k = 0; k < T_CHEV-1; k++){
           if(chev[k]->clr == coul_actuel && chev[k]->nbr == j)
@@ -355,18 +354,6 @@ void combinaison_suite(t_tuile * chev[]){
             enr13_coul[chev[i]->nbr] = 1;
       }
 
-/*
-      for(j = 0; j < 13; j++){
-        if(coul_actuel == jaune)
-        printf(" JAUNE -> CPT de la couleur num %i est de %i \n",j,enr13_coul[j]);
-        if(coul_actuel == rouge)
-        printf(" ROUGE -> CPT de la couleur num %i est de %i \n",j,enr13_coul[j]);
-        if(coul_actuel == noire)
-        printf(" NOIRE -> CPT de la couleur num %i est de %i \n",j,enr13_coul[j]);
-        if(coul_actuel == bleu)
-        printf(" BLEU -> CPT de la couleur num %i est de %i \n",j,enr13_coul[j]);
-      }
-*/
       while(cpt_len_comb == 1){
 
         copy_i = i;
@@ -445,39 +432,52 @@ void combinaison_suite(t_tuile * chev[]){
           if(cpt_len_comb == 2){
             for(j = 0;j < T_CHEV-1;j++){
               if(chev[j]->nbr != T_DEL){
-                if(chev[j]->nbr != chev[i]->nbr && chev[j]->clr == coul_actuel && (chev[j]->nbr == nbr_pred_2 || chev[j]->nbr == nbr_suiv_2)){
-                  cpt_len_comb++;
+                if(chev[j]->nbr != chev[i]->nbr && chev[j]->clr == coul_actuel && chev[j]->nbr == nbr_pred_2){
+                  for(k=0;k<T_CHEV-1;k++)
+                    if(chev[j]->nbr != chev[k]->nbr && chev[k]->clr == coul_actuel && chev[k]->nbr == nbr_pred)
+                      cpt_len_comb++;
+                }
+                else if(chev[j]->nbr != chev[i]->nbr && chev[j]->clr == coul_actuel && chev[j]->nbr == nbr_suiv_2){
+                  for(k=0;k<T_CHEV-1;k++)
+                    if(chev[j]->nbr != chev[k]->nbr && chev[k]->clr == coul_actuel && chev[k]->nbr == nbr_suiv)
+                      cpt_len_comb++;
+
+
+                }
+
+
                 }
               }
             }
           }
-        }
-
 
         if(cpt_len_comb >= 3) // On enregistre l'indice
           enr14_ind[i] = i;
 
         // On sort de la boucle
         cpt_len_comb = T_DEL;
-      }
+        }
     }
-
   }
-  for(i = 0; i < 14; i++ ){
+
+  for(i = 0; i < 14; i++){
     if(enr14_ind[i] == i){
      //printf("Les indices enr14 %i\n",enr14_ind[i]);
      chev[enr14_ind[i]]->nbr = T_DEL;
     }
    }
+
   for(i = 0; i < 14; i++){
     if(enr14_rep[i]->nbr != NO_VALUE)
       chev[enr14_ind[i]]->nbr = enr14_rep[i]->nbr;
   }
-   for(i = 0; i < 14; i++ ){
+
+  for(i = 0; i < 14; i++){
      if(enr14_rep[i]->nbr != NO_VALUE)
       printf("Les répétitions %i\n",enr14_rep[i]->nbr);
    }
-   detruire_tuile(enr14_rep,taille_tuile(enr14_rep,sizeof(enr14_rep)));
+
+  detruire_tuile(enr14_rep,taille_tuile(enr14_rep,sizeof(enr14_rep)));
 }
 
 int main(){
