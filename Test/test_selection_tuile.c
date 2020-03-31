@@ -30,7 +30,7 @@ void empiler(t_pile * pile,t_tuile * t){
 void depiler(t_pile * pile){
 
   t_element * sommet;
-  if(pile != NULL){
+  if(!(pilevide(pile))){
     sommet = pile->premier;
     pile->premier = sommet->suivant;
     free(sommet);
@@ -41,7 +41,7 @@ void depiler(t_pile * pile){
 
 /* Fonction qui pointe la tuile du sommet de la pile */
 void sommetpile(t_pile * pile,t_tuile ** c){
-  if(pile != NULL)
+  if(!(pilevide(pile)))
     *c = pile->premier->tuile;
 }
 /*-----------------------------------*/
@@ -173,14 +173,23 @@ t_tuile distribution_pioche(t_tuile * jeu[N_T]){
 }
 
 /* Affiche les tuiles un par un avec boucle WHILE */
-void affiche_chevalet(t_tuile * jeu[T_CHEV],int taille){
+void affiche_chevalet(t_tuile * jeu[],int taille){
 
   int i;
 
-  printf("\n\t------------------------------------------------------\n\t|");
+  printf("\033[1;32m\t\b\t1\t2\t3\t4\t5\t6\t7\t\033[00m");
+  printf("\n\t------------------------------------------------------\n");
 
-  for(i = 0;i < taille-1;i++){
+  for(i = 0;i < taille;i++){
 
+    if(i == 0)
+      printf("\t|");
+    if(i == 14 && jeu[14]->nbr != T_DEL)
+      printf("--------------->");
+
+    if(jeu[i]->nbr == T_DEL)                // Cas où la tuile a été supprimer
+      printf("\t");
+    else{
       if(jeu[i]->nbr==13){                  // Cas d'affichage pour tuiles okey rouge et noire
           if(jeu[i]->clr==noire)
             printf("OK\033[34;40m__\033[00m\t");
@@ -207,14 +216,18 @@ void affiche_chevalet(t_tuile * jeu[T_CHEV],int taille){
           }
         }
       }
-
       if(i == 6)
-        printf("\b\b\b|\n\n\t\t\b\b\b\b\b\b\b\b|");
+        printf("\b\b\b|");
       if(i == 13)
         printf("\b\b\b|");
+    }
+    if(i == 6 && jeu[14]->nbr == T_DEL)
+      printf("\n\t|\t\t\t\t\t\t\t\b\b\b|\n\t|");
+    else if(i == 6 && jeu[14]->nbr != T_DEL)
+      printf("\n\t|\t\t\t\t\t\t\t\b\b\b| NOUVELLE TUILE \n\t|");
   }
-  printf("--------->%i\n",jeu[14]->nbr);
-  printf("\n\t------------------------------------------------------\n\n\n");
+  printf("\n\t------------------------------------------------------\n");
+  printf("\033[1;32m\t\b\t8\t9\t10\t11\t12\t13\t14\n\033[00m");
 }
 
 /* Affichage du sommet d'une pile */
@@ -263,94 +276,168 @@ void affiche_pile(t_pile * p1,t_pile * p2,t_pile * p3,t_pile * p4){
 
 }
 
+/* Fonction qui creer une tuile, lui affecte une valeur puis l'empile sur une pile */
+void empile_enr_tuile(t_tuile * chevalet[T_CHEV],t_tuile * enr[],t_pile * pile,int taille,int numero){
+
+  int i = 0,statut = 0;
+
+  while(statut == 0){
+    if(enr[i] == NULL){
+      enr[i] = creer_tuile();
+      enr[i]->nbr = chevalet[numero]->nbr;
+      enr[i]->clr = chevalet[numero]->clr;
+      empiler(pile,enr[i]);
+      //printf("Test %i\n",enr[i]->nbr+1);
+      statut = 1;
+    }
+    else if(i == taille)
+      statut = 1;
+    else
+      i++;
+  }
+
+  chevalet[numero]->nbr = chevalet[14]->nbr;
+  chevalet[numero]->clr = chevalet[14]->clr;
+  chevalet[14]->nbr = T_DEL;
+}
+
 /* Fonction qui permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet */
-void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[T_CHEV],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd){
+void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[T_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd){
 
   char choix;
 
-  t_tuile * tuile_gauche;
+  int numero;
+
+  t_tuile * tuile_sommet;
 
   affiche_pile(pfg,pfd,pg,pd);
   affiche_chevalet(chevalet,T_CHEV);
 
-//  printf("CHOIX : PIOCHE(ENTER) OU PILE DE GAUCHE(ANY KEY) ? ");
-//  scanf("%c",&choix);
+  printf("CHOIX : PIOCHE(ENTER) OU PILE DE GAUCHE(ANY KEY) ? ");
+  scanf("%c",&choix);
 
 
-//  if(choix==0x0A){
+  if(choix==0x0A){                          // Code ASCII pour la touche Entree
     printf("TU PIOCHE\n");
-    *jeu[14] = distribution_pioche(jeu);
+    *chevalet[14] = distribution_pioche(jeu);
     printf("%i\n",jeu[14]->nbr);
-/*  }
+  }
   else{
     printf("TU PREND LA TUILE DE LA PILE\n");
-    sommetpile(pg,&tuile_gauche);
-    jeu[14]->nbr = tuile_gauche->nbr;
-    jeu[14]->clr = tuile_gauche->clr;
+    sommetpile(pg,&tuile_sommet);
+    chevalet[14]->nbr = tuile_sommet->nbr;
+    chevalet[14]->clr = tuile_sommet->clr;
+    depiler(pg);
+
   }
-*/
-  printf("%i\n",jeu[14]->nbr);
+  printf("%i\n",chevalet[14]->nbr+1);
   affiche_pile(pfg,pfd,pg,pd);
   affiche_chevalet(chevalet,T_CHEV);
 
+  printf("CHOIX : RETIRER UN NUMERO DE TUILE (1 à 15) ? ");
+  scanf("%i",&numero);
+
+  empile_enr_tuile(chevalet,enr,pd,T_CHEV,numero-1);
+
+  affiche_pile(pfg,pfd,pg,pd);
+  affiche_chevalet(chevalet,T_CHEV);
+}
+
+/* Fonction qui initialise un tableau de struture de tuile pour enregistrer les tuiles qui seront empilés */
+void init_enr_tuile(t_tuile * enr[],int taille){
+
+  for(int i = 0;i<taille;i++)
+    enr[i] = NULL;
+}
+
+/* Fonction qui creer une tuile, lui affecte une valeur puis l'empile sur une pile */
+void test_enr_tuile(t_tuile * jeu[N_T],t_tuile * enr[],t_pile * pile,int taille){
+
+  int i = 0,statut = 0;
+
+  while(statut == 0){
+    if(enr[i] == NULL){
+      enr[i] = creer_tuile();
+      *enr[i] = distribution_pioche(jeu);
+      empiler(pile,enr[i]);
+      //printf("Test %i\n",enr[i]->nbr+1);
+      statut = 1;
+    }
+    else if(i == taille)
+      statut = 1;
+    else
+      i++;
+  }
 }
 
 int main(){
 
-  /* On iniitialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
-  t_tuile * jeu[N_T],* joueur[T_CHEV],* tuile_sommet,* tuile_p1,* tuile_p2,* tuile_p3,* tuile_p4;
-  t_pile * pile_droite = malloc(sizeof(t_pile)),* pile_gauche = malloc(sizeof(t_pile)),
-  * pile_fond_droit = malloc(sizeof(t_pile)),* pile_fond_gauche = malloc(sizeof(t_pile));
+  /* On initialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
+  t_tuile * jeu[N_T],* joueur[T_CHEV];
+
+  t_tuile * tuile_sommet,* tuile_p1[T_CHEV],* tuile_p2[T_CHEV],* tuile_p3[T_CHEV],* tuile_p4[T_CHEV];
+
+  t_pile * pile_droite,* pile_gauche,* pile_fond_droit,* pile_fond_gauche;
+
+  /* On initialise les enregistrement pour l'empilement des tuiles sur leur piles respectives */
+  init_enr_tuile(tuile_p1,T_CHEV);
+  init_enr_tuile(tuile_p2,T_CHEV);
+  init_enr_tuile(tuile_p3,T_CHEV);
+  init_enr_tuile(tuile_p4,T_CHEV);
+
+  /* Alloue Mémoire */
+  pile_droite = malloc(sizeof(t_pile));
+  pile_gauche = malloc(sizeof(t_pile));
+  pile_fond_droit = malloc(sizeof(t_pile));
+  pile_fond_gauche = malloc(sizeof(t_pile));
 
   /* On initialise les tuiles pour des piles de tuiles et d'une tuile pioché */
-  tuile_p1 = creer_tuile();
-  tuile_p2 = creer_tuile();
-  tuile_p3 = creer_tuile();
-  tuile_p4 = creer_tuile();
-  initpile(pile_gauche);
   initpile(pile_droite);
+  initpile(pile_gauche);
   initpile(pile_fond_droit);
   initpile(pile_fond_gauche);
 
-  /* On iniitialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
+  /* On initialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
   creer_chev(joueur,T_CHEV);
 
   /* Distribution des tuiles */
   init_tuile(jeu);
   distribution_joueur(jeu,joueur);
 
-  /* PIOCHE GAUCHE 2 FOIS */
-  *tuile_p1 = distribution_pioche(jeu);
-  empiler(pile_gauche,tuile_p1);
-  *tuile_p1 = distribution_pioche(jeu);
-  empiler(pile_gauche,tuile_p1);
+  // SCENARIO
+  // PIOCHE GAUCHE 2 FOIS
+  test_enr_tuile(jeu,tuile_p1,pile_gauche,T_CHEV);
+  test_enr_tuile(jeu,tuile_p1,pile_gauche,T_CHEV);
 
-  /* PIOCHE DROIT 2 FOIS */
-  *tuile_p2 = distribution_pioche(jeu);
-  empiler(pile_droite,tuile_p2);
-  *tuile_p2 = distribution_pioche(jeu);
-  empiler(pile_droite,tuile_p2);
+  // PIOCHE DROIT 2 FOIS
+  test_enr_tuile(jeu,tuile_p2,pile_droite,T_CHEV);
+  test_enr_tuile(jeu,tuile_p2,pile_droite,T_CHEV);
 
-  /* PIOCHE FOND DROIT 1 FOIS */
-  *tuile_p3 = distribution_pioche(jeu);
-  empiler(pile_fond_droit,tuile_p3);
+  // PIOCHE FOND DROIT 1 FOIS
+  test_enr_tuile(jeu,tuile_p3,pile_fond_droit,T_CHEV);
 
-  /* PIOCHE FOND DROIT 1 FOIS PUIS DEPILER APRES */
-  *tuile_p4 = distribution_pioche(jeu);
-  empiler(pile_fond_gauche,tuile_p4);
+  // PIOCHE FOND GAUCHE 1 FOIS PUIS DEPILER APRES
+  test_enr_tuile(jeu,tuile_p4,pile_fond_gauche,T_CHEV);
   depiler(pile_fond_gauche);
 
-  /* TEST D'AFFICHAGE D'UNE SIMULATION DE PARTIE */
+  // TEST D'AFFICHAGE D'UNE SIMULATION DE PARTIE
   printf("\n--------------------------------DEBUT DE TOUR----------------------------------------\n");
-  /* Affiche le sommet de la pile de gauche */
-  selection_tuile(jeu,joueur,pile_fond_gauche,pile_fond_droit,pile_gauche,pile_droite);
-  affiche_pile(pile_fond_gauche,pile_fond_droit,pile_gauche,pile_droite);
-  affiche_chevalet(joueur,T_CHEV);
-  printf("%i\n",jeu[14]->nbr);
+  // Affiche le sommet de la pile de gauche
+  selection_tuile(jeu,joueur,tuile_p2,pile_fond_gauche,pile_fond_droit,pile_gauche,pile_droite);
+  //affiche_chevalet(joueur,T_CHEV);
+  //affiche_pile(pile_fond_gauche,pile_fond_droit,pile_gauche,pile_droite);
 
-  /* On dépile toutes les tuiles */
+  // On dépile toutes les tuiles
+  /*affiche_sommet_pile(pile_gauche);
+  sommetpile(pile_gauche,&tuile_sommet);
+  printf("On affiche le sommet de la pile avec fct %i\n",tuile_sommet->nbr+1);
+  depiler(pile_gauche);
+  affiche_sommet_pile(pile_gauche);
+  sommetpile(pile_gauche,&tuile_sommet);
+  printf("On affiche le sommet de la pile avec fct %i\n",tuile_sommet->nbr+1);*/
   depiler(pile_gauche);
   depiler(pile_gauche);
+  depiler(pile_droite);
   depiler(pile_droite);
   depiler(pile_droite);
   depiler(pile_fond_droit);
@@ -362,10 +449,10 @@ int main(){
   free(pile_fond_droit);
 
   /* On détruit le jeu et les chevalets */
-  detruire_tuile(&tuile_p1,taille_tuile(&tuile_p1,sizeof(tuile_p1)));
-  detruire_tuile(&tuile_p2,taille_tuile(&tuile_p2,sizeof(tuile_p2)));
-  detruire_tuile(&tuile_p3,taille_tuile(&tuile_p3,sizeof(tuile_p3)));
-  detruire_tuile(&tuile_p4,taille_tuile(&tuile_p4,sizeof(tuile_p4)));
+  detruire_tuile(tuile_p1,taille_tuile(tuile_p1,sizeof(tuile_p1)));
+  detruire_tuile(tuile_p2,taille_tuile(tuile_p2,sizeof(tuile_p2)));
+  detruire_tuile(tuile_p3,taille_tuile(tuile_p3,sizeof(tuile_p3)));
+  detruire_tuile(tuile_p4,taille_tuile(tuile_p4,sizeof(tuile_p4)));
   detruire_tuile(jeu,taille_tuile(jeu,sizeof(jeu)));
   detruire_tuile(joueur,taille_tuile(joueur,sizeof(joueur)));
 }
