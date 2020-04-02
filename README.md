@@ -22,7 +22,7 @@
       <li>* Combinaison de 3 suite d'entiers ou plus </li>
       <li>- Système de points et scores </li>
     </ul>
-    <h3>* INTERFACE GRAPHIQUE</h3>
+    <h3>- INTERFACE GRAPHIQUE</h3>
     <ul>
       <li>- Affichage du menu SDL</li>
       <li>- Affichage du menu terminal</li>
