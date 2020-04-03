@@ -14,4 +14,6 @@ extern void affiche_sommet_pile(t_pile * pile);
 /* Affichage du sommet des piles de tout les joueurs */
 extern void affiche_pile(t_pile * p1,t_pile * p2,t_pile * p3,t_pile * p4);
 
+/*tri d'un chevalet complet de tuiles*/
+extern void tri_rapide(t_tuile * tab[14], int i, int j) ;
 #endif

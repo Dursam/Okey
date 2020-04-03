@@ -3,6 +3,38 @@
 #include <init_pile.h>
 #include <affichage_tuile.h>
 
+
+
+
+void permuter(t_tuile * tab[14], int i, int j){
+  t_tuile * sav = tab[i];
+  tab[i] = tab[j];
+  tab[j] = sav;
+}
+
+
+int partition(t_tuile * tab[14], int deb, int fin, int pivot){
+    int j = deb;
+    for(int i=deb+1; i<=fin; i++){
+      if(tab[i]->nbr<pivot){
+        j++;
+        permuter(tab, j, i);
+      }
+    }
+    permuter(tab,j,deb);
+    return (j);
+}
+
+void tri_rapide(t_tuile * tab[14], int i, int j) {
+    int k;
+    if (i < j) {
+        k = partition(tab, i, j, tab[i]->nbr);
+        tri_rapide(tab, i, k);
+        tri_rapide(tab, k+1, j);
+    }
+}
+
+
 /* Affichage des 14/15 tuiles du chevalet */
 extern
 void affiche_chevalet(t_tuile * jeu[],int taille){

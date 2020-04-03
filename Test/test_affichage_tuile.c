@@ -5,7 +5,7 @@
 #include <affichage_tuile.h>
 
 int main(void){
-
+  printf("test\n");
   /* On initialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
   t_tuile * jeu[N_T],* joueur[N_CHEV],* tuile_p1,* tuile_p2,* tuile_p3,* tuile_p4;
   t_pile * pile_droite = malloc(sizeof(t_pile)),* pile_gauche = malloc(sizeof(t_pile)),
@@ -34,6 +34,10 @@ int main(void){
   /* On ajoute une tuile pour le 15 ème affichage */
   *joueur[14] = distribution_pioche(jeu);
   /* Affichage avec couleur pour 15 tuiles*/
+  affiche_chevalet(joueur,N_CHEV);
+
+  tri_rapide(joueur, 0, 13);
+
   affiche_chevalet(joueur,N_CHEV);
   printf("\n-------------------------------------FIN---------------------------------------------\n");
 
