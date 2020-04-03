@@ -12,6 +12,25 @@ void permuter(t_tuile * tab[14], int i, int j){
   tab[j] = sav;
 }
 
+extern void rangement_manuel(t_tuile * tab[14]){
+    printf("Quelles tuiles voulez-vous échanger?\nTuile 1: ");
+    int i=-1, j=-1;
+    while(i<0 && i>14){
+      scanf("%d", &i);}
+    printf("Tuile 2: ");
+    while(j<0 && j>14){
+      scanf("%d",&j);}
+    permuter(tab, i, j);
+    affiche_chevalet(tab, 14);
+    printf("Échanger d'autres tuiles? (y/n): ");
+    char c;
+    scanf("%c", &c);
+    if (c == 'y'){
+      rangement_manuel(tab);
+    }
+    return;
+}
+
 
 int partition(t_tuile * tab[14], int deb, int fin, int pivot){
     int j = deb;
@@ -33,6 +52,8 @@ void tri_rapide(t_tuile * tab[14], int i, int j) {
         tri_rapide(tab, k+1, j);
     }
 }
+
+
 
 
 /* Affichage des 14/15 tuiles du chevalet */
