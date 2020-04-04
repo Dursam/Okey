@@ -5,7 +5,8 @@
     <h1>Okey</h1>
     <h2>Projet de L2 avec Samuel DURAN (Dursam), Valentin GIROD (Guarmanda) et Taner CELIK (tancel97)</h2>
     <h3>"-" -> à faire et "*" -> fait</h3>
-    <h3>À suivre sur Trello -> https://trello.com/b/gQjKANUW/projet-okey </h3>
+    <h3>Vue micro sur Trello -> https://trello.com/b/gQjKANUW/projet-okey </h3>
+    <h3>Vue macro diagramme de Gantt -> https://onedrive.live.com/View.aspx?resid=98EC20023F1E6EC2!116&authkey=!ADXCvBvONsHHCVo</h3>
     <h2>- LE JEU :</h2>
     <ul>
       <li>* Chevalet de 14/15 tuiles</li>
