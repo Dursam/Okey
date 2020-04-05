@@ -10,11 +10,12 @@ fich_obj_test_combinaison_couleur = test_combinaison_couleur.o combinaison_coule
 fich_obj_test_combinaison_suite_entiers = test_combinaison_suite_entiers.o combinaison_suite_entiers.o combinaison_couleur.o init_pile.o init_structure.o
 fich_obj_test_affichage_tuile = test_affichage_tuile.o affichage_tuile.o init_pile.o init_structure.o
 fich_obj_test_selection_tuile = test_selection_tuile.o selection_tuile.o affichage_tuile.o init_pile.o init_structure.o
+fich_obj_test_partie = test_partie.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
 #
 # Tests (executables+objets)
 #
 
-BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile
+BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie
 
 prog_structure : $(fich_obj_test_init_structure)
 	$(CCLNK) $(CFLAGS) $(fich_obj_test_init_structure) -o prog_structure
@@ -52,11 +53,16 @@ prog_selection_tuile : $(fich_obj_test_selection_tuile)
 test_selection_tuile.o : test_selection_tuile.c selection_tuile.h
 	$(CCOBJ) $(CFLAGS) test_selection_tuile.c -o test_selection_tuile.o -I ./
 
+prog_partie : $(fich_obj_test_partie)
+	$(CCLNK) $(CFLAGS) $(fich_obj_test_partie) -o prog_partie
+
+test_partie.o : test_partie.c partie.h
+	$(CCOBJ) $(CFLAGS) test_partie.c -o test_partie.o -I ./
 #
 # Modules
 #
 
-OBJ = init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
+OBJ = init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o partie.o
 
 init_structure.o : init_structure.c init_structure.h
 	$(CCOBJ) $(CFLAGS) init_structure.c -o init_structure.o -I ./
@@ -76,6 +82,9 @@ affichage_tuile.o : affichage_tuile.c affichage_tuile.h
 selection_tuile.o : selection_tuile.c selection_tuile.h
 		$(CCOBJ) $(CFLAGS) selection_tuile.c -o selection_tuile.o -I ./
 
+partie.o : partie.c partie.h
+		$(CCOBJ) $(CFLAGS) partie.c -o partie.o -I ./
+
 all : $(BIN) $(OBJ)
 
 clean :
@@ -86,6 +95,7 @@ clean :
 	- rm prog_combinaison_suite_entiers
 	- rm prog_affichage_tuile
 	- rm prog_selection_tuile
+	- rm prog_partie
 
 #tests :
 #	./prog_structure
@@ -94,3 +104,4 @@ clean :
 # ./prog_combinaison_suite_entiers
 # ./prog_affichage_tuile
 # ./prog_selection_tuile
+# ./prog_partie

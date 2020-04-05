@@ -1,3 +1,5 @@
+/* Fichier contenant les fonctions pour selectionner une tuile */
+
 #ifndef _SELECTION_H_
 #define _SELECTION_H_
 

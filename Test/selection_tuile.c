@@ -1,3 +1,5 @@
+/* Fichier contenant les fonctions pour selectionner une tuile */
+
 #include <init_structure.h>
 #include <init_pile.h>
 #include <affichage_tuile.h>
