@@ -55,8 +55,7 @@ void detecter_touches(int*running){
  * \brief Fonction de gestion de l'édition du personnage en terminal
  */
 void menuServeur(char*ip){
-	int running = -1; //la variable qui gère le choix du menu
-	int ch, i = 0, width = 30;
+
 	wclear(fenetre);
 	initscr(); // initialize Ncurses
 	box( fenetre, 0, 0 ); //initialisation des bordures
@@ -73,10 +72,10 @@ void menuServeur(char*ip){
 
 
 
-int afficher_menu(char list[][30]){
-  int taille = 4;
+int afficher_menu(char list[][30], int taille){
 	int ch, i = 0;
   //int width = 30;
+  wclear(fenetre);
 	box( fenetre, 0, 0 ); //initialisation des bordures
 	//affichage des boutons
 	for( i=0; i<taille; i++ ) {
@@ -98,7 +97,7 @@ int afficher_menu(char list[][30]){
 					switch( ch ) {
 							case KEY_UP:
 													running--;
-													running = ( running<0 ) ? taille : running;
+													running = ( running<0 ) ? taille-1 : running;
 													break;
 							case KEY_DOWN:
 													running++;

@@ -6,10 +6,8 @@
  * \brief    Contient toutes les fonctions d'affichage du jeu en sdl
  */
 #include <affichage.h>
-#include <map.h>
 #include <fonctions_affichage.h>
 #include <SDL2/SDL.h>
-#include <map_menace.h>
 
 
 
@@ -26,6 +24,7 @@
  * \param[in] ordonnée de l'image sur l'écran
  * \param[in] un entier qui représente la partie de l'inventaire qui est affichée, comme tous les items ne peuvent être affichés en meme temps
  */
+ /*
 void afficher_inv(int PH, int PW, int H, int W, int PSH, int PSW, int partie_items){
   //la longueur des barres de vie/mana/xp est de 8.54% de l'image, suivie d'une autre barre de 8.54% de l'image d'une autre couleur pour la barre vide
   //Il faut (pour l'instant) 100xp par niveau, 100hp en tout,
@@ -102,12 +101,13 @@ void afficher_inv(int PH, int PW, int H, int W, int PSH, int PSW, int partie_ite
     //strcpy(item[i], display_object(*(Inventaire->object[i])));
   }
   faire_rendu();
-}
+}*/
 
 /**
  * \fn void showInventory()
  * \brief Gère les interractions avec l'inventaire
  */
+ /*
 void showInventory(){
   //les pixels de l'image
   int W = 95*SCREEN_WIDTH/100;
@@ -169,23 +169,23 @@ void showInventory(){
   faire_rendu();
 
 }
-
+*/
 /**
  * \fn int afficher_menu(char menu[4][30])
  * \brief Gère l'affichage du menu pricipal
  * \param[in] tableau de chaines de caractères qui seront affichées sur les boutons du menu
  * \return l'action choisie par le joueur dans le menu
  */
-int afficher_menu(char menu[4][30]){
+int afficher_menu(char menu[][30], int taille){
   fond_blanc();
-  for(int i = 0, y=100; i<4; i++, y+=150){
+  for(int i = 0, y=100; i<taille; i++, y+=150){
     drawImage( 500, y, "button.png", 475, 130);
     drawText(525, y+25, menu[i], 25, 12);
   }
   faire_rendu();
   SDL_Event e;
   int running = -1;
-  while(running==-1) {
+  while(running==-1  || running >=taille) {
       if (SDL_WaitEvent(&e) != 0) {
         switch(e.type) {
           case SDL_QUIT: running = 0;
@@ -202,12 +202,7 @@ int afficher_menu(char menu[4][30]){
                 for(int j=0; j<pos+150 ;i++, j+=150){
                   if(pos >= j && pos <= j+150) break;
                 }
-                switch(i){
-                  case 1: running = 0; break; //nouvelle partie
-                  case 2: break; //charger partie
-                  case 3: running = 2; break; //editeur carte
-                  case 4: running=3; break; //quitter jeu
-                }
+                running = i-1;
               }
 
             }
@@ -235,10 +230,10 @@ int detecter_mouvement(float * x, float * y){
     //on gère les colisions et la vitesse du perso
     //on a besoin de regarder à quel endroit de la map on est et ce qu'il *y a après
     //on fait cohabiter le sdl et le terminal pour un code le plus optimisé possible
-    if (state[SDL_SCANCODE_RIGHT] && (map[(int)(floor(*y))][(int)(floor(*x+VITESSE_PERSO))]==4 || map[(int)(floor(*y))][(int)(floor(*x+VITESSE_PERSO))]==5)) *x+=VITESSE_PERSO;
-    else if (state[SDL_SCANCODE_LEFT] && (map[(int)(floor(*y))][(int)(floor(*x-VITESSE_PERSO))]==4 || map[(int)(floor(*y))][(int)(floor(*x-VITESSE_PERSO))]==5)) *x-=VITESSE_PERSO;
-    if (state[SDL_SCANCODE_UP] && (map[(int)(floor(*y-VITESSE_PERSO))][(int)(floor(*x))]==4 || map[(int)(floor(*y-VITESSE_PERSO))][(int)(floor(*x))]==5)) *y-=VITESSE_PERSO;
-    else if (state[SDL_SCANCODE_DOWN] && (map[(int)(floor(*y+VITESSE_PERSO))][(int)(floor(*x))]==4 || map[(int)(floor(*y+VITESSE_PERSO))][(int)(floor(*x))]==5)) *y+=VITESSE_PERSO;
+    //if (state[SDL_SCANCODE_RIGHT] && (map[(int)(floor(*y))][(int)(floor(*x+VITESSE_PERSO))]==4 || map[(int)(floor(*y))][(int)(floor(*x+VITESSE_PERSO))]==5)) *x+=VITESSE_PERSO;
+    //else if (state[SDL_SCANCODE_LEFT] && (map[(int)(floor(*y))][(int)(floor(*x-VITESSE_PERSO))]==4 || map[(int)(floor(*y))][(int)(floor(*x-VITESSE_PERSO))]==5)) *x-=VITESSE_PERSO;
+    //if (state[SDL_SCANCODE_UP] && (map[(int)(floor(*y-VITESSE_PERSO))][(int)(floor(*x))]==4 || map[(int)(floor(*y-VITESSE_PERSO))][(int)(floor(*x))]==5)) *y-=VITESSE_PERSO;
+    //else if (state[SDL_SCANCODE_DOWN] && (map[(int)(floor(*y+VITESSE_PERSO))][(int)(floor(*x))]==4 || map[(int)(floor(*y+VITESSE_PERSO))][(int)(floor(*x))]==5)) *y+=VITESSE_PERSO;
     if(*x<0) *x=0;
     if(*y<0) *y=0;
     if(*x>999) *x=999;
@@ -263,7 +258,7 @@ void detecter_touches(int * running){
         const Uint8 *state = SDL_GetKeyboardState(NULL); //en sdl
         //si c'est la touche d'inventaire
         if(state[SDL_SCANCODE_I]){
-          showInventory();
+          //showInventory();
         }
         else if(state[SDL_SCANCODE_ESCAPE]){
           *running = 0;

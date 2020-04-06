@@ -1,5 +1,3 @@
-
-void nouvellePartie();
 void rejoindrePartie();
 
 void debut_partie(void);
