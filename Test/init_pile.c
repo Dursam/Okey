@@ -16,6 +16,7 @@ int pile_vide(t_pile * pile){
 /* Empile une tuile de la pile */
 extern
 void empiler(t_pile * pile,t_tuile * t){
+
   t_element * nouv;
   nouv=malloc(sizeof(t_element));
   nouv->tuile = t;
@@ -34,12 +35,30 @@ void depiler(t_pile * pile){
     free(sommet);
     sommet = NULL;
   }
-
 }
 
 /* Récupère la tuile du sommet de la pile */
 extern
 void sommet_pile(t_pile * pile,t_tuile ** c){
+
   if(!(pile_vide(pile)))
     *c = pile->premier->tuile;
+}
+
+/* Compte le nombre d'élément d'une tuile */
+extern
+int compte_element(t_pile * pile){
+
+  t_element * cp_element;
+
+  int cpt = 0;
+
+  cp_element = pile->premier;
+
+  while(cp_element != NULL){
+    cp_element = cp_element->suivant;
+    cpt++;
+  }
+
+  return cpt;
 }

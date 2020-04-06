@@ -3,36 +3,19 @@
 #include <init_pile.h>
 #include <affichage_tuile.h>
 
+/* Permute les indices de tuiles d'un chevalet */
+static
+void permuter(t_tuile * tab[N_CHEV], int i, int j){
 
-
-
-void permuter(t_tuile * tab[14], int i, int j){
   t_tuile * sav = tab[i];
   tab[i] = tab[j];
   tab[j] = sav;
 }
 
-extern void rangement_manuel(t_tuile * tab[14]){
-    printf("Quelles tuiles voulez-vous échanger?\nTuile 1: ");
-    int i=-1, j=-1;
-    while(i<0 && i>14){
-      scanf("%d", &i);}
-    printf("Tuile 2: ");
-    while(j<0 && j>14){
-      scanf("%d",&j);}
-    permuter(tab, i, j);
-    affiche_chevalet(tab, 14);
-    printf("Échanger d'autres tuiles? (y/n): ");
-    char c;
-    scanf("%c", &c);
-    if (c == 'y'){
-      rangement_manuel(tab);
-    }
-    return;
-}
+/* Echange les tuiles d'un chevalet utile pour les fonctions de tri */
+static
+int partition(t_tuile * tab[N_CHEV], int deb, int fin, int pivot){
 
-
-int partition(t_tuile * tab[14], int deb, int fin, int pivot){
     int j = deb;
     for(int i=deb+1; i<=fin; i++){
       if(tab[i]->nbr<pivot){
@@ -44,17 +27,41 @@ int partition(t_tuile * tab[14], int deb, int fin, int pivot){
     return (j);
 }
 
-void tri_rapide(t_tuile * tab[14], int i, int j) {
-    int k;
-    if (i < j) {
-        k = partition(tab, i, j, tab[i]->nbr);
-        tri_rapide(tab, i, k);
-        tri_rapide(tab, k+1, j);
-    }
+/* tri manuel d'un chevalet de tuiles */
+extern
+void tri_manuel(t_tuile * chevalet[N_CHEV]){
+
+    int i=-1, j=-1;
+
+    printf("Quelles tuiles voulez-vous échanger?\n\nLa première Tuile : ");
+
+    while(i == -1 || (i<0 && i>N_CHEV-1))
+      scanf("%d", &i);
+
+    printf("La deuxième Tuile : ");
+
+    while(j == -1 || (j<0 && j>N_CHEV-1))
+      scanf("%d",&j);
+
+    permuter(chevalet, i-1, j-1);
+
+    affiche_chevalet(chevalet, N_CHEV);
+
+    printf("\n\n");
 }
 
+/* tri rapide d'un chevalet de tuiles */
+extern
+void tri_rapide(t_tuile * chevalet[], int i, int j) {
 
+    int k;
 
+    if (i < j) {
+        k = partition(chevalet, i, j, chevalet[i]->nbr);
+        tri_rapide(chevalet, i, k);
+        tri_rapide(chevalet, k+1, j);
+    }
+}
 
 /* Affichage des 14/15 tuiles du chevalet */
 extern

@@ -13,7 +13,7 @@ int main(void){
   /* Le jeu de 106 tuiles */
   t_tuile * jeu[N_T];
   /* Les 4 joueurs */
-  t_tuile * joueur1[N_CHEV], * joueur2[N_CHEV],* joueur3[N_CHEV],* joueur4[N_CHEV];
+  t_tuile * joueur1[N_CHEV],* joueur2[N_CHEV],* joueur3[N_CHEV],* joueur4[N_CHEV];
   /* Les 4 piles */
   t_pile * pile_J1,* pile_J2,* pile_J3,* pile_J4;
   /* Les enregistrement des 4 piles nécessaires pour la fonction de séléction */
@@ -22,6 +22,12 @@ int main(void){
   t_tuile * copy_chevalet[N_CHEV];
   /* La tuile OKEY */
   t_tuile * okey = creer_tuile();
+  /* Entier qui détermine le numéro de joueur qui commence la partie */
+  int num_joueur;
+  /* Entier qui détermine la tuile à enlever pour le joueur qui commence la partie en premier */
+  int num_tuile_dep;
+  /* Choix qui détermine si le joueur souhaite ranger son chevalet */
+  //char choix;
 
   /* On initialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
   creer_chevalet(joueur1,N_CHEV);
@@ -64,12 +70,77 @@ int main(void){
 
   /* DEBUT DE PARTIE */
 
+  /* on démarre la partie en donnant une tuile supplémentaire à l'un des joueurs au hasard */
+  num_joueur = demarrage(jeu,joueur1,joueur2,joueur3,joueur4);
+
+  if(num_joueur == 1){
+    debut_partie(joueur1,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+  }
+  else if(num_joueur == 2){
+    debut_partie(joueur2,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+  }
+  else if(num_joueur == 3){
+    debut_partie(joueur3,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+  }
+  else if(num_joueur == 4){
+    debut_partie(joueur4,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+  }
+
+  printf("\n\nCHOIX : RETIRER UN NUMERO DE TUILE (1 à 15) ? ");
+  scanf("%i",&num_tuile_dep);
+  printf("\n");
+
+  if(num_joueur == 1){
+    empile_enr_tuile(joueur1,J1_p1,pile_J1,N_CHEV,num_tuile_dep-1);
+    affiche_chevalet(joueur1,N_CHEV);
+  }
+  else if(num_joueur == 2){
+    empile_enr_tuile(joueur2,J2_p2,pile_J2,N_CHEV,num_tuile_dep-1);
+    affiche_chevalet(joueur2,N_CHEV);
+  }
+  else if(num_joueur == 3){
+    empile_enr_tuile(joueur3,J3_p3,pile_J3,N_CHEV,num_tuile_dep-1);
+    affiche_chevalet(joueur3,N_CHEV);
+  }
+  else if(num_joueur == 4){
+    empile_enr_tuile(joueur4,J4_p4,pile_J4,N_CHEV,num_tuile_dep-1);
+    affiche_chevalet(joueur4,N_CHEV);
+  }
+
+
+/*  printf("\nCHOIX : RANGER(ENTER) OU CONTINUER(ANY KEY) ? ");
+
+  scanf("%c",&choix);
+
+  printf("\n\n");
+
+  // Code ASCII pour la touche Entree
+  while(choix==0x0A){
+
+    if(num_joueur == 1)
+      tri_manuel(joueur1);
+    else if(num_joueur == 2)
+      tri_manuel(joueur2);
+    else if(num_joueur == 3)
+      tri_manuel(joueur3);
+    else if(num_joueur == 4)
+      tri_manuel(joueur4);
+
+      //printf("CHOIX : RANGER(ENTER) OU CONTINUER(ANY KEY) ? \n\n");
+    scanf("%c",&choix);
+  }*/
+
+
+
   /* A FAIRE */
 
 
-  /* On affiche le plateau de tuile
-  affiche_plateau(okey,pile_J1,pile_J2,pile_J3,pile_J4);
-  affiche_chevalet(joueur1,N_CHEV); */
+  /* On affiche le plateau de tuile */
+  /*affiche_plateau(okey,pile_J1,pile_J2,pile_J3,pile_J4);
+  affiche_chevalet(joueur1,N_CHEV);*/
+
+  /* Compteurs qui compte le nombre d'élément d'une pile de tuile */
+  depiler_toutes_tuiles(pile_J1,pile_J2,pile_J3,pile_J4);
 
   /* On détruit les tuiles des piles gauche et droite */
   free(pile_J1);

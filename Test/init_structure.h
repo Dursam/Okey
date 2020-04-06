@@ -17,7 +17,7 @@ extern void detruire_tuile(t_tuile * jeu[],int taille);
 extern void affiche_chaque_tuile(t_tuile * jeu[],int taille);
 
 /* Donne une tuile au hasard à un des 4 joueurs */
-extern void demarrage(t_tuile * jeu[N_T], t_tuile * j1[N_CHEV],t_tuile * j2[N_CHEV],t_tuile * j3[N_CHEV],t_tuile * j4[N_CHEV]);
+extern int demarrage(t_tuile * jeu[N_T], t_tuile * j1[N_CHEV],t_tuile * j2[N_CHEV],t_tuile * j3[N_CHEV],t_tuile * j4[N_CHEV]);
 
 /* Distribue 14 tuiles à un joueur */
 extern void distribution_joueur(t_tuile * jeu[N_T], t_tuile * joueur[N_CHEV]);

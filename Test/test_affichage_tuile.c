@@ -30,7 +30,7 @@ int main(void){
 
   /* TEST AFFICHAGE 15 TUILES */
   printf("\n\t\t\tAFFICHAGE CHEVALET AVEC TUILE SELECTIONNE\n");
-  printf("\n-------------------------------------15 TUILES-------------------------------------\n");
+  printf("\n-------------------------------------15 TUILES---------------------------------------\n");
   /* On ajoute une tuile pour le 15 ème affichage */
   *joueur[14] = distribution_pioche(jeu);
   /* Affichage avec couleur pour 15 tuiles*/
@@ -38,12 +38,14 @@ int main(void){
 
   tri_rapide(joueur, 0, 13);
 
+  printf("\n\t\t\tAFFICHAGE CHEVALET AVEC TUILE SELECTIONNE\n");
+  printf("\n--------------------------------------15 TUILES--------------------------------------\n");
   affiche_chevalet(joueur,N_CHEV);
   printf("\n-------------------------------------FIN---------------------------------------------\n");
 
   /* TEST AFFICHAGE 14 TUILES */
   printf("\n\t\t\tAFFICHAGE CHEVALET NORMAL\n");
-  printf("\n-------------------------------------14 TUILES-------------------------------------\n");
+  printf("\n--------------------------------------14 TUILES--------------------------------------\n");
   /* On ajoute une tuile pour le 15 ème affichage */
   joueur[14]->nbr = V_DEL;
   /* Affichage avec couleur pour 15 tuiles*/
@@ -78,6 +80,10 @@ int main(void){
   /* Affiche le sommet de la pile de gauche */
   affiche_pile(pile_fond_gauche,pile_fond_droit,pile_gauche,pile_droite);
   affiche_chevalet(joueur,N_CHEV);
+
+  /* TEST D'AFFICHAGE D'UNE SIMULATION DE RANGEMENT DE TUILE D'UN CHEVALET */
+  printf("\n----------------------------------TRI MANUEL-----------------------------------------\n");
+  tri_manuel(joueur);
 
   /* On dépile toutes les tuiles */
   depiler(pile_gauche);

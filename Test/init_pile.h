@@ -19,4 +19,7 @@ extern void depiler(t_pile * pile);
 /* Récupère la tuile du sommet de la pile */
 extern void sommet_pile(t_pile * pile,t_tuile ** c);
 
+/* Compte le nombre d'élément d'une tuile */
+extern int compte_element(t_pile * pile);
+
 #endif

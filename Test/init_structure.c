@@ -74,7 +74,7 @@ void affiche_chaque_tuile(t_tuile * jeu[],int taille){
 
 /* Donne une tuile au hasard à un des 4 joueurs */
 extern
-void demarrage(t_tuile * jeu[N_T], t_tuile * j1[N_CHEV],t_tuile * j2[N_CHEV],t_tuile * j3[N_CHEV],t_tuile * j4[N_CHEV]){
+int demarrage(t_tuile * jeu[N_T], t_tuile * j1[N_CHEV],t_tuile * j2[N_CHEV],t_tuile * j3[N_CHEV],t_tuile * j4[N_CHEV]){
 
   unsigned int num_joueur,elem;
 
@@ -94,6 +94,7 @@ void demarrage(t_tuile * jeu[N_T], t_tuile * j1[N_CHEV],t_tuile * j2[N_CHEV],t_t
     case 4: j4[N_CHEV-1]->nbr = jeu[elem]->nbr;j4[N_CHEV-1]->clr = jeu[elem]->clr;break;
   }
   printf("\nLe joueur %i commence la partie\n\n",num_joueur);
+  return num_joueur;
 }
 
 /* Distribue 14 tuiles à un joueur */

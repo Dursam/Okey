@@ -33,7 +33,7 @@ void affiche_plateau(t_tuile * okey,t_pile * p1,t_pile * p2,t_pile * p3,t_pile *
   affiche_sommet_pile(p1);
   printf("\t\t\t\t\t");
   affiche_sommet_pile(p2);
-  
+
   // Cas d'affichage pour éviter d'espacer les nombres à 2 chiffres
   printf("\n\t\t\t   OKEY\tPIOCHE\n\t\t\t   ");
 
@@ -62,4 +62,59 @@ void affiche_plateau(t_tuile * okey,t_pile * p1,t_pile * p2,t_pile * p3,t_pile *
   affiche_sommet_pile(p4);
   printf("\n\n");
 
+}
+
+/* Début de partie en fonction de la tuile de démarrage */
+extern
+void debut_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int dem){
+
+  tri_rapide(chevalet,0,13);
+
+  if(dem == 1){
+    affiche_plateau(okey,pile_J3,pile_J2,pile_J4,pile_J1);
+  }
+  else if(dem == 2){
+    affiche_plateau(okey,pile_J4,pile_J3,pile_J1,pile_J2);
+  }
+  else if(dem == 3){
+    affiche_plateau(okey,pile_J1,pile_J4,pile_J2,pile_J3);
+  }
+  else if(dem == 4){
+    affiche_plateau(okey,pile_J2,pile_J1,pile_J3,pile_J4);
+  }
+  affiche_chevalet(chevalet,N_CHEV);
+}
+
+/* Dépile toutes les piles de tuiles, utilisé pour finir la partie */
+extern
+void depiler_toutes_tuiles(t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4){
+
+  /* Compteurs qui compte le nombre d'élément d'une pile de tuile */
+  int cpt_p1, cpt_p2, cpt_p3, cpt_p4;
+
+  /* On dépile toute les piles si elle possèdent des éléments */
+  cpt_p1 = compte_element(pile_J1);
+  cpt_p2 = compte_element(pile_J2);
+  cpt_p3 = compte_element(pile_J3);
+  cpt_p4 = compte_element(pile_J4);
+
+  while(cpt_p1 > 0){
+    depiler(pile_J1);
+    cpt_p1--;
+  }
+
+  while(cpt_p2 > 0){
+    depiler(pile_J2);
+    cpt_p2--;
+  }
+
+  while(cpt_p3 > 0){
+    depiler(pile_J3);
+    cpt_p3--;
+  }
+
+  while(cpt_p4 > 0){
+    depiler(pile_J4);
+    cpt_p4--;
+  }
 }
