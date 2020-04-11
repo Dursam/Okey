@@ -5,7 +5,7 @@
 #include <affichage_tuile.h>
 #include <selection_tuile.h>
 
-/* Fonction qui initialise un tableau de struture de tuile pour enregistrer les tuiles qui seront empilés */
+/* Initialise un tableau de struture de tuile pour enregistrer les tuiles qui seront empilés */
 extern
 void init_enr_tuile(t_tuile * enr[],int taille){
 
@@ -13,7 +13,7 @@ void init_enr_tuile(t_tuile * enr[],int taille){
     enr[i] = NULL;
 }
 
-/* Fonction qui creer une tuile, lui affecte une valeur puis l'empile sur une pile */
+/* Creer une tuile, lui affecte une valeur puis l'empile sur une pile */
 extern
 void test_enr_tuile(t_tuile * jeu[N_T],t_tuile * enr[],t_pile * pile,int taille){
 
@@ -34,7 +34,7 @@ void test_enr_tuile(t_tuile * jeu[N_T],t_tuile * enr[],t_pile * pile,int taille)
   }
 }
 
-/* Fonction qui creer une tuile, lui affecte une valeur puis l'empile sur une pile */
+/* Creer une tuile, lui affecte une valeur puis l'empile sur une pile */
 extern
 void empile_enr_tuile(t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pile,int taille,int numero){
 
@@ -60,24 +60,24 @@ void empile_enr_tuile(t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pile,i
   chevalet[14]->nbr = V_DEL;
 }
 
-/* Fonction qui permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet */
+/* Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche_pile */
 extern
 void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd){
 
-  char choix;
-
-  int numero;
+  int numero,* choix = malloc(sizeof(int));
 
   t_tuile * tuile_sommet;
 
   affiche_pile(pfg,pfd,pg,pd);
   affiche_chevalet(chevalet,N_CHEV);
 
-  printf("CHOIX : PIOCHE(ENTER) OU PILE DE GAUCHE(ANY KEY) ? ");
-  scanf("%c",&choix);
+  do{
+  printf("CHOIX : PIOCHE(0) OU PILE DE GAUCHE(1) ? ");
+  scanf("%i",choix);
+} while(*choix != 0 && *choix != 1);
 
 
-  if(choix==0x0A){                          // Code ASCII pour la touche Entree
+  if(*choix==0){                       
     printf("TU PIOCHE\n");
     *chevalet[14] = distribution_pioche(jeu);
     printf("%i\n",jeu[14]->nbr);
@@ -101,4 +101,6 @@ void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr
 
   affiche_pile(pfg,pfd,pg,pd);
   affiche_chevalet(chevalet,N_CHEV);
+
+  free(choix);
 }

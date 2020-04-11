@@ -8,6 +8,7 @@
 #include <selection_tuile.h>
 #include <partie.h>
 
+
 int main(void){
 
   /* Le jeu de 106 tuiles */
@@ -22,12 +23,16 @@ int main(void){
   t_tuile * copy_chevalet[N_CHEV];
   /* La tuile OKEY */
   t_tuile * okey = creer_tuile();
-  /* Entier qui détermine le numéro de joueur qui commence la partie */
+  /* Détermine le numéro de joueur qui commence la partie */
   int num_joueur;
-  /* Entier qui détermine la tuile à enlever pour le joueur qui commence la partie en premier */
+  /* Détermine la tuile à enlever pour le joueur qui commence la partie en premier */
   int num_tuile_dep;
-  /* Choix qui détermine si le joueur souhaite ranger son chevalet */
-  //char choix;
+  /* Test si le chevalet du joueur est gagnant ou non */
+  int issue_partie = 0;
+  /* Détermine lequel des joueurs est gagnant */
+  int joueur_gagnant;
+  /* Caractère pour faire une pause dans le programme */
+  char pause;
 
   /* On initialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
   creer_chevalet(joueur1,N_CHEV);
@@ -86,6 +91,7 @@ int main(void){
     debut_partie(joueur4,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
   }
 
+  /* Puis on retire une tuile du joueur qui commence la partie est on vérifie si son chevalet est gagnant ou non (Situation très rare) */
   printf("\n\nCHOIX : RETIRER UN NUMERO DE TUILE (1 à 15) ? ");
   scanf("%i",&num_tuile_dep);
   printf("\n");
@@ -93,51 +99,49 @@ int main(void){
   if(num_joueur == 1){
     empile_enr_tuile(joueur1,J1_p1,pile_J1,N_CHEV,num_tuile_dep-1);
     affiche_chevalet(joueur1,N_CHEV);
+    issue_partie = regle_combinaison(joueur1,okey);
+    if(issue_partie == 1){
+      printf("\nLe joueur 1 a gagné la partie\n");
+      return 0;
+    }
   }
   else if(num_joueur == 2){
     empile_enr_tuile(joueur2,J2_p2,pile_J2,N_CHEV,num_tuile_dep-1);
     affiche_chevalet(joueur2,N_CHEV);
+    issue_partie = regle_combinaison(joueur2,okey);
+    if(issue_partie == 1){
+      printf("\nLe joueur 2 a gagné la partie\n");
+      return 0;
+    }
   }
   else if(num_joueur == 3){
     empile_enr_tuile(joueur3,J3_p3,pile_J3,N_CHEV,num_tuile_dep-1);
     affiche_chevalet(joueur3,N_CHEV);
+    issue_partie = regle_combinaison(joueur3,okey);
+    if(issue_partie == 1){
+      printf("\nLe joueur 3 a gagné la partie\n");
+      return 0;
+    }
   }
   else if(num_joueur == 4){
     empile_enr_tuile(joueur4,J4_p4,pile_J4,N_CHEV,num_tuile_dep-1);
     affiche_chevalet(joueur4,N_CHEV);
+    issue_partie = regle_combinaison(joueur4,okey);
+    if(issue_partie == 1){
+      printf("\nLe joueur 4 a gagné la partie\n");
+      return 0;
+    }
   }
+  printf("FIN DE TOUR\n");
+  pause = getchar();
+  while(getchar() != '\n');
+  system("clear");
 
+  /* Déroulement de la partie */
+  joueur_gagnant = partie_en_cours(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,num_joueur,okey);
 
-/*  printf("\nCHOIX : RANGER(ENTER) OU CONTINUER(ANY KEY) ? ");
-
-  scanf("%c",&choix);
-
-  printf("\n\n");
-
-  // Code ASCII pour la touche Entree
-  while(choix==0x0A){
-
-    if(num_joueur == 1)
-      tri_manuel(joueur1);
-    else if(num_joueur == 2)
-      tri_manuel(joueur2);
-    else if(num_joueur == 3)
-      tri_manuel(joueur3);
-    else if(num_joueur == 4)
-      tri_manuel(joueur4);
-
-      //printf("CHOIX : RANGER(ENTER) OU CONTINUER(ANY KEY) ? \n\n");
-    scanf("%c",&choix);
-  }*/
-
-
-
-  /* A FAIRE */
-
-
-  /* On affiche le plateau de tuile */
-  /*affiche_plateau(okey,pile_J1,pile_J2,pile_J3,pile_J4);
-  affiche_chevalet(joueur1,N_CHEV);*/
+  /* Annonce du vainqueur de la partie */
+  printf("\nLe joueur %i a gagné \n\n",joueur_gagnant);
 
   /* Compteurs qui compte le nombre d'élément d'une pile de tuile */
   depiler_toutes_tuiles(pile_J1,pile_J2,pile_J3,pile_J4);

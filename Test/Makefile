@@ -57,7 +57,7 @@ prog_partie : $(fich_obj_test_partie)
 	$(CCLNK) $(CFLAGS) $(fich_obj_test_partie) -o prog_partie
 
 test_partie.o : test_partie.c partie.h
-	$(CCOBJ) $(CFLAGS) test_partie.c -o test_partie.o -I ./
+	$(CCOBJ) $(CFLAGS) test_partie.c -Wno-unused-but-set-variable -o test_partie.o -I ./
 #
 # Modules
 #
@@ -83,7 +83,7 @@ selection_tuile.o : selection_tuile.c selection_tuile.h
 		$(CCOBJ) $(CFLAGS) selection_tuile.c -o selection_tuile.o -I ./
 
 partie.o : partie.c partie.h
-		$(CCOBJ) $(CFLAGS) partie.c -o partie.o -I ./
+		$(CCOBJ) $(CFLAGS) partie.c -Wno-unused-but-set-variable -o partie.o -I ./
 
 all : $(BIN) $(OBJ)
 

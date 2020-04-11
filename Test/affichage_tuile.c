@@ -116,7 +116,7 @@ void affiche_chevalet(t_tuile * jeu[],int taille){
     if(i == 6 && jeu[14]->nbr == V_DEL)
       printf("\n\t|\t\t\t\t\t\t\t\b\b\b|\n\t|");
     else if(i == 6 && jeu[14]->nbr != V_DEL)
-      printf("\n\t|\t\t\t\t\t\t\t\b\b\b| NOUVELLE TUILE \n\t|");
+      printf("\n\t|\t\t\t\t\t\t\t\b\b\b| NOUVELLE TUILE \033[1;32m15\033[00m\n\t|");
   }
   printf("\n\t------------------------------------------------------\n");
   printf("\033[1;32m\t\b\t8\t9\t10\t11\t12\t13\t14\n\033[00m");
