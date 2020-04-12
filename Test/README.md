@@ -69,18 +69,32 @@
       <li> Compte le nombre d'élément d'une tuile</li>
       <p> int compte_element(t_pile * pile);</p>
     </ul>
-    <h4> affichage_tuile () -></h4>
+    <h4> affichage_tuile (5) -></h4>
     <ul>
-      <li> </li>
-      <p> </p>
-      <li> </li>
-      <p> </p>
-      <li> </li>
-      <p> </p>
-      <li> </li>
-      <p> </p>
-      <li> </li>
-      <p> </p>
+      <li> Affichage des 14/15 tuiles du chevalet</li>
+      <p> void affiche_chevalet(t_tuile * jeu[],int taille);</p>
+      <li> Affichage du sommet d'une pile</li>
+      <p> void affiche_sommet_pile(t_pile * pile);</p>
+      <li> Affichage du sommet des piles de tout les joueurs</li>
+      <p> void affiche_pile(t_pile * p1,t_pile * p2,t_pile * p3,t_pile * p4);</p>
+      <li> Tri manuel d'un chevalet de tuiles</li>
+      <p> void tri_manuel(t_tuile * chevalet[N_CHEV]);</p>
+      <li> Tri rapide d'un chevalet de tuiles</li>
+      <p> void tri_rapide(t_tuile * chevalet[],int i,int j);</p>
+    </ul>
+    <h4> combinaison_couleur () -></h4>
+    <ul>
+      <li> Vérifie les tuiles supprimer ou non</li>
+      <p> void affiche_tuile(t_tuile * jeu[],int taille);</p>
+      <li> Compte le nombre de couleur différente d'une tuile</li>
+      <p> int compte_coul_diff(int tab_coul[4]);</p>
+      <li> Vérifie les ensembles de combinaisons de 3 ou 4 couleurs</li>
+      <p> void combinaison_coul(t_tuile * chev[]);</p>
+      </ul>
+    <h4></h4>
+    <ul>
+      <li></li>
+      <p></p>
     </ul>
   </body>
 </html>
