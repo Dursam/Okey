@@ -18,5 +18,21 @@
       <li> Valeur tampon qui sert pour la fonction combinaison suite entier</li>
       <p> #define NO_VALUE 99</p>
     </ul>
+    <h3> Les structures :</h3>
+    <ul>
+      <li> Définition de la couleur</li>
+      <p>  typedef enum {jaune,rouge,noire,bleu} t_couleur;</p>
+      <li> Definition d'une tuile</li>
+      <p> typedef struct s_tuile {
+        int nbr;
+        t_couleur clr;
+      } t_tuile;</p>
+      <li> Définition d'un élément d'une pile soit une tuile</li>
+      <p> typedef struct s_element { t_tuile * tuile; struct s_element * suivant;} t_element;</p>
+      <li> Définition d'une pile de tuile</li>
+      <p> typedef struct s_pile { t_element * premier ;} t_pile;</p>
+      <li> </li>
+      <p> </p>
+    </ul>
   </body>
 </html>
