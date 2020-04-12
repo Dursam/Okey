@@ -15,8 +15,8 @@
       <li>* Pile de tuile pour chaque joueur</li>
       <li>* Sélection d'une tuile </li>
       <li>* Piocher une tuile </li>
-      <li>- Retourner une tuile et désigné le Okey </li>
-      <li>- Partie de jeu </li>
+      <li>* Retourner une tuile et désigné le Okey </li>
+      <li>* Partie de jeu </li>
       <li>- Sauvegarde des scores </li>
     </ul>
     <h3>- REGLES :</h3>
@@ -30,6 +30,7 @@
       <li>- Affichage du menu SDL</li>
       <li>- Affichage du menu terminal</li>
       <li>* Affichage du tour d'un joueur </li>
+      <li>* Affichage d'une partie à 4 joueurs en local</li>
       <li>- Affichage du terminal et des scores</li>
       <li>- Affichage de la SDL et des scores</li>
     </ul>
