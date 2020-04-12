@@ -31,6 +31,8 @@ int main(void){
   int issue_partie = 0;
   /* Détermine lequel des joueurs est gagnant */
   int joueur_gagnant;
+  /* Détermine le choix de tri ou non */
+  int tri_choix;
   /* Caractère pour faire une pause dans le programme */
   char pause;
 
@@ -74,7 +76,7 @@ int main(void){
   *okey = distribution_pioche(jeu);
 
   /* DEBUT DE PARTIE */
-
+  printf("\n\nTour 1\n");
   /* on démarre la partie en donnant une tuile supplémentaire à l'un des joueurs au hasard */
   num_joueur = demarrage(jeu,joueur1,joueur2,joueur3,joueur4);
 
@@ -104,7 +106,20 @@ int main(void){
       printf("\nLe joueur 1 a gagné la partie\n");
       return 0;
     }
+
+    tri_choix = choix_tri(joueur1);
+    if(tri_choix == 2)
+      affiche_chevalet(joueur1,N_CHEV);
+    else if(tri_choix == 1){
+      do{
+        printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
+        scanf("%i",&tri_choix);
+        if(tri_choix == 1)
+          tri_manuel(joueur1);
+      } while(tri_choix == 1);
+    }
   }
+
   else if(num_joueur == 2){
     empile_enr_tuile(joueur2,J2_p2,pile_J2,N_CHEV,num_tuile_dep-1);
     affiche_chevalet(joueur2,N_CHEV);
@@ -113,7 +128,20 @@ int main(void){
       printf("\nLe joueur 2 a gagné la partie\n");
       return 0;
     }
+
+    tri_choix = choix_tri(joueur2);
+    if(tri_choix == 2)
+      affiche_chevalet(joueur2,N_CHEV);
+    else if(tri_choix == 1){
+      do{
+        printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
+        scanf("%i",&tri_choix);
+        if(tri_choix == 1)
+          tri_manuel(joueur2);
+      } while(tri_choix == 1);
+    }
   }
+
   else if(num_joueur == 3){
     empile_enr_tuile(joueur3,J3_p3,pile_J3,N_CHEV,num_tuile_dep-1);
     affiche_chevalet(joueur3,N_CHEV);
@@ -122,7 +150,20 @@ int main(void){
       printf("\nLe joueur 3 a gagné la partie\n");
       return 0;
     }
+
+    tri_choix = choix_tri(joueur3);
+    if(tri_choix == 2)
+      affiche_chevalet(joueur3,N_CHEV);
+    else if(tri_choix == 1){
+      do{
+        printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
+        scanf("%i",&tri_choix);
+        if(tri_choix == 1)
+          tri_manuel(joueur3);
+      } while(tri_choix == 1);
+    }
   }
+
   else if(num_joueur == 4){
     empile_enr_tuile(joueur4,J4_p4,pile_J4,N_CHEV,num_tuile_dep-1);
     affiche_chevalet(joueur4,N_CHEV);
@@ -131,7 +172,20 @@ int main(void){
       printf("\nLe joueur 4 a gagné la partie\n");
       return 0;
     }
+
+    tri_choix = choix_tri(joueur4);
+    if(tri_choix == 2)
+      affiche_chevalet(joueur4,N_CHEV);
+    else if(tri_choix == 1){
+      do{
+        printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
+        scanf("%i",&tri_choix);
+        if(tri_choix == 1)
+          tri_manuel(joueur4);
+      } while(tri_choix == 1);
+    }
   }
+
   printf("FIN DE TOUR\n");
   pause = getchar();
   while(getchar() != '\n');
@@ -141,7 +195,12 @@ int main(void){
   joueur_gagnant = partie_en_cours(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,num_joueur,okey);
 
   /* Annonce du vainqueur de la partie */
-  printf("\nLe joueur %i a gagné \n\n",joueur_gagnant);
+  if(joueur_gagnant == 0){
+    printf("Aucun joueur n'a gagné la partie\n");
+  }
+  else{
+    printf("\nLe joueur %i a gagné \n\n",joueur_gagnant);
+  }
 
   /* Compteurs qui compte le nombre d'élément d'une pile de tuile */
   depiler_toutes_tuiles(pile_J1,pile_J2,pile_J3,pile_J4);

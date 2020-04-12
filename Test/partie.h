@@ -21,10 +21,13 @@ extern void depiler_toutes_tuiles(t_pile * pile_J1,t_pile * pile_J2,t_pile * pil
 extern int regle_combinaison(t_tuile * chevalet[N_CHEV],t_tuile * okey);
 
 /* Laisse le choix au joueur de pouvoir faire un tri rapide, un tri manuel ou un pas de tri */
-extern void choix_tri(t_tuile * chevalet[N_CHEV]);
+extern int choix_tri(t_tuile * chevalet[N_CHEV]);
 
 /* Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche plateau */
 extern void selection_tuile_v2(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd);
+
+/* Permet de vérifier si le jeu ne posséde plus aucune tuiles,return vrai (1) et faux (0) */
+extern int pioche_vide(t_tuile * jeu[N_T]);
 
 /* Permet le déroulement de la partie, après que le première joueur commence. Retourne le numéro de joueur gagnant */
 extern

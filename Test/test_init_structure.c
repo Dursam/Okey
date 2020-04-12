@@ -8,6 +8,7 @@ int main (void){
   /* Variables d'initialisation */
   t_tuile * jeu[N_T],* j1[N_CHEV],* j2[N_CHEV],* j3[N_CHEV],* j4[N_CHEV], * tuile_okey;
 
+  /* initialisation du jeu */
   init_tuile(jeu);
 
   /* Affiche la liste complète des tuiles du jeu */
