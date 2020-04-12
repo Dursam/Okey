@@ -5,7 +5,7 @@
   <body>
     <h1> Test et création de fonctions </h2>
     <h2> Samuel DURAN (Dursam) et Valentin GIROD (Guarmanda)</h2>
-    <h3> Les constantes :</h3>
+    <h3> Les constantes (4):</h3>
     <ul>
       <li> Nombre de tuiles du jeu</li>
       <p> #define N_T 106</p>
@@ -18,7 +18,7 @@
       <li> Valeur tampon qui sert pour la fonction combinaison suite entier</li>
       <p> #define NO_VALUE 99</p>
     </ul>
-    <h3> Les structures :</h3>
+    <h3> Les structures (4):</h3>
     <ul>
       <li> Définition de la couleur</li>
       <p>  typedef enum {jaune,rouge,noire,bleu} t_couleur;</p>
@@ -32,8 +32,8 @@
       <li> Définition d'une pile de tuile</li>
       <p> typedef struct s_pile { t_element * premier ;} t_pile;</p>
     </ul>
-    <h3> Les fonctions :</h3>
-    <h4> init_structure -> </h4>
+    <h3> Les fonctions ():</h3>
+    <h4> init_structure (9) -></h4>
     <ul>
     <li> Initialise le jeu de 106 tuiles</li>
     <p> void init_tuile(t_tuile * jeu[N_T]);</p>
@@ -54,8 +54,31 @@
     <li> Renvoie la taille des tuiles alloués</li>
     <p> int taille_tuile(t_tuile * jeu[],int taille_jeu);</p>
     </ul>
-    <h4> init_pile -> </h4>
+    <h4> init_pile (6) -></h4>
     <ul>
+      <li> Initialise la pile</li>
+      <p> void init_pile(t_pile * pile);</p>
+      <li> Vérifie si la pile est vide</li>
+      <p> int pile_vide(t_pile * pile);</p>
+      <li> Empile une tuile de la pile</li>
+      <p> void empiler(t_pile * pile,t_tuile * t);</p>
+      <li> Retire une tuile de la pile</li>
+      <p> void depiler(t_pile * pile);</p>
+      <li> Récupère la tuile du sommet de la pile</li>
+      <p> void sommet_pile(t_pile * pile,t_tuile ** c);</p>
+      <li> Compte le nombre d'élément d'une tuile</li>
+      <p> int compte_element(t_pile * pile);</p>
+    </ul>
+    <h4> affichage_tuile () -></h4>
+    <ul>
+      <li> </li>
+      <p> </p>
+      <li> </li>
+      <p> </p>
+      <li> </li>
+      <p> </p>
+      <li> </li>
+      <p> </p>
       <li> </li>
       <p> </p>
     </ul>
