@@ -32,7 +32,7 @@
       <li> Définition d'une pile de tuile</li>
       <p> typedef struct s_pile { t_element * premier ;} t_pile;</p>
     </ul>
-    <h3> Les fonctions ():</h3>
+    <h3> Les fonctions (37):</h3>
     <h4> init_structure (9) -></h4>
     <ul>
     <li> Initialise le jeu de 106 tuiles</li>
