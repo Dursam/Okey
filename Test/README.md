@@ -31,6 +31,31 @@
       <p> typedef struct s_element { t_tuile * tuile; struct s_element * suivant;} t_element;</p>
       <li> Définition d'une pile de tuile</li>
       <p> typedef struct s_pile { t_element * premier ;} t_pile;</p>
+    </ul>
+    <h3> Les fonctions :</h3>
+    <h4> init_structure -> </h4>
+    <ul>
+    <li> Initialise le jeu de 106 tuiles</li>
+    <p> void init_tuile(t_tuile * jeu[N_T]);</p>
+    <li> Alloue une mémoire dynamique à un chevalet</li>
+    <p> void creer_chevalet(t_tuile * joueur[],int taille);</p>
+    <li> Libère la mémoire d'une tuile ou de plusieurs tuiles d'un tableau de structure</li>
+    <p> void detruire_tuile(t_tuile * jeu[],int taille);</p>
+    <li> Affiche les tuiles une par une</li>
+    <p> void affiche_chaque_tuile(t_tuile * jeu[],int taille);</p>
+    <li> Donne une tuile au hasard à un des 4 joueurs</li>
+    <p> demarrage(t_tuile * jeu[N_T], t_tuile * j1[N_CHEV],t_tuile * j2[N_CHEV],t_tuile * j3[N_CHEV],t_tuile * j4[N_CHEV]);</p>
+    <li> Distribue 14 tuiles à un joueur</li>
+    <p> void distribution_joueur(t_tuile * jeu[N_T], t_tuile * joueur[N_CHEV]);</p>
+    <li> Distribue une tuile parmi le jeu des 106 tuiles, au hasard</li>
+    <p> t_tuile distribution_pioche(t_tuile * jeu[N_T]);</p>
+    <li> Alloue une mémoire dynamique à une tuile</li>
+    <p> t_tuile * creer_tuile(void);</p>
+    <li> Renvoie la taille des tuiles alloués</li>
+    <p> int taille_tuile(t_tuile * jeu[],int taille_jeu);</p>
+    </ul>
+    <h4> init_pile -> </h4>
+    <ul>
       <li> </li>
       <p> </p>
     </ul>
