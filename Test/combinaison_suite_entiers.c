@@ -1,8 +1,19 @@
-/* Fichier contenant la fonction de combinaison de suite d'entier */
 #include <init_structure.h>
 #include <combinaison_suite_entiers.h>
 
-/* Vérifie les ensembles de combinaisons à partir de 3 suites d'entiers */
+/**
+* \file combinaison_suite_entiers.c
+* \brief Fichier contenant la fonction de combinaison de suites d'entiers
+* \author Samuel DURAN
+* \version 1.0
+* \date 12 avril 2020
+*/
+
+/**
+* \fn void combinaison_suite(t_tuile * chev[])
+* \brief Vérifie les ensembles de combinaisons à partir de 3 suites d'entiers
+* \param chev[] Chevalet contenant les tuiles
+*/
 extern
 void combinaison_suite(t_tuile * chev[]){
 

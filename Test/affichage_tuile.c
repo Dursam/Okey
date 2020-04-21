@@ -1,33 +1,57 @@
-/* Fichier contenant les fonctions d'affichages */
-
 #include <init_pile.h>
 #include <affichage_tuile.h>
 
-/* Permute les indices de tuiles d'un chevalet */
-static
-void permuter(t_tuile * tab[N_CHEV], int i, int j){
+/**
+* \file affichage_tuile.c
+* \brief Fichier contenant les fonctions d'affichages
+* \author Samuel DURAN
+* \version 1.0
+* \date 12 avril 2020
+*/
 
-  t_tuile * sav = tab[i];
-  tab[i] = tab[j];
-  tab[j] = sav;
+/**
+* \fn void permuter(t_tuile * tab[N_CHEV], int i, int j)
+* \brief Permute les indices de tuiles d'un chevalet 
+* \param chev[N_CHEV] Chevalet
+* \param i Premier indice à permuter
+* \param j Deuxième indice à permuter
+*/
+static
+void permuter(t_tuile * chev[N_CHEV], int i, int j){
+
+  t_tuile * sav = chev[i];
+  chev[i] = chev[j];
+  chev[j] = sav;
 }
 
-/* Echange les tuiles d'un chevalet utile pour les fonctions de tri */
+/**
+* \fn int partition(t_tuile * chev[N_CHEV], int deb, int fin, int pivot)
+* \brief Echange les tuiles d'un chevalet utile pour les fonctions de tri
+* \param chev[N_CHEV] Chevalet
+* \param deb Début du tri
+* \param fin Fin du tri
+* \param pivot Valeur pivot
+* \return Nouvel indice de tuile
+*/
 static
-int partition(t_tuile * tab[N_CHEV], int deb, int fin, int pivot){
+int partition(t_tuile * chev[N_CHEV], int deb, int fin, int pivot){
 
     int j = deb;
     for(int i=deb+1; i<=fin; i++){
-      if(tab[i]->nbr<pivot){
+      if(chev[i]->nbr<pivot){
         j++;
-        permuter(tab, j, i);
+        permuter(chev, j, i);
       }
     }
-    permuter(tab,j,deb);
+    permuter(chev,j,deb);
     return (j);
 }
 
-/* tri manuel d'un chevalet de tuiles */
+/**
+* \fn void tri_manuel(t_tuile * chevalet[N_CHEV])
+* \brief Tri manuel d'un chevalet de tuiles
+* \param chevalet[N_CHEV] Chevalet 
+*/
 extern
 void tri_manuel(t_tuile * chevalet[N_CHEV]){
 
@@ -50,7 +74,13 @@ void tri_manuel(t_tuile * chevalet[N_CHEV]){
     printf("\n\n");
 }
 
-/* tri rapide d'un chevalet de tuiles */
+/**
+* \fn void tri_rapide(t_tuile * chevalet[], int i, int j)
+* \brief Tri rapide d'un chevalet de tuiles
+* \param chevalet Chevalet du jeu
+* \param i Première valeur
+* \param j Deuxième valeur
+*/
 extern
 void tri_rapide(t_tuile * chevalet[], int i, int j) {
 
@@ -63,7 +93,12 @@ void tri_rapide(t_tuile * chevalet[], int i, int j) {
     }
 }
 
-/* Affichage des 14/15 tuiles du chevalet */
+/**
+* \fn void affiche_chevalet(t_tuile * jeu[], int taille)
+* \brief Affichage des 14/15 tuiles du chevalet
+* \param jeu[] Chevalet
+* \param taille Taille du chevalet
+*/
 extern
 void affiche_chevalet(t_tuile * jeu[],int taille){
 
@@ -79,7 +114,7 @@ void affiche_chevalet(t_tuile * jeu[],int taille){
     if(i == 14 && jeu[14]->nbr != V_DEL)
       printf("--------------->");
 
-    if(jeu[i]->nbr == V_DEL)                // Cas d'affichage où la tuile a été supprimer
+    if(jeu[i]->nbr == V_DEL)                // Cas d'affichage où la tuile a été supprimée
       printf("\t");
     else{
       if(jeu[i]->nbr==13){                  // Cas d'affichage pour tuiles okey rouge et noire
@@ -122,7 +157,11 @@ void affiche_chevalet(t_tuile * jeu[],int taille){
   printf("\033[1;32m\t\b\t8\t9\t10\t11\t12\t13\t14\n\033[00m");
 }
 
-/* Affichage du sommet d'une pile */
+/**
+* \fn void affiche_sommet_pile(t_pile * pile)
+* \brief ffichage du sommet d'une pile
+* \param pile Pile à afficher
+*/
 extern
 void affiche_sommet_pile(t_pile * pile){
 
@@ -154,7 +193,14 @@ void affiche_sommet_pile(t_pile * pile){
   }
 }
 
-/* Affichage du sommet des piles de tout les joueurs */
+/**
+* \fn void affiche_pile(t_pile * p1, t_pile * p2, t_pile * p3, t_pile * p4)
+* \brief Affichage du sommet des piles de tous les joueurs
+* \param p1 Pile du joueur 1
+* \param p2 Pile du joueur 2
+* \param p3 Pile du joueur 3
+* \param p4 Pile du joueur 4
+*/
 extern
 void affiche_pile(t_pile * p1,t_pile * p2,t_pile * p3,t_pile * p4){
 

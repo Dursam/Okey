@@ -1,7 +1,18 @@
-/* Fichier contenant les fonctions d'initialisation pour les tableaux de strutures */
 #include <init_structure.h>
 
-/* Initialise le jeu de 106 tuiles */
+/**
+* \file init_structure.c
+* \brief Fichier contenant les fonctions d'initialisation pour les tableaux de structures
+* \author Samuel DURAN
+* \version 1.0
+* \date 12 avril 2020
+*/
+
+/**
+* \fn void init_tuile(t_tuile * jeu[N_T])
+* \brief Initialise le jeu de 106 tuiles
+* \param jeu[N_T] Tableau contenant les 106 tuiles
+*/
 extern
 void init_tuile(t_tuile * jeu[N_T]){
 
@@ -28,7 +39,12 @@ void init_tuile(t_tuile * jeu[N_T]){
   }
 }
 
-/* Alloue une mémoire dynamique à un chevalet */
+/**
+* \fn void creer_chevalet(t_tuile * joueur[], int taille)
+* \brief Alloue une mémoire dynamique à un chevalet
+* \param joueur[] Chevalet du joueur
+* \param taille Taille du chevalet
+*/
 extern
 void creer_chevalet(t_tuile * joueur[],int taille){
 
@@ -36,7 +52,12 @@ void creer_chevalet(t_tuile * joueur[],int taille){
     joueur[i] = (t_tuile *)malloc(sizeof(t_tuile));
 }
 
-/* Libère la mémoire d'une tuile ou de plusieurs tuiles d'un tableau de structure */
+/**
+* \fn void detruire_tuile(t_tuile * jeu[], int taille)
+* \brief Libère la mémoire d'une tuile ou de plusieurs tuiles d'un tableau de structure
+* \param jeu[] Tableau de structures
+* \param taille Taille du tableau
+*/
 extern
 void detruire_tuile(t_tuile * jeu[],int taille){
 
@@ -46,7 +67,12 @@ void detruire_tuile(t_tuile * jeu[],int taille){
   }
 }
 
-/* Affiche les tuiles une par une */
+/**
+* \fn void affiche_chaque_tuile(t_tuile * jeu[], int taille)
+* \brief Affiche les tuiles une par une
+* \param jeu[] Tableau des tuiles
+* \param taille Taille du tableau
+*/
 extern
 void affiche_chaque_tuile(t_tuile * jeu[],int taille){
 
@@ -72,7 +98,16 @@ void affiche_chaque_tuile(t_tuile * jeu[],int taille){
   }
 }
 
-/* Donne une tuile au hasard à un des 4 joueurs */
+/**
+* \fn int demarrage(t_tuile * jeu[N_T], t_tuile * j1[N_CHEV], t_tuile * j2[N_CHEV], t_tuile * j3[N_CHEV], t_tuile * j4[N_CHEV])
+* \brief Donne une tuile au hasard à un des 4 joueurs
+* \param jeu[N_T] Tableau contenant toutes les tuiles
+* \param j1[N_CHEV] Chevalet du joueur 1
+* \param j2[N_CHEV] Chevalet du joueur 2
+* \param j3[N_CHEV] Chevalet du joueur 3
+* \param j4[N_CHEV] Chevalet du joueur 4
+* \return Le numéro du joueur qui commence
+*/
 extern
 int demarrage(t_tuile * jeu[N_T], t_tuile * j1[N_CHEV],t_tuile * j2[N_CHEV],t_tuile * j3[N_CHEV],t_tuile * j4[N_CHEV]){
 
@@ -97,7 +132,12 @@ int demarrage(t_tuile * jeu[N_T], t_tuile * j1[N_CHEV],t_tuile * j2[N_CHEV],t_tu
   return num_joueur;
 }
 
-/* Distribue 14 tuiles à un joueur */
+/**
+* \fn void distribution_joueur(t_tuile * jeu[N_T], t_tuile * joueur[N_CHEV])
+* \brief Distribue 14 tuiles à un joueur
+* \param jeu[N_T] Tableau contenant toutes les tuiles
+* \param joueur[N_CHEV] Chevalet du joueur
+*/
 extern
 void distribution_joueur(t_tuile * jeu[N_T], t_tuile * joueur[N_CHEV]){
 
@@ -118,7 +158,12 @@ void distribution_joueur(t_tuile * jeu[N_T], t_tuile * joueur[N_CHEV]){
  joueur[N_CHEV-1]->nbr=V_DEL;
 }
 
-/* Distribue une tuile parmi le jeu des 106 tuiles, au hasard */
+/**
+* \fn t_tuile distribution_pioche(t_tuile * jeu[N_T])
+* \brief Distribue une tuile parmi le jeu des 106 tuiles, au hasard
+* \param jeu[N_T] Tableau contenant toutes les tuiles
+* \return La tuile distribuée
+*/
 extern
 t_tuile distribution_pioche(t_tuile * jeu[N_T]){
 
@@ -139,7 +184,11 @@ t_tuile distribution_pioche(t_tuile * jeu[N_T]){
   return tuile_temp;
 }
 
-/* Alloue une mémoire dynamique à une tuile */
+/**
+* \fn t_tuile * creer_tuile(void)
+* \brief Alloue une mémoire dynamique à une tuile
+* \return Une mémoire allouée pour une variable de type tuile
+*/
 extern
 t_tuile * creer_tuile(void){
 
@@ -147,7 +196,12 @@ t_tuile * creer_tuile(void){
   return t1;
 }
 
-/* Renvoie la taille des tuiles alloués */
+/**
+* \fn int taille_tuile(t_tuile * jeu[], int taille_jeu)
+* \brief  Renvoie la taille des tuiles alloués
+* \param jeu[] Tableau contenant les tuiles
+* \param taille_jeu Taille du tableau
+*/
 extern
 int taille_tuile(t_tuile * jeu[],int taille_jeu){
 

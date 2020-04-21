@@ -1,11 +1,22 @@
-/* Fichier contenant les fonctions pour selectionner une tuile */
-
 #include <init_structure.h>
 #include <init_pile.h>
 #include <affichage_tuile.h>
 #include <selection_tuile.h>
 
-/* Initialise un tableau de struture de tuile pour enregistrer les tuiles qui seront empilés */
+/**
+* \file selection_tuile.c
+* \brief Fichier contenant les fonctions pour sélectionner une tuile
+* \author Samuel DURAN
+* \version 1.0
+* \date 12 avril 2020
+*/
+
+/**
+* \fn void init_enr_tuile(t_tuile * enr[], int taille)
+* \brief Initialise un tableau de struture de tuile pour enregistrer les tuiles qui seront empilées
+* \param enr[] Tableau des tuiles enregistrées
+* \param taille Taille du tableau
+*/
 extern
 void init_enr_tuile(t_tuile * enr[],int taille){
 
@@ -13,7 +24,14 @@ void init_enr_tuile(t_tuile * enr[],int taille){
     enr[i] = NULL;
 }
 
-/* Creer une tuile, lui affecte une valeur puis l'empile sur une pile */
+/**
+* \fn void test_enr_tuile(t_tuile * jeu[N_T], t_tuile * enr[], t_pile, int taille)
+* \brief Créer une tuile, lui affecte une valeur puis l'empile sur une pile 
+* \param jeu[N_T] Tableau des tuiles
+* \param enr[] Tableau des tuiles enregistrées
+* \param pile Pile où la tuile est empilée
+* \param taille Taille du tableau
+*/
 extern
 void test_enr_tuile(t_tuile * jeu[N_T],t_tuile * enr[],t_pile * pile,int taille){
 
@@ -34,7 +52,15 @@ void test_enr_tuile(t_tuile * jeu[N_T],t_tuile * enr[],t_pile * pile,int taille)
   }
 }
 
-/* Creer une tuile, lui affecte une valeur puis l'empile sur une pile */
+/**
+* \fn void empile_enr_tuile(t_tuile * chevalet[N_CHEV], t_tuile * enr[], t_pile * pile, int taille, int numero)
+* \brief Créer une tuile, lui affecte une valeur puis l'empile sur une pile 
+* \param chevalet[N_CHEV] Chevalet du joueur
+* \param enr[] Tableau des tuiles enregistrées
+* \param pile Pile où la tuile est empilée
+* \param taille Taille du tableau
+* \param numéro ???
+*/
 extern
 void empile_enr_tuile(t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pile,int taille,int numero){
 
@@ -60,7 +86,17 @@ void empile_enr_tuile(t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pile,i
   chevalet[14]->nbr = V_DEL;
 }
 
-/* Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche_pile */
+/**
+* \fn void selection_tuile(t_tuile * jeu[N_T], t_tuile * chevalet[N_CHEV], t_tuile * enr[], t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd)
+* \brief Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche_pile 
+* \param jeu[N_T] Tableau contenant les tuiles
+* \param chevalet[N_CHEV] Chevalet du joueur
+* \param enr[] ???
+* \param pfg ???
+* \param pfd ???
+* \param pg ???
+* \param pd ???
+*/
 extern
 void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd){
 

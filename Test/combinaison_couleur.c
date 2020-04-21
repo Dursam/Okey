@@ -1,7 +1,19 @@
-/* Fichier contenant les fonctions de combinaison de couleur */
 #include <combinaison_couleur.h>
 
-/* Vérifie les tuiles supprimer ou non */
+/**
+* \file combinaison_couleur.c
+* \brief Fichier contenant les fonctions de combinaison de couleur
+* \author Samuel DURAN
+* \version 1.0
+* \date 12 avril 2020
+*/
+
+/**
+* \fn void affiche_tuile(t_tuile * jeu[], int taille)
+* \brief Vérifie les tuiles supprimées ou non
+* \param jeu[] L'ensemble des tuiles
+* \param taille Taille du tableau des tuiles
+*/
 extern
 void affiche_tuile(t_tuile * jeu[],int taille){
 
@@ -32,7 +44,12 @@ void affiche_tuile(t_tuile * jeu[],int taille){
   }
 }
 
-/* Compte le nombre de couleur différente d'une tuile */
+/**
+* \fn int compte_coul_diff(int tab_coul[4])
+* \brief Compte le nombre de couleurs différentes d'une tuile
+* \param tab_coul[4] Tableau des couleurs
+* \return Le nombre de couleurs différentes
+*/
 extern
 int compte_coul_diff(int tab_coul[4]){
 
@@ -40,14 +57,18 @@ int compte_coul_diff(int tab_coul[4]){
 
   for(i = 0; i < 4 ; i++ ){
 
-    if (tab_coul[i] > 0)    // Si l'une des couleurs est supérieur à 0 alors la couleur d'indice i est présente
+    if (tab_coul[i] > 0)    // Si l'une des couleurs est supérieure à 0 alors la couleur d'indice i est présente
         nb_diff_coul++;
     }
 
   return nb_diff_coul;
 }
 
-/* Vérifie les ensembles de combinaisons de 3 ou 4 couleurs */
+/**
+* \fn void combinaison_coul(t_tuile * chev[])
+* \brief Vérifie les ensembles de combinaisons de 3 ou 4 couleurs
+* \param chev[] Chevalet
+*/
 extern
 void combinaison_coul(t_tuile * chev[]){
 
