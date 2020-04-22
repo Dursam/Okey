@@ -4,19 +4,72 @@
 #include <string.h>
 #include <unistd.h>
 
-#define N 106
-#define J 15
+/**
+* \file commun.h
+* \brief Fonctions communes à l'ensemble des fichiers
+* \author Samuel DURAN
+* \version 1.0
+* \date 12 avril 2020
+*/
 
-
+/**
+* \enum t_couleur
+* \brief Définition de la couleur
+*/
 typedef enum {jaune,rouge,noire,bleu} t_couleur;
 
+/**
+* \struct s_tuile
+* \brief Définition d'une tuile
+*/
 typedef struct s_tuile {
-  int nbr;
-  t_couleur clr;
+  int nbr; /**< Nombre inscrit sur la tuile */
+  t_couleur clr; /**< Couleur de la tuile */
 } t_tuile;
 
-typedef struct s_element { t_tuile * tuile; struct s_element * suivant;} t_element;
+/**
+* \struct s_element
+* \brief Définition d'un élément d'une pile, soit une tuile
+*/
+typedef struct s_element {
+  t_tuile * tuile; /**< Tuile */
+  struct s_element * suivant; /**< Elément suivant de la tuile */
+} t_element;
 
-typedef struct s_pile { t_element * premier ;} t_pile;
+/**
+* \struct s_pile
+* \brief Définition d'une pile de tuile
+*/
+typedef struct s_pile {
+  t_element * premier ; /**< Premier élément de la pile */
+} t_pile;
 
-t_tuile * jeu[N],* j1[J],* j2[J],* j3[J],* j4[J],* pile_j1,* pile_j2,* pile_j3,* pile_j4;
+/**
+* \def N_T
+* Nombre de tuiles du jeu
+*/
+#define N_T 106
+
+/**
+* \def N_CHEV
+* Nombre de tuiles d'un chevalet
+*/
+#define N_CHEV 15
+
+/**
+* \def V_OKEY
+* Valeur d'une tuile de okey alias joker
+*/
+#define V_OKEY 13
+
+/**
+* \def V_DEL
+* Valeur d'une tuile supprimée
+*/
+#define V_DEL 100
+
+/**
+* \def NO_VALUE
+* Valeur tampon qui sert pour la fonction combinaison suite entier
+*/
+#define NO_VALUE 99
