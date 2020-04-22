@@ -7,7 +7,12 @@
 #include <combinaison_suite_entiers.h>
 #include <selection_tuile.h>
 
-/* Donne une valeur + 1 de la tuile retournée (le okey) à la tuile joker rouge ou noire posséder par le joueur */
+/**
+* \fn void valeur_okey(t_tuile * okey,t_tuile * joker)
+* \brief Donne une valeur + 1 de la tuile retournée (le okey) à la tuile joker rouge ou noire posséder par le joueur
+* \param okey la tuile okey
+* \param okey la tuile joker qui prend la valeur du okey +1
+*/
 extern
 void valeur_okey(t_tuile * okey,t_tuile * joker){
 
@@ -25,7 +30,16 @@ void valeur_okey(t_tuile * okey,t_tuile * joker){
   }
 }
 
-/* Affichage du sommet des piles de tout les joueurs */
+/**
+* \fn void affiche_plateau(t_tuile * okey, t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd)
+* \brief Affichage du sommet des piles de tout les joueurs, valeur du okey et une pioche
+* \param okey la tuile okey
+* \param okey la tuile okey
+* \param pfg pile fond gauche
+* \param pfd pile fond droite
+* \param pg pile gauche
+* \param pd pile droite
+*/
 extern
 void affiche_plateau(t_tuile * okey,t_pile * p1,t_pile * p2,t_pile * p3,t_pile * p4){
 
@@ -64,7 +78,17 @@ void affiche_plateau(t_tuile * okey,t_pile * p1,t_pile * p2,t_pile * p3,t_pile *
 
 }
 
-/* Début de partie en fonction de la tuile de démarrage */
+/**
+* \fn void debut_partie(t_tuile * chevalet[N_CHEV], t_pile * pile_J1, t_pile * pile_J2, t_pile * pile_J3, t_pile * pile_J4, t_tuile * okey, int dem)
+* \brief Début de partie en fonction de la tuile de démarrage
+* \param chevalet[N_CHEV] Chevalet du joueur
+* \param pile joueur 1
+* \param pile joueur 2
+* \param pile joueur 3
+* \param pile joueur 4
+* \param okey la tuile okey
+* \param dem numéro du joueur qui débute la débute la partie
+*/
 extern
 void debut_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int dem){
 
@@ -85,7 +109,14 @@ void debut_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t
   affiche_chevalet(chevalet,N_CHEV);
 }
 
-/* Dépile toutes les piles de tuiles, utilisé pour finir la partie */
+/**
+* \fn void depiler_toutes_tuiles(t_pile * pile_J1, t_pile * pile_J2, t_pile * pile_J3, t_pile * pile_J4)
+* \brief Dépile toutes les piles de tuiles, utilisé pour finir la partie
+* \param pile joueur 1
+* \param pile joueur 2
+* \param pile joueur 3
+* \param pile joueur 4
+*/
 extern
 void depiler_toutes_tuiles(t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4){
 
@@ -119,7 +150,12 @@ void depiler_toutes_tuiles(t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_
   }
 }
 
-/* Vérifie si le chevalet est gagnant (return 1, 0 pour contraire) en utilisant les combinaisons de couleurs et de suite d'entier */
+/**
+* \fn int regle_combinaison(t_tuile * chevalet[N_CHEV], t_tuile * okey)
+* \brief Vérifie si le chevalet est gagnant (return 1, 0 pour contraire) en utilisant les combinaisons de couleurs et de suite d'entier
+* \param chevalet[N_CHEV] Chevalet du joueur
+* \param okey la tuile okey
+*/
 extern
 int regle_combinaison(t_tuile * chevalet[N_CHEV],t_tuile * okey){
 
@@ -154,7 +190,11 @@ int regle_combinaison(t_tuile * chevalet[N_CHEV],t_tuile * okey){
   return reponse;
 }
 
-/* Laisse le choix au joueur de pouvoir faire un tri rapide, un tri manuel ou un pas de tri */
+/**
+* \fn int choix_tri(t_tuile * chevalet[N_CHEV])
+* \brief Laisse le choix au joueur de pouvoir faire un tri rapide, un tri manuel ou un pas de tri
+* \param chevalet[N_CHEV] Chevalet du joueur
+*/
 extern
 int choix_tri(t_tuile * chevalet[N_CHEV]){
 
@@ -230,7 +270,11 @@ void selection_tuile_v2(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * 
   while(getchar() != '\n');
 }
 
-/* Permet de vérifier si le jeu ne posséde plus aucune tuiles,return vrai (1) et faux (0) */
+/**
+* \fn int pioche_vide(t_tuile * jeu[N_T])
+* \brief Permet de vérifier si le jeu ne posséde plus aucune tuiles,return vrai (1) et faux (0)
+* \param jeu[N_T] Tableau contenant les 106 tuiles
+*/
 extern
 int pioche_vide(t_tuile * jeu[N_T]){
 
@@ -242,7 +286,11 @@ int pioche_vide(t_tuile * jeu[N_T]){
 }
 
 
-/* Permet le déroulement de la partie, après que le première joueur commence. Retourne le numéro de joueur gagnant */
+// NOTE A RACCOURCIR ET FAIRE PARAM 
+/**
+* \fn int partie_en_cours(t_tuile * jeu[N_T], t_tuile * joueur1[N_CHEV], t_tuile * joueur2[N_CHEV], t_tuile * joueur3[N_CHEV], t_tuile * joueur4[N_CHEV], t_tuile * J1_p1[], t_tuile * J2_p2[], t_tuile * J3_p3[], t_tuile * J4_p4[], t_pile * pile_J1, t_pile * pile_J2, t_pile * pile_J3, t_pile * pile_J4, int num_joueur, t_tuile * okey)
+* \brief Permet le déroulement de la partie, après que le première joueur commence. Retourne le numéro de joueur gagnant
+*/
 extern
 int partie_en_cours(t_tuile * jeu[N_T]
                                        ,t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV]

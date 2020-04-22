@@ -26,7 +26,7 @@ void init_enr_tuile(t_tuile * enr[],int taille){
 
 /**
 * \fn void test_enr_tuile(t_tuile * jeu[N_T], t_tuile * enr[], t_pile, int taille)
-* \brief Créer une tuile, lui affecte une valeur puis l'empile sur une pile 
+* \brief Créer une tuile, lui affecte une valeur puis l'empile sur une pile
 * \param jeu[N_T] Tableau des tuiles
 * \param enr[] Tableau des tuiles enregistrées
 * \param pile Pile où la tuile est empilée
@@ -54,12 +54,12 @@ void test_enr_tuile(t_tuile * jeu[N_T],t_tuile * enr[],t_pile * pile,int taille)
 
 /**
 * \fn void empile_enr_tuile(t_tuile * chevalet[N_CHEV], t_tuile * enr[], t_pile * pile, int taille, int numero)
-* \brief Créer une tuile, lui affecte une valeur puis l'empile sur une pile 
+* \brief Créer une tuile, lui affecte une valeur puis l'empile sur une pile
 * \param chevalet[N_CHEV] Chevalet du joueur
 * \param enr[] Tableau des tuiles enregistrées
 * \param pile Pile où la tuile est empilée
 * \param taille Taille du tableau
-* \param numéro ???
+* \param numéro Indice d'une tuille du chevalet
 */
 extern
 void empile_enr_tuile(t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pile,int taille,int numero){
@@ -88,14 +88,14 @@ void empile_enr_tuile(t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pile,i
 
 /**
 * \fn void selection_tuile(t_tuile * jeu[N_T], t_tuile * chevalet[N_CHEV], t_tuile * enr[], t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd)
-* \brief Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche_pile 
+* \brief Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche_pile
 * \param jeu[N_T] Tableau contenant les tuiles
 * \param chevalet[N_CHEV] Chevalet du joueur
-* \param enr[] ???
-* \param pfg ???
-* \param pfd ???
-* \param pg ???
-* \param pd ???
+* \param enr[] enregistrement temporaire des tuiles d'un chevalet
+* \param pfg pile fond gauche
+* \param pfd pile fond droit
+* \param pg  pile gauche
+* \param pd  pile droite
 */
 extern
 void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd){
@@ -113,7 +113,7 @@ void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr
 } while(*choix != 0 && *choix != 1);
 
 
-  if(*choix==0){                       
+  if(*choix==0){
     printf("TU PIOCHE\n");
     *chevalet[14] = distribution_pioche(jeu);
     printf("%i\n",jeu[14]->nbr);

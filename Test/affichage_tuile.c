@@ -11,7 +11,7 @@
 
 /**
 * \fn void permuter(t_tuile * tab[N_CHEV], int i, int j)
-* \brief Permute les indices de tuiles d'un chevalet 
+* \brief Permute les indices de tuiles d'un chevalet
 * \param chev[N_CHEV] Chevalet
 * \param i Premier indice à permuter
 * \param j Deuxième indice à permuter
@@ -50,7 +50,7 @@ int partition(t_tuile * chev[N_CHEV], int deb, int fin, int pivot){
 /**
 * \fn void tri_manuel(t_tuile * chevalet[N_CHEV])
 * \brief Tri manuel d'un chevalet de tuiles
-* \param chevalet[N_CHEV] Chevalet 
+* \param chevalet[N_CHEV] Chevalet
 */
 extern
 void tri_manuel(t_tuile * chevalet[N_CHEV]){
