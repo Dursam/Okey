@@ -24,7 +24,7 @@ BIN_TERMINAL=fonctions_terminal.o affichages_terminal.o
 #objets indépendants des fichiers d'affichage
 OBJ=init.o regle.o reseau.o
 #objets dépendants des fichiers d'affichage
-OBJ_DEP_AFF=jeu.o menu.o main.o 
+OBJ_DEP_AFF=jeu.o menu.o main.o
 
 
 
@@ -50,13 +50,12 @@ affichages_sdl.o:
 affichages_terminal.o:
 	$(CCOBJ) $(CFLAGS) ${AFF_DIR}affichages_terminal.c -o affichages_terminal.o ${INCLUDES} ${INCLUDE_NCURSES}
 
+
 #Fichiers indépendants de l'affichage
 init.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) $(INIT_DIR)init.c -o init.o
 regle.o:
-	$(CCOBJ) $(CFLAGS) $(INCLUDES) $(REGLE_DIR)regle.c -o regle.o
-
-
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) $(REGLE_DIR)regle.c -Wno-unused-but-set-variable -o regle.o
 
 
 #Fichiers utilisants des fonctions d'affichage
@@ -65,9 +64,9 @@ main.o:
 menu.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${MENU_DIR}menu.c -o menu.o
 jeu.o:
-	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${JEU_DIR}jeu.c -o jeu.o
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${JEU_DIR}jeu.c -Wno-unused-but-set-variable -o jeu.o
 reseau.o:
-	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${RESEAU_DIR}reseau.c -o reseau.o
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${RESEAU_DIR}reseau.c -Wno-return-type -o reseau.o
 
 
 clean:
