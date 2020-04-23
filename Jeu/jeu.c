@@ -24,16 +24,16 @@ void premier_tour_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pi
   tri_rapide(chevalet,0,13);
 
   if(dem == 1){
-    affiche_plateau(okey,pile_J3,pile_J2,pile_J4,pile_J1);
+    affiche_piles(okey,pile_J3,pile_J2,pile_J4,pile_J1);
   }
   else if(dem == 2){
-    affiche_plateau(okey,pile_J4,pile_J3,pile_J1,pile_J2);
+    affiche_piles(okey,pile_J4,pile_J3,pile_J1,pile_J2);
   }
   else if(dem == 3){
-    affiche_plateau(okey,pile_J1,pile_J4,pile_J2,pile_J3);
+    affiche_piles(okey,pile_J1,pile_J4,pile_J2,pile_J3);
   }
   else if(dem == 4){
-    affiche_plateau(okey,pile_J2,pile_J1,pile_J3,pile_J4);
+    affiche_piles(okey,pile_J2,pile_J1,pile_J3,pile_J4);
   }
   affiche_chevalet(chevalet,N_CHEV);
 }
