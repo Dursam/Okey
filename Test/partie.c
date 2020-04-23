@@ -467,10 +467,24 @@ int pioche_vide(t_tuile * jeu[N_T]){
 }
 
 
-// NOTE A RACCOURCIR ET FAIRE PARAM
+// NOTE : Fonction à raccourcir 
 /**
 * \fn int partie_en_cours(t_tuile * jeu[N_T], t_tuile * joueur1[N_CHEV], t_tuile * joueur2[N_CHEV], t_tuile * joueur3[N_CHEV], t_tuile * joueur4[N_CHEV], t_tuile * J1_p1[], t_tuile * J2_p2[], t_tuile * J3_p3[], t_tuile * J4_p4[], t_pile * pile_J1, t_pile * pile_J2, t_pile * pile_J3, t_pile * pile_J4, int num_joueur, t_tuile * okey)
 * \brief Permet le déroulement de la partie, après que le première joueur commence. Retourne le numéro de joueur gagnant
+* \param joueur1
+* \param joueur2
+* \param joueur3
+* \param joueur4
+* \param J1_p1
+* \param J2_p2
+* \param J3_p3
+* \param J4_p4
+* \param pile_J1
+* \param pile_J2
+* \param pile_J3
+* \param pile_J4
+* \param num_joueur le numéro du joueur de 1 à 4
+* \param okey la tuile okey
 */
 extern
 int partie_en_cours(t_tuile * jeu[N_T]
