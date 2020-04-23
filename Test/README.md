@@ -205,9 +205,9 @@ void valeur_okey(t_tuile * okey,t_tuile * joker);
 void affiche_plateau(t_tuile * okey,t_pile * p1,t_pile * p2,t_pile * p3,t_pile * p4);
 ```
 
-31. Début de partie en fonction de la tuile de démarrage
+31. Commence le premier tour de la partie en fonction du joueur ayant reçu la tuile de demarrage
 ```
-void debut_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int dem);
+void premier_tour_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int dem);
 ```
 
 32. Dépile toutes les piles de tuiles, utilisé pour finir la partie
@@ -220,22 +220,32 @@ void depiler_toutes_tuiles(t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_
 int regle_combinaison(t_tuile * chevalet[N_CHEV],t_tuile * okey);
 ```
 
-34. Laisse le choix au joueur de pouvoir faire un tri rapide, un tri manuel ou un pas de tri
+34. Laisse le choix au joueur de pouvoir faire un tri rapide, un tri manuel ou pas de tri
 ```
 int choix_tri(t_tuile * chevalet[N_CHEV]);
 ```
 
-35. Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche plateau
+35. Début de partie, réalise le premier tour complètement avec la tuile de démarrage et la tuile a retirée
+```
+void debut_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int dem);
+```
+
+36. Annonce de l'issue de la partie un vainqueur ou non
+```
+void issue_partie(int issue_joueur);
+```
+
+37. Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche plateau
 ```
 selection_tuile_v2(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd);
 ```
 
-36. Permet de vérifier si le jeu ne posséde plus aucune tuiles,return vrai (1) et faux (0)
+38. Permet de vérifier si le jeu ne posséde plus aucune tuiles,return vrai (1) et faux (0)
 ```
 int pioche_vide(t_tuile * jeu[N_T]);
 ```
 
-37.Permet le déroulement de la partie, après que le première joueur commence. Retourne le numéro de joueur gagnant
+39.Permet le déroulement de la partie, après que le première joueur commence. Retourne le numéro de joueur gagnant
 ```
 int partie_en_cours(t_tuile * jeu[N_T] ,t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV] ,t_tuile * J1_p1[],t_tuile * J2_p2[],t_tuile * J3_p3[],t_tuile * J4_p4[] ,t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4 ,int num_joueur ,t_tuile * okey );
 ```
