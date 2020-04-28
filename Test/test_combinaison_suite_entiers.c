@@ -7,147 +7,208 @@
 
 int main(){
 
-  /* On iniitialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
-  t_tuile * jeu[N_T],* j1[N_CHEV],* jc[N_CHEV],* je[N_CHEV];
+  /* Variables chevalets */
+  t_tuile * jeu[N_T],* test_gagnant[N_CHEV],* test_perdant[N_CHEV],* test_aleatoire[N_CHEV],* test_joker[N_CHEV];
+
+  /* Nombre de répétition d'une tuile inclus les jokers */
+  //int nbr_rep_tuile;
+
+  /* Initialise le jeu */
   init_tuile(jeu);
 
-  /* On iniitialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
-  creer_chevalet(j1,N_CHEV);
-  creer_chevalet(jc,N_CHEV);
-  creer_chevalet(je,N_CHEV);
+  /* Création des chevalets */
+  creer_chevalet(test_gagnant,N_CHEV);
+  creer_chevalet(test_perdant,N_CHEV);
+  creer_chevalet(test_aleatoire,N_CHEV);
+  creer_chevalet(test_joker,N_CHEV);
 
-  /* Distribution des tuiles */
-  distribution_joueur(jeu,j1);
+  /* Distribution des tuiles au chevalet du test aléatoire */
+  distribution_joueur(jeu,test_aleatoire);
 
-  /* Creation d'une combinaison gagnante */
+  /* Creation d'un chevalet gagnant */
 
   /* Combinaison du numéro 1 avec 4 couleurs différentes */
-  jc[0]->nbr=0;
-  jc[0]->clr=jaune;
-  jc[1]->nbr=0;
-  jc[1]->clr=bleu;
-  jc[2]->nbr=0;
-  jc[2]->clr=rouge;
-  jc[3]->nbr=0;
-  jc[3]->clr=noire;
+  test_gagnant[0]->nbr=0;
+  test_gagnant[0]->clr=jaune;
+  test_gagnant[1]->nbr=0;
+  test_gagnant[1]->clr=bleu;
+  test_gagnant[2]->nbr=0;
+  test_gagnant[2]->clr=rouge;
+  test_gagnant[3]->nbr=0;
+  test_gagnant[3]->clr=noire;
   /* Combinaison d'une suite de numéro (minimum de 3) */
-  jc[4]->nbr=0;
-  jc[4]->clr=bleu;
-  jc[5]->nbr=1;
-  jc[5]->clr=bleu;
-  jc[6]->nbr=2;
-  jc[6]->clr=bleu;
-  jc[7]->nbr=3;
-  jc[7]->clr=bleu;
-  jc[8]->nbr=4;
-  jc[8]->clr=bleu;
-  jc[9]->nbr=5;
-  jc[9]->clr=bleu;
-  jc[10]->nbr=6;
-  jc[10]->clr=bleu;
+  test_gagnant[4]->nbr=0;
+  test_gagnant[4]->clr=bleu;
+  test_gagnant[5]->nbr=1;
+  test_gagnant[5]->clr=bleu;
+  test_gagnant[6]->nbr=2;
+  test_gagnant[6]->clr=bleu;
+  test_gagnant[7]->nbr=3;
+  test_gagnant[7]->clr=bleu;
+  test_gagnant[8]->nbr=4;
+  test_gagnant[8]->clr=bleu;
+  test_gagnant[9]->nbr=5;
+  test_gagnant[9]->clr=bleu;
+  test_gagnant[10]->nbr=6;
+  test_gagnant[10]->clr=bleu;
   /* Combinaison du numéro 10 avec 3 couleurs différentes */
-  jc[11]->nbr=9;
-  jc[11]->clr=noire;
-  jc[12]->nbr=9;
-  jc[12]->clr=rouge;
-  jc[13]->nbr=9;
-  jc[13]->clr=jaune;
-  /* Tuile qui est supprimer */
-  jc[14]->nbr=V_DEL;
-  jc[14]->clr=jaune;
+  test_gagnant[11]->nbr=9;
+  test_gagnant[11]->clr=noire;
+  test_gagnant[12]->nbr=9;
+  test_gagnant[12]->clr=rouge;
+  test_gagnant[13]->nbr=9;
+  test_gagnant[13]->clr=jaune;
+  /* Tuile qui est supprimée pour que le chevalet puisse avoir 14 tuiles */
+  test_gagnant[14]->nbr=V_DEL;
+  test_gagnant[14]->clr=jaune;
 
-  /* Combinaison fausse */
-  je[0]->nbr=3;
-  je[0]->clr=noire;
-  je[1]->nbr=3;
-  je[1]->clr=noire;
-  je[2]->nbr=4;
-  je[2]->clr=noire;
-  /* Combinaison bonne */
-  je[3]->nbr=12;
-  je[3]->clr=rouge;
-  je[4]->nbr=10;
-  je[4]->clr=rouge;
-  je[5]->nbr=11;
-  je[5]->clr=rouge;
-  je[6]->nbr=0;
-  je[6]->clr=rouge;
-  /* Combinaison fausse */
-  je[7]->nbr=5;
-  je[7]->clr=bleu;
-  je[8]->nbr=4;
-  je[8]->clr=bleu;
-  /* Combinaison bonne */
-  je[9]->nbr=6;
-  je[9]->clr=jaune;
-  je[11]->nbr=7;
-  je[11]->clr=jaune;
-  je[12]->nbr=8;
-  je[12]->clr=jaune;
-  /* Combinaison fausse */
-  je[13]->nbr=10;
-  je[13]->clr=jaune;
-  je[10]->nbr=6;
-  je[10]->clr=jaune;
-  /* Tuile qui est supprimer */
-  je[14]->nbr=V_DEL;
-  je[14]->clr=jaune;
+  /* Creation d'un chevalet perdant */
 
-  printf("\nEXEMPLE DE CHEVALET DE 14 TUILES DEFINIS\n");
-  printf("\nVERIFICATION DES COMBINAISONS DE COULEURS\n");
+  /* Combinaison fausse deux 4 et une 5 NOIRE */
+  test_perdant[0]->nbr=3;
+  test_perdant[0]->clr=noire;
+  test_perdant[1]->nbr=3;
+  test_perdant[1]->clr=noire;
+  test_perdant[2]->nbr=4;
+  test_perdant[2]->clr=noire;
+  /* Combinaison bonne une 13,11,12 et 1 ROUGE */
+  test_perdant[3]->nbr=12;
+  test_perdant[3]->clr=rouge;
+  test_perdant[4]->nbr=10;
+  test_perdant[4]->clr=rouge;
+  test_perdant[5]->nbr=11;
+  test_perdant[5]->clr=rouge;
+  test_perdant[6]->nbr=0;
+  test_perdant[6]->clr=rouge;
+  /* Combinaison fausse une 6 et 5 BLEU */
+  test_perdant[7]->nbr=5;
+  test_perdant[7]->clr=bleu;
+  test_perdant[8]->nbr=4;
+  test_perdant[8]->clr=bleu;
+  /* Combinaison bonne une 7, 8, 9 JAUNE */
+  test_perdant[9]->nbr=6;
+  test_perdant[9]->clr=jaune;
+  test_perdant[11]->nbr=7;
+  test_perdant[11]->clr=jaune;
+  test_perdant[12]->nbr=8;
+  test_perdant[12]->clr=jaune;
+  /* Combinaison fausse unne 11 et 7 JAUNE */
+  test_perdant[13]->nbr=10;
+  test_perdant[13]->clr=jaune;
+  test_perdant[10]->nbr=6;
+  test_perdant[10]->clr=jaune;
+  /* Tuile qui est supprimée pour que le chevalet puisse avoir 14 tuiles */
+  test_perdant[14]->nbr=V_DEL;
+  test_perdant[14]->clr=jaune;
+
+  /* Creation d'un chevalet fictif avec jokers */
+  // NOTE: Un joker prend la valeur du Okey + 1 et sa couleur, les jokers rouge et noire sont un abus de langage.
+  // Cela signifie que dans le jeu, nous avons 4 même tuiles, 2 tuiles normaux et 2 tuile jokers.
+  // Dans cet exemple, on va créer un chevalet fictif de 14 tuiles dont certaines tuiles apparaitront 3 ou 4 fois (La tuile 2 Bleu).
+
+  /* Combinaison bonne 1,2,3 et 4 BLEU */
+  test_joker[0]->nbr=0;
+  test_joker[0]->clr=bleu;
+  test_joker[1]->nbr=1;     // 2 BLEU
+  test_joker[1]->clr=bleu;
+  test_joker[2]->nbr=2;
+  test_joker[2]->clr=bleu;
+  test_joker[3]->nbr=3;
+  test_joker[3]->clr=bleu;
+  /* Combinaison bonne 2,3 et 4 BLEU */
+  test_joker[4]->nbr=1;    // 2 BLEU
+  test_joker[4]->clr=bleu;
+  test_joker[5]->nbr=2;
+  test_joker[5]->clr=bleu;
+  test_joker[6]->nbr=3;
+  test_joker[6]->clr=bleu;
+  /* Combinaison bonne 2,1 et 13 BLEU */
+  test_joker[7]->nbr=1;     // 2 BLEU
+  test_joker[7]->clr=bleu;
+  test_joker[8]->nbr=0;
+  test_joker[8]->clr=bleu;
+  test_joker[9]->nbr=12;
+  test_joker[9]->clr=bleu;
+  /* Combinaison bonne 2,6,7 et 8 BLEU */
+  test_joker[11]->nbr=9;    // 2 BLEU
+  test_joker[11]->clr=bleu;
+  test_joker[12]->nbr=5;
+  test_joker[12]->clr=bleu;
+  test_joker[13]->nbr=6;
+  test_joker[13]->clr=bleu;
+  test_joker[10]->nbr=7;
+  test_joker[10]->clr=bleu;
+  /* Tuile qui est supprimée pour que le chevalet puisse avoir 14 tuiles */
+  test_joker[14]->nbr=V_DEL;
+  test_joker[14]->clr=bleu;
+
+
+  /* Affichage d'un chevalet gagnant */
+  printf("\nEXEMPLE DE CHEVALET DE 14 TUILES GAGNANTES\n");
+  printf("\nVERIFICATION DES COMBINAISONS VALIDES\n");
   printf("\n---------------AVANT-------------\n");
-
-
-  affiche_tuile(jc,taille_tuile(jc,sizeof(jc)));
-
-  /* Affichage des répétitions */
-
-  combinaison_suite(jc);
-  combinaison_coul(jc);
-
+  affiche_tuile(test_gagnant,taille_tuile(test_gagnant,sizeof(test_gagnant)));
+  /* Vérification des combinaisons du chevalet */
+  combinaison_suite(test_gagnant);
+  combinaison_coul(test_gagnant);
+  /* Affichage du résultat */
   printf("\n---------------APRES-------------\n");
-
-  affiche_tuile(jc,taille_tuile(jc,sizeof(jc)));
-
+  affiche_tuile(test_gagnant,taille_tuile(test_gagnant,sizeof(test_gagnant)));
   printf("\n----------------FIN--------------\n");
 
-  /* Affichage d'un chevalet de 15 tuiles aléatoires */
+
+
+  /* Affichage d'un chevalet perdant */
+  printf("\nEXEMPLE DE CHEVALET DE 14 TUILES PERDANTES\n");
+  printf("\nVERIFICATION DES COMBINAISONS VALIDES OU NON\n");
+  printf("\n---------------AVANT-------------\n");
+  affiche_tuile(test_perdant,taille_tuile(test_perdant,sizeof(test_perdant)));
+  /* Vérification des combinaisons du chevalet */
+  combinaison_coul(test_perdant);
+  combinaison_suite(test_perdant);
+  /* Affichage du résultat */
+  printf("\n---------------APRES-------------\n");
+  affiche_tuile(test_perdant,taille_tuile(test_perdant,sizeof(test_perdant)));
+  printf("\n----------------FIN--------------\n");
+
+
+
+  /* Affichage d'un chevalet aléatoire */
   printf("\nEXEMPLE DE CHEVALET DE 14 TUILES ALEATOIRES\n");
-  printf("\nVERIFICATION DES COMBINAISONS DE COULEURS\n");
+  printf("\nVERIFICATION DE COMBINAISONS ALEATOIRES\n");
   printf("\n---------------AVANT-------------\n");
-
-  affiche_tuile(j1,taille_tuile(j1,sizeof(j1)));
-
-  /* Affichage des répétitions */
-  combinaison_coul(j1);
-  combinaison_suite(j1);
-
+  affiche_tuile(test_aleatoire,taille_tuile(test_aleatoire,sizeof(test_aleatoire)));
+  /* Vérification des combinaisons du chevalet */
+  combinaison_coul(test_aleatoire);
+  combinaison_suite(test_aleatoire);
+  /* Affichage du résultat */
   printf("\n---------------APRES-------------\n");
-
-  affiche_tuile(j1,taille_tuile(j1,sizeof(j1)));
-
+  affiche_tuile(test_aleatoire,taille_tuile(test_aleatoire,sizeof(test_aleatoire)));
   printf("\n----------------FIN--------------\n");
 
-  /* Affichage d'un chevalet de 15 tuiles aléatoires */
-  printf("\nEXEMPLE DE CHEVALET DE 14 TUILES PREDEFINI\n");
-  printf("\nVERIFICATION DES COMBINAISONS DE COULEURS\n");
+
+
+  /* Affichage d'un chevalet jokers */
+  printf("\nEXEMPLE DE CHEVALET DE 14 TUILES AVEC JOKERS\n");
+  /*nbr_rep_tuile = detection_rep_tuile(test_joker);
+  printf("\nIl y a une tuile qui a %i de répétition\n",nbr_rep_tuile);*/
+  printf("\nVERIFICATION DE COMBINAISONS AVEC JOKERS\n");
   printf("\n---------------AVANT-------------\n");
-
-  affiche_tuile(je,taille_tuile(je,sizeof(je)));
-
-  /* Affichage des répétitions */
-  combinaison_coul(je);
-  combinaison_suite(je);
-
+  affiche_tuile(test_joker,taille_tuile(test_joker,sizeof(test_joker)));
+  /* Vérification des combinaisons du chevalet */
+  combinaison_coul(test_joker); // Pas nécessaire, c'est la même couleur
+  combinaison_suite(test_joker);
+  /* Affichage du résultat */
   printf("\n---------------APRES-------------\n");
-
-  affiche_tuile(je,taille_tuile(je,sizeof(je)));
-
+  affiche_tuile(test_joker,taille_tuile(test_joker,sizeof(test_joker)));
   printf("\n----------------FIN--------------\n");
 
-  /* On détruit le jeu et les chevalets */
+
+
+  /* Destruction du jeu et des chevalets */
   detruire_tuile(jeu,taille_tuile(jeu,sizeof(jeu)));
-  detruire_tuile(j1,taille_tuile(j1,sizeof(j1)));
-  detruire_tuile(jc,taille_tuile(jc,sizeof(jc)));
-  detruire_tuile(je,taille_tuile(je,sizeof(je)));
+  detruire_tuile(test_gagnant,taille_tuile(test_gagnant,sizeof(test_gagnant)));
+  detruire_tuile(test_perdant,taille_tuile(test_perdant,sizeof(test_perdant)));
+  detruire_tuile(test_aleatoire,taille_tuile(test_aleatoire,sizeof(test_aleatoire)));
+  detruire_tuile(test_joker,taille_tuile(test_joker,sizeof(test_joker)));
 }
