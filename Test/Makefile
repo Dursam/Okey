@@ -11,11 +11,18 @@ fich_obj_test_combinaison_suite_entiers = test_combinaison_suite_entiers.o combi
 fich_obj_test_affichage_tuile = test_affichage_tuile.o affichage_tuile.o init_pile.o init_structure.o
 fich_obj_test_selection_tuile = test_selection_tuile.o selection_tuile.o affichage_tuile.o init_pile.o init_structure.o
 fich_obj_test_partie = test_partie.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
+
+#
+# Débogage
+#
+
+fich_obj_debogage_combinaison_suite_entiers = debogage_combinaison_suite_entiers.o combinaison_suite_entiers.o combinaison_couleur.o init_pile.o init_structure.o
+
 #
 # Tests (executables+objets)
 #
 
-BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie
+BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie debogage_combinaison_suite_entiers
 
 prog_structure : $(fich_obj_test_init_structure)
 	$(CCLNK) $(CFLAGS) $(fich_obj_test_init_structure) -o prog_structure
@@ -58,6 +65,18 @@ prog_partie : $(fich_obj_test_partie)
 
 test_partie.o : test_partie.c partie.h
 	$(CCOBJ) $(CFLAGS) test_partie.c -Wno-unused-but-set-variable -o test_partie.o -I ./
+
+#
+# Test débogage
+#
+
+debogage_combinaison_suite_entiers : $(fich_obj_debogage_combinaison_suite_entiers)
+	$(CCLNK) $(CFLAGS) -g $(fich_obj_debogage_combinaison_suite_entiers) -o debogage_combinaison_suite_entiers
+
+debogage_combinaison_suite_entiers.o : debogage_combinaison_suite_entiers.c combinaison_suite_entiers.h
+	$(CCOBJ) $(CFLAGS) -g debogage_combinaison_suite_entiers.c -o debogage_combinaison_suite_entiers.o -I ./
+
+
 #
 # Modules
 #
@@ -96,6 +115,7 @@ clean :
 	- rm prog_affichage_tuile
 	- rm prog_selection_tuile
 	- rm prog_partie
+	- rm debogage_combinaison_suite_entiers
 
 #tests :
 #	./prog_structure
@@ -105,3 +125,4 @@ clean :
 # ./prog_affichage_tuile
 # ./prog_selection_tuile
 # ./prog_partie
+# ./debogage_combinaison_suite_entiers

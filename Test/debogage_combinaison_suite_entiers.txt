@@ -1,0 +1,92 @@
+Rapport Débogage pour la résolution du problème des tuiles de jokers:
+
+samuel@samuel:~/Bureau/Okey/Test$ gdb debogage_combinaison_suite_entiers
+GNU gdb (Ubuntu 8.1-0ubuntu3.2) 8.1.0.20180409-git
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from debogage_combinaison_suite_entiers...done.
+(gdb) break combinaison_suite_entiers.c:117 if enr13_coul[chev[i]->nbr] == 4
+Breakpoint 1 at 0x128b: file combinaison_suite_entiers.c, line 117.
+(gdb) info break
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x000000000000128b in combinaison_suite at combinaison_suite_entiers.c:117
+	stop only if enr13_coul[chev[i]->nbr] == 4
+(gdb) r
+Starting program: /home/samuel/Bureau/Okey/Test/debogage_combinaison_suite_entiers
+
+EXEMPLE DE CHEVALET DE 14 TUILES AVEC LE JOKER 2 BLEU PRESENT 4 FOIS
+
+La tuile 2 BLEU est répété(s) 4 fois
+
+VERIFICATION DE COMBINAISONS AVEC JOKERS
+
+---------------AVANT-------------
+La taille est de 15
+1  BLEU
+2  BLEU
+3  BLEU
+4  BLEU
+2  BLEU
+3  BLEU
+4  BLEU
+2  BLEU
+1  BLEU
+13  BLEU
+8  BLEU
+2  BLEU
+6  BLEU
+7  BLEU
+X NULL
+
+Breakpoint 1, combinaison_suite (chev=0x7fffffffddc0) at combinaison_suite_entiers.c:118
+118	          for(j = 0;j < N_CHEV-1;j++)                                      // On parcours le chevalet
+(gdb) c
+Continuing.
+
+Breakpoint 1, combinaison_suite (chev=0x7fffffffddc0) at combinaison_suite_entiers.c:118
+118	          for(j = 0;j < N_CHEV-1;j++)                                      // On parcours le chevalet
+(gdb) c
+Continuing.
+
+Breakpoint 1, combinaison_suite (chev=0x7fffffffddc0) at combinaison_suite_entiers.c:118
+118	          for(j = 0;j < N_CHEV-1;j++)                                      // On parcours le chevalet
+(gdb) c
+Continuing.
+
+Breakpoint 1, combinaison_suite (chev=0x7fffffffddc0) at combinaison_suite_entiers.c:118
+118	          for(j = 0;j < N_CHEV-1;j++)                                      // On parcours le chevalet
+(gdb) c
+Continuing.
+
+---------------APRES-------------
+La taille est de 15
+1  BLEU
+X NULL
+X NULL
+4  BLEU
+X NULL
+X NULL
+4  BLEU
+X NULL
+X NULL
+13  BLEU
+X NULL
+X NULL
+X NULL
+X NULL
+X NULL
+
+----------------FIN--------------
+[Inferior 1 (process 7578) exited normally]
+(gdb) quit

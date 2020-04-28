@@ -17,4 +17,10 @@
 */
 extern void combinaison_suite(t_tuile * chev[]);
 
+/**
+* \fn int detection_rep_tuile(t_tuile * chev[])
+* \brief Détecte si dans le chevalet il y a 3 ou 4 fois la même tuile, signifie que le chevalet possède des jokers
+*/
+extern int detection_rep_joker(t_tuile * chev[]);
+
 #endif
