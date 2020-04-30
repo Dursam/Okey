@@ -132,6 +132,7 @@ void quitter_affichage(){
 */
 void init_affichage(){
   initscr(); // initialize Ncurses
+  sdl = 0;
   fenetre = newwin( 24, 80, 0, 0 ); // création d'une fenêtre
   //initialisation des couleurs terminal
   if (has_colors() == FALSE) {

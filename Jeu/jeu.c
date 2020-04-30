@@ -1,5 +1,6 @@
 
 #include <jeu.h>
+#include <unistd.h>
 
 /*
 void rejoindrePartie(){

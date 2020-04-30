@@ -51,9 +51,7 @@ void loadImages(){
 		char nom[50] = "./IMG/";
 		strcat(nom, noms[i]);
 		images[i] = IMG_LoadTexture(renderer, nom);
-		if(i==22){
-			printf("%s\n", nom);
-		}
+		printf("%s\n", nom);
 	}
 	printf("Images chargées: %d\n", nb_images);
 }
@@ -164,7 +162,7 @@ void drawImage (int x, int y, char * nom, int w, int h){
  * \brief Affiche la fenêtre du jeu en fonction de la taille de l'écran, création du renderer; les dimensions de l'écran, le renderer et la fenêtre sont des variables globales
  */
 void init_affichage(){
-
+	sdl = 1;
 		/* Initialisation simple */
 	SDL_Init(SDL_INIT_VIDEO);
 	/* Initialisation TTF */
@@ -177,7 +175,7 @@ void init_affichage(){
 	SCREEN_HEIGHT = dm.h;
 	SCREEN_WIDTH = dm.w;
 	/* Création de la fenêtre */
-	fenetre = SDL_CreateWindow("Final Fantasy: the great shity C project, but not so shity finally",SDL_WINDOWPOS_UNDEFINED,
+	fenetre = SDL_CreateWindow("OKEY project",SDL_WINDOWPOS_UNDEFINED,
 													SDL_WINDOWPOS_UNDEFINED,
 													SCREEN_WIDTH,
 													SCREEN_HEIGHT,

@@ -132,7 +132,9 @@ void showMenu(void){
 		  char list2[][30] = { "Joueur contre IA", "Joueurs contre joueurs" };
 		  running = afficher_menu(list2, 2);
 			if(running == 1){
-				quitter_affichage();
+				if(sdl ==0){
+					quitter_affichage();
+				}
 				mode_local_4_joueurs();
 			}
 	}
