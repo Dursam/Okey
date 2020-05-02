@@ -3,9 +3,9 @@
 Samuel DURAN (_Dursam_), Valentin GIROD (_Guarmanda_) et Taner CELIK (_tancel97_)
 
 ## Gestion de projet
-Voici la [vue micro](https://trello.com/b/gQjKANUW/projet-okey)
+Voici la [vue micro](https://trello.com/b/gQjKANUW/projet-okey) (02/05/2020)
 
-Voici le [diagramme de Gantt](https://onedrive.live.com/View.aspx?resid=98EC20023F1E6EC2!116&authkey=!ADXCvBvONsHHCVo)
+Voici le [diagramme de Gantt](https://onedrive.live.com/View.aspx?resid=98EC20023F1E6EC2!116&authkey=!ADXCvBvONsHHCVo) (02/05/2020)
 
 ## Le jeu
 - [x] Chevalet de 14/15 tuiles
