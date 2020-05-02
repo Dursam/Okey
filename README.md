@@ -34,9 +34,9 @@ Voici le [diagramme de Gantt](https://onedrive.live.com/View.aspx?resid=98EC2002
 
 ### L'interface graphique
 
-- [ ] Affichage du menu SDL
+- [X] Affichage du menu SDL
 
-- [ ] Affichage du menu terminal
+- [X] Affichage du menu terminal
 
 - [x] Affichage du tour d'un joueur
 
