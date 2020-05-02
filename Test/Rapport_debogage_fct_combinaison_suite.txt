@@ -1,4 +1,4 @@
-Rapport Débogage pour la résolution du problème des tuiles de jokers:
+Rapport Débogage pour la résolution du problème d'une tuiles présente 3 ou 4 fois, soit avec des tuiles jokers :
 
 samuel@samuel:~/Bureau/Okey/Test$ gdb debogage_combinaison_suite_entiers
 GNU gdb (Ubuntu 8.1-0ubuntu3.2) 8.1.0.20180409-git
@@ -16,12 +16,20 @@ Find the GDB manual and other documentation resources online at:
 For help, type "help".
 Type "apropos word" to search for commands related to "word"...
 Reading symbols from debogage_combinaison_suite_entiers...done.
+
+
+
 (gdb) break combinaison_suite_entiers.c:117 if enr13_coul[chev[i]->nbr] == 4
 Breakpoint 1 at 0x128b: file combinaison_suite_entiers.c, line 117.
+
+
+
 (gdb) info break
 Num     Type           Disp Enb Address            What
 1       breakpoint     keep y   0x000000000000128b in combinaison_suite at combinaison_suite_entiers.c:117
 	stop only if enr13_coul[chev[i]->nbr] == 4
+
+
 (gdb) r
 Starting program: /home/samuel/Bureau/Okey/Test/debogage_combinaison_suite_entiers
 
@@ -90,3 +98,19 @@ X NULL
 ----------------FIN--------------
 [Inferior 1 (process 7578) exited normally]
 (gdb) quit
+
+NOTE:
+Le breakpoint est répété 4 fois dans le rapport de débogage à la ligne début 118 (à présent ligne de début 129 et fin 205) dans la fonction combinaison_suite_entiers.c.
+Cela veut dire que la fonction traite 2 même tuile ainsi que 2 jokers ayant la valeur de cette tuile, la tuile est alors présente 4 fois dans le chevalet.
+
+On peux voir alors dans le résultat "APRES" que les tuiles désigné 2 BLEU sont supprimés, mais que d'autres tuiles qui appartiennent à une combinaison
+valides ne sont pas supprimés. Ce qui interpelle dans la ligne du problème, c'est les conditionnelles existante soit :
+
+- if(enr13_coul[chev[i]->nbr] == 2){...} et else{...}
+
+La tuile qui est présent 3 ou 4 fois dans le chevalet prend la direction du else (ligne 118), c'est pourquoi on doit corrigé la fonction et ajouté
+d'autres conditionnelles comme :
+
+- else if(enr13_coul[chev[i]->nbr] == 4){...} et else if(enr13_coul[chev[i]->nbr] == 3){...}
+
+Donc les tuiles 2 BLEU sont supprimés mais elles empêchent d'autres tuiles appartenant à une combinaison de se supprimées.

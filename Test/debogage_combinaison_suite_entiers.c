@@ -1,4 +1,5 @@
-/* L'objectif de ce fichier est de tester les combinaisons gagnant (couleur et suite d'entiers) du chevalet */
+/* L'objectif de ce fichier est de pouvoir créer un rapport de débogage. Ceci va permettre de résoudre l'utilisation d'une même tuile présente 3 ou 4 fois */
+/* NOTE: L'exécutable est retiré du Makefile car la fonction combinaison_suite est corrigé. DATE: 2 Mai 2020 */
 
 #include <init_structure.h>
 #include <init_pile.h>

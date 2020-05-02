@@ -1,8 +1,12 @@
+# Samuel DURAN & Valentin GIROD
+
 include Makefile.compilation
 
 #
-# Objets
+# Objet
 #
+
+# Test
 
 fich_obj_test_init_structure = test_init_structure.o init_structure.o
 fich_obj_test_init_pile = test_init_pile.o init_pile.o init_structure.o
@@ -12,17 +16,26 @@ fich_obj_test_affichage_tuile = test_affichage_tuile.o affichage_tuile.o init_pi
 fich_obj_test_selection_tuile = test_selection_tuile.o selection_tuile.o affichage_tuile.o init_pile.o init_structure.o
 fich_obj_test_partie = test_partie.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
 
-#
 # Débogage
-#
 
 fich_obj_debogage_combinaison_suite_entiers = debogage_combinaison_suite_entiers.o combinaison_suite_entiers.o combinaison_couleur.o init_pile.o init_structure.o
 
+# Patch
+
+fich_obj_patch_combinaison_suite_entiers = patch_combinaison_suite_entiers.o combinaison_suite_entiers.o combinaison_couleur.o init_pile.o init_structure.o
+
 #
-# Tests (executables+objets)
+# Programme (executables+objets)
 #
 
-BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie debogage_combinaison_suite_entiers
+# EXECUTABLE ENLEVER : debogage_combinaison_suite_entiers
+# Ne pas oublier d'enlever le dièse si vous ajoutez un exécutable déjà enlever dans la partie suppression
+
+BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie patch_combinaison_suite_entiers
+
+#
+# Executable
+#
 
 prog_structure : $(fich_obj_test_init_structure)
 	$(CCLNK) $(CFLAGS) $(fich_obj_test_init_structure) -o prog_structure
@@ -67,7 +80,7 @@ test_partie.o : test_partie.c partie.h
 	$(CCOBJ) $(CFLAGS) test_partie.c -Wno-unused-but-set-variable -o test_partie.o -I ./
 
 #
-# Test débogage
+# Débogage
 #
 
 debogage_combinaison_suite_entiers : $(fich_obj_debogage_combinaison_suite_entiers)
@@ -76,9 +89,19 @@ debogage_combinaison_suite_entiers : $(fich_obj_debogage_combinaison_suite_entie
 debogage_combinaison_suite_entiers.o : debogage_combinaison_suite_entiers.c combinaison_suite_entiers.h
 	$(CCOBJ) $(CFLAGS) -g debogage_combinaison_suite_entiers.c -o debogage_combinaison_suite_entiers.o -I ./
 
+#
+# Patch
+#
+
+patch_combinaison_suite_entiers : $(fich_obj_patch_combinaison_suite_entiers)
+	$(CCLNK) $(CFLAGS) $(fich_obj_patch_combinaison_suite_entiers) -o patch_combinaison_suite_entiers
+
+patch_combinaison_suite_entiers.o : patch_combinaison_suite_entiers.c combinaison_suite_entiers.h
+	$(CCOBJ) $(CFLAGS) patch_combinaison_suite_entiers.c -o patch_combinaison_suite_entiers.o -I ./
+
 
 #
-# Modules
+# Module
 #
 
 OBJ = init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o partie.o
@@ -106,6 +129,10 @@ partie.o : partie.c partie.h
 
 all : $(BIN) $(OBJ)
 
+#
+# Suppression
+#
+
 clean :
 	- rm  *.o
 	- rm prog_structure
@@ -115,9 +142,13 @@ clean :
 	- rm prog_affichage_tuile
 	- rm prog_selection_tuile
 	- rm prog_partie
-	- rm debogage_combinaison_suite_entiers
+#	- rm debogage_combinaison_suite_entiers
+	- rm patch_combinaison_suite_entiers
 
-#tests :
+#
+#	Vérification
+#
+
 #	./prog_structure
 #	./prog_pile
 # ./prog_combinaison_couleur
@@ -126,3 +157,4 @@ clean :
 # ./prog_selection_tuile
 # ./prog_partie
 # ./debogage_combinaison_suite_entiers
+# ./patch_combinaison_suite_entiers

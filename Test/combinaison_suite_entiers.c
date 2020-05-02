@@ -10,6 +10,37 @@
 */
 
 /**
+* \fn int detection_rep_tuile(t_tuile * chev[])
+* \brief Détecte si dans le chevalet il y a 3 ou 4 fois la même tuile, signifie que le chevalet possède des jokers
+* \param chev[] Chevalet contenant les tuiles
+*/
+extern
+int detection_rep_joker(t_tuile * chev[]){
+
+  // Enregistre le nombre de tuiles d'une même couleur: bleu,noire,rouge et jaune. Indice i.
+  int enr13_jaune[13] = {0},enr13_rouge[13] = {0},enr13_noire[13] = {0},enr13_bleu[13] = {0},i;
+
+  // On compte le nombre de tuiles de chaque couleur du chevalet, les tuiles supprimées ne sont pas comptés
+  for(i = 0;i < N_CHEV-1;i++){
+    if(chev[i]->clr == jaune && chev[i]->nbr != V_DEL)
+      enr13_jaune[chev[i]->nbr]++;
+    else if(chev[i]->clr == rouge && chev[i]->nbr != V_DEL)
+      enr13_rouge[chev[i]->nbr]++;
+    else if(chev[i]->clr == noire && chev[i]->nbr != V_DEL)
+      enr13_noire[chev[i]->nbr]++;
+    else if(chev[i]->clr == bleu && chev[i]->nbr != V_DEL)
+      enr13_bleu[chev[i]->nbr]++;
+  }
+  // Si le nombre de l'une des tuiles est égale à 3 ou à 4 alors on retoune le nombre de joker
+  for(i = 0;i < 13;i++){
+    if(enr13_jaune[i] >= 3 || enr13_rouge[i] >= 3 || enr13_noire[i] >= 3 || enr13_bleu[i] >= 3)
+      return i;
+  }
+  // Si rien, on retoune NO_VALUE
+  return NO_VALUE;
+}
+
+/**
 * \fn void combinaison_suite(t_tuile * chev[])
 * \brief Vérifie les ensembles de combinaisons à partir de 3 suites d'entiers
 * \param chev[] Chevalet contenant les tuiles
@@ -21,7 +52,8 @@ void combinaison_suite(t_tuile * chev[]){
   enr13_coul[13] = {0},                           // Enregistre les tuiles de 1 à 13 de la couleur d'indice i, utilisé dans la boucle WHILE
   cpt_len_comb,                                   // Compte le nombre de combinaison
   i,j,k                                           // Indices, i est une aide visuelle et remplaçable par i (facultatif)
-  ,nbr_suiv, nbr_pred,nbr_suiv_2,nbr_pred_2;      // Nombres qui permettent de calculer les 2 nombres précédent et les 2 nombres suivant de la tuile d'indice i
+  ,nbr_suiv, nbr_pred,nbr_suiv_2,nbr_pred_2,      // Nombres qui permettent de calculer les 2 nombres précédent et les 2 nombres suivant de la tuile d'indice i
+  i_joker;                                        // Indice du Joker si présent dans le chevalet
   t_couleur coul_actuel;                          // Valeur temporaire de la couleur de la tuile d'indice i
   t_tuile * enr14_rep[14];                        // Enregistre les tuiles pour suppression (Cas de 2 même tuile)
 
@@ -52,10 +84,15 @@ void combinaison_suite(t_tuile * chev[]){
         }
       }
 
-      for(j = 0; j < 14; j++){                    // Permet d'éviter de supprimer 2 fois une même tuile du chevalet
-        if(enr14_rep[j]->nbr == chev[i]->nbr && enr14_rep[j]->clr == chev[i]->clr)
+      for(j = 0; j < 14; j++)
+        if(enr14_rep[j]->nbr == chev[i]->nbr && enr14_rep[j]->clr == chev[i]->clr) // Permet d'éviter de supprimer 2 fois une même tuile du chevalet
           enr13_coul[chev[i]->nbr]-- ;
-      }
+
+      i_joker = detection_rep_joker(chev);
+      if(i_joker != NO_VALUE)
+        if(enr13_coul[chev[i]->nbr] == 2 && (enr13_coul[i_joker] == 3 || enr13_coul[i_joker] == 4))
+          enr13_coul[i_joker] = 2;
+
       while(cpt_len_comb == 1){
 
         if(chev[i]->nbr == 0){               // Si tuile numéro 1 alors précédent '13' et 12 et suivant 2 et 3
@@ -89,30 +126,52 @@ void combinaison_suite(t_tuile * chev[]){
           nbr_suiv_2 = nbr_suiv + 1;
         }
 
-        //printf("CPT1 : -> %i et %i\n",nbr_pred,nbr_suiv);                // Permet de vérifier les nombres précédent et suivant s'ils sont bon
-        //printf("CPT2 -> %i et %i\n",nbr_pred_2,nbr_suiv_2);
         if(enr13_coul[chev[i]->nbr] == 2){                                 // S'il y a 2 fois la même tuile de même couleur
-
-          if(enr13_coul[nbr_pred] == 2 && enr13_coul[nbr_suiv] == 2)       // S'il y a 2 fois le nombre précédent et suivant -> VALIDE
+          // S'il y a 2 fois le nombre précédent et suivant -> VALIDE
+          if(enr13_coul[nbr_pred] == 2 && enr13_coul[nbr_suiv] == 2)
             cpt_len_comb = cpt_len_comb + 2;
 
-          else if(enr13_coul[nbr_pred] != 2 && enr13_coul[nbr_suiv] == 2){ // S'il y a 2 fois le nombre suivant et 2 fois le nombre
+          // S'il y a 2 fois le nombre suivant et 2 fois le nombre
+          else if(enr13_coul[nbr_pred] != 2 && enr13_coul[nbr_suiv] == 2){
             cpt_len_comb++;                                                // précédent (2) ou suivant (2) -> VALIDE
             if(enr13_coul[nbr_pred_2] == 2 || enr13_coul[nbr_suiv_2] == 2){
               cpt_len_comb++;
             }
           }
-          else if(enr13_coul[nbr_pred] == 2 && enr13_coul[nbr_suiv] != 2){ // Si il y a 2 fois le nombre précédent et 2 fois le nombre
+          // Si il y a 2 fois le nombre précédent et 2 fois le nombre
+          else if(enr13_coul[nbr_pred] == 2 && enr13_coul[nbr_suiv] != 2){
             cpt_len_comb++;                                                // précédent (2) ou suivant (2) -> VALIDE
             if(enr13_coul[nbr_pred_2] == 2 || enr13_coul[nbr_suiv_2] == 2){
               cpt_len_comb++;
             }
           }
-          else{                                                            // On enregistre la tuile et on sort de la boucle WHILE
+          /* Dans une situation où le joker est présent 3 fois, si une tuile présent 2 fois dont l'une est dans une combinaison avec un joker, l'autre sans joker
+           et que la tuile indépendante du joker respecte les conditions tel que :
+           - Son nombre nbr_pred, nbr_pred_2, nbr_suiv sont égaux à 1 et nbr_suiv_2 à 2
+           - Son nombre nbr_suiv, nbr_suiv_2, nbr_pred sont égaux à 1 et nbr_pred_2 à 2
+           alors celle-ci est dans une combinaison */
+          else if(i_joker != NO_VALUE && enr13_coul[nbr_pred] == 1 && enr13_coul[nbr_pred_2] == 2 && enr13_coul[nbr_suiv] == 1 && enr13_coul[nbr_suiv_2] == 1){
+            cpt_len_comb = V_DEL;
+          }
+          else if(i_joker != NO_VALUE && enr13_coul[nbr_pred] == 1 && enr13_coul[nbr_pred_2] == 1 && enr13_coul[nbr_suiv] == 1 && enr13_coul[nbr_suiv_2] == 2){
+            cpt_len_comb = V_DEL;
+          }
+          // On enregistre la tuile et on sort de la boucle WHILE
+          else{
             enr14_rep[i]->nbr = chev[i]->nbr;
             enr14_rep[i]->clr = chev[i]->clr;
             cpt_len_comb = V_DEL;
           }
+        }
+        else if(enr13_coul[chev[i]->nbr] == 4){                            // S'il y a 2 fois la même tuile et 2 jokers correspondant à la valeur de cette tuile
+          if(enr13_coul[nbr_pred] == 2 && enr13_coul[nbr_suiv] == 2 && enr13_coul[nbr_pred_2] == 2 && enr13_coul[nbr_suiv_2] == 2)
+            cpt_len_comb = V_DEL;                                          // Alors la tuile qui est présente 4 fois sont tous dans une combinaison
+        }
+        else if(enr13_coul[chev[i]->nbr] == 3){                            // S'il y a 2 fois la même tuile et un joker correspondant à la valeur de cette tuile
+          if(enr13_coul[nbr_pred] == 2 && enr13_coul[nbr_pred_2] == 2 && enr13_coul[nbr_suiv] >= 1 && enr13_coul[nbr_suiv_2] >= 1)
+            cpt_len_comb = V_DEL;                                          // Alors la tuile qui est présente 4 fois sont tous dans une combinaison
+          else if(enr13_coul[nbr_pred] >= 1  && enr13_coul[nbr_pred_2] >= 1 && enr13_coul[nbr_suiv] == 2 && enr13_coul[nbr_suiv_2] == 2)
+            cpt_len_comb = V_DEL;                                          // Alors la tuile qui est présente 4 fois sont tous dans une combinaison
         }
         else{                                                              // Si la tuile actuelle est présente qu'une seule fois
           for(j = 0;j < N_CHEV-1;j++)                                      // On parcours le chevalet
@@ -120,11 +179,11 @@ void combinaison_suite(t_tuile * chev[]){
               if(chev[j]->nbr != chev[i]->nbr && chev[j]->clr == coul_actuel && (chev[j]->nbr == nbr_pred || chev[j]->nbr == nbr_suiv))
                 cpt_len_comb++;
 
-          if((enr13_coul[nbr_pred] == 2 && enr13_coul[nbr_suiv] == 0) || (enr13_coul[nbr_pred] == 0 && enr13_coul[nbr_suiv] == 2))
+          if(i_joker == NO_VALUE && ((enr13_coul[nbr_pred] == 2 && enr13_coul[nbr_suiv] == 0) || (enr13_coul[nbr_pred] == 0 && enr13_coul[nbr_suiv] == 2))){
             cpt_len_comb = 1;                                              // S'il y a 2 fois le nombre précédent et 0 fois le nombre suivant et vice-versa -> NON VALIDE
+          }
 
           if(cpt_len_comb == 2){                                           // Si ce qu'on a compté auparavant est égaux à 2
-
             for(j = 0;j < N_CHEV-1;j++){                                   // On parcours le chevalet
 
               if(chev[j]->nbr != V_DEL){
@@ -144,64 +203,21 @@ void combinaison_suite(t_tuile * chev[]){
           }
         }
 
-        if(cpt_len_comb >= 3) // On enregistre l'indice
+        if(cpt_len_comb >= 3 )                                             // On enregistre l'indice
           enr14_ind[i] = i;
-        cpt_len_comb = V_DEL; // On sort de la boucle
+
+        cpt_len_comb = V_DEL;                                              // On sort de la boucle
       }
     }
   }
   // Suppression des tuiles présentes dans une combinaison
-  for(i = 0; i < 14; i++){
-    if(enr14_ind[i] == i){
-     //printf("Les indices enr14 %i\n",enr14_ind[i]);
+  for(i = 0; i < 14; i++)
+    if(enr14_ind[i] == i)
      chev[enr14_ind[i]]->nbr = V_DEL;
-    }
-   }
   // Suppression des tuiles présentes dans une combinaison
-  for(i = 0; i < 14; i++){
+  for(i = 0; i < 14; i++)
     if(enr14_rep[i]->nbr != NO_VALUE)
       chev[enr14_ind[i]]->nbr = enr14_rep[i]->nbr;
-  }
 
-  // Affiche les répétitions d'une tuiles si elle est présente 2 fois
-  /*
-  for(i = 0; i < 14; i++){
-     if(enr14_rep[i]->nbr != NO_VALUE)
-      printf("Les répétitions %i\n",enr14_rep[i]->nbr);
-   }
-  */
   detruire_tuile(enr14_rep,taille_tuile(enr14_rep,sizeof(enr14_rep))); // Detruit l'enregistrement
-}
-
-/**
-* \fn int detection_rep_tuile(t_tuile * chev[])
-* \brief Détecte si dans le chevalet il y a 3 ou 4 fois la même tuile, signifie que le chevalet possède des jokers
-* \param chev[] Chevalet contenant les tuiles
-*/
-extern
-int detection_rep_joker(t_tuile * chev[]){
-
-  // Enregistre le nombre de tuiles d'une même couleur: bleu,noire,rouge et jaune. Indice i.
-  int enr13_jaune[13] = {0},enr13_rouge[13] = {0},enr13_noire[13] = {0},enr13_bleu[13] = {0},i;
-
-  // On compte le nombre de tuiles de chaque couleur du chevalet, les tuiles supprimées ne sont pas comptés
-  for(i = 0;i < N_CHEV-1;i++){
-    if(chev[i]->clr == jaune && chev[i]->nbr != V_DEL)
-      enr13_jaune[chev[i]->nbr]++;
-    else if(chev[i]->clr == rouge && chev[i]->nbr != V_DEL)
-      enr13_rouge[chev[i]->nbr]++;
-    else if(chev[i]->clr == noire && chev[i]->nbr != V_DEL)
-      enr13_noire[chev[i]->nbr]++;
-    else if(chev[i]->clr == bleu && chev[i]->nbr != V_DEL)
-      enr13_bleu[chev[i]->nbr]++;
-  }
-  // Si le nombre de l'une des tuiles est égale à 3 ou à 4 alors on retoune le nombre de joker
-  for(i = 0;i < 13;i++){
-    if(enr13_jaune[i] == 3 || enr13_rouge[i] == 3 || enr13_noire[i] == 3 || enr13_bleu[i] == 3)
-      return 3;
-    else if(enr13_jaune[i] == 4 || enr13_rouge[i] == 4 || enr13_noire[i] == 4 || enr13_bleu[i] == 4)
-      return 4;
-  }
-  // Si rien, on retoune 0
-  return 0;
 }
