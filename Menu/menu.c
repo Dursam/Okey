@@ -85,7 +85,7 @@ void mode_local_4_joueurs(void){
 	}
 
 	/* Déroulement de la partie */
-	joueur_gagnant = partie_en_cours(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,num_joueur,okey);
+	joueur_gagnant = partie_en_cours(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
 
 	/* Annonce de l'issue de la partie, un vainqueur ou non */
 	issue_partie(joueur_gagnant);
