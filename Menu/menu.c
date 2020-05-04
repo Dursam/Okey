@@ -1,5 +1,5 @@
 /**
- * \file menu_principal.c
+ * \file menu.c
  * \brief Menu principal du jeu
  * \author Duran Samuel Girod Valentin
  * \date 12 mars 2019
