@@ -47,7 +47,7 @@ typedef struct s_element { t_tuile * tuile; struct s_element * suivant;} t_eleme
 typedef struct s_pile { t_element * premier ;} t_pile;
 ```
 
-### Les fonctions (39)
+### Les fonctions (41)
 #### Fichier init_structure (9)
 1. Initialise le jeu de 106 tuiles
 ```
@@ -198,7 +198,7 @@ void empile_enr_tuile(t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pile,i
 void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd);
 ```
 
-#### Fichier partie (11)
+#### Fichier partie (12)
 30. Donne une valeur + 1 de la tuile retournée (le okey) à la tuile joker rouge ou noire posséder par le joueur
 ```
 void valeur_okey(t_tuile * okey,t_tuile * joker);
