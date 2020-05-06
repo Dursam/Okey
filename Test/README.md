@@ -47,7 +47,7 @@ typedef struct s_element { t_tuile * tuile; struct s_element * suivant;} t_eleme
 typedef struct s_pile { t_element * premier ;} t_pile;
 ```
 
-### Les fonctions (41)
+### Les fonctions (47)
 #### Fichier init_structure (9)
 1. Initialise le jeu de 106 tuiles
 ```
@@ -198,7 +198,7 @@ void empile_enr_tuile(t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pile,i
 void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd);
 ```
 
-#### Fichier partie (12)
+#### Fichier partie (13)
 30. Donne une valeur + 1 de la tuile retournée (le okey) à la tuile joker rouge ou noire posséder par le joueur
 ```
 void valeur_okey(t_tuile * okey,t_tuile * joker);
@@ -229,32 +229,60 @@ int regle_combinaison(t_tuile * chevalet[N_CHEV],t_tuile * okey);
 int choix_tri(t_tuile * chevalet[N_CHEV]);
 ```
 
-36. Début de partie, réalise le premier tour complètement avec la tuile de démarrage et la tuile a retirée
+36. Réalise le premier tour d'un joueur
+```
+int tour_1_joueur(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur);
+```
+
+37. Début de partie, réalise le premier tour complètement avec la tuile de démarrage et la tuile a retirée
 ```
 void debut_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int dem);
 ```
 
-37. Annonce de l'issue de la partie un vainqueur ou non
+38. Annonce de l'issue de la partie un vainqueur ou non
 ```
 void issue_partie(int issue_joueur);
 ```
 
-38. Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche plateau
+39. Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche plateau
 ```
 void selection_tuile_v2(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd);
 ```
 
-39. Permet de vérifier si le jeu ne posséde plus aucune tuiles,return vrai (1) et faux (0)
+40. Permet de vérifier si le jeu ne posséde plus aucune tuiles,return vrai (1) et faux (0)
 ```
 int pioche_vide(t_tuile * jeu[N_T]);
 ```
 
-40. Permet de réaliser le tour d'un joueur
+41. Permet de réaliser le tour d'un joueur
 ```
 int tour_joueur(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_tuile * J1_p1[],t_tuile * J2_p2[],t_tuile * J3_p3[],t_tuile * J4_p4[],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int cpt_tour,int num_joueur);
 ```
 
-41. Permet le déroulement de la partie, après que le première joueur désigné commence
+42. Permet le déroulement de la partie, après que le première joueur désigné commence
 ```
 int partie_en_cours(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_tuile * J1_p1[],t_tuile * J2_p2[],t_tuile * J3_p3[],t_tuile * J4_p4[],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int num_joueur);
+```
+
+#### Fichier partie_IA (5)
+
+43. Retourne vrai si la tuile appartient à une combinaison, faux sinon
+```
+int nombre_combinaison_tuile(t_tuile * chevalet[N_CHEV],t_tuile * okey,int ind_tuile,int ind_dep);
+```
+44. L'IA retire une tuile de son chevalet
+```
+int IA_retire_tuile(t_tuile * chevalet[N_CHEV],t_tuile * okey);
+```
+45. Réalise le premier tour d'une IA
+```
+int tour_1_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur);
+```
+46. Débute le première tour de la partie en démarrant avec le joueur qui reçoit une 15 ème tuile
+```
+ int debut_partie_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur);
+```
+47. Permet le déroulement de la partie, après que le première joueur désigné commence
+```
+ int partie_en_cours_IA(t_tuile * jeu[N_T], t_tuile * joueur1[N_CHEV], t_tuile * joueur2[N_CHEV], t_tuile * joueur3[N_CHEV], t_tuile * joueur4[N_CHEV], t_tuile * J1_p1[], t_tuile * J2_p2[], t_tuile * J3_p3[], t_tuile * J4_p4[], t_pile * pile_J1, t_pile * pile_J2, t_pile * pile_J3, t_pile * pile_J4, t_tuile * okey, int num_joueur);
 ```

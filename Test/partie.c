@@ -224,6 +224,131 @@ int choix_tri(t_tuile * chevalet[N_CHEV]){
 }
 
 /**
+* \fn int tour_1_joueur(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur)
+* \brief Réalise le premier tour d'un joueur 
+* \param joueur1
+* \param joueur2
+* \param joueur3
+* \param joueur4
+* \param pile_J1
+* \param pile_J2
+* \param pile_J3
+* \param pile_J4
+* \param J1_p1
+* \param J2_p2
+* \param J3_p3
+* \param J4_p4
+* \param okey la tuile okey
+* \param num_joueur le numéro du joueur de 1 à 4
+*/
+extern
+int tour_1_joueur(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur){
+
+  /* Caractère pour faire une pause dans le programme */
+  char pause;
+
+  /* Détermine la tuile à enlever pour le joueur qui commence la partie en premier */
+  int num_tuile_dep;
+
+  /* Test si le chevalet du joueur est gagnant ou non */
+  int issue_partie = 0;
+
+  /* Détermine le choix de tri ou non */
+  int tri_choix;
+
+  /* Puis on retire une tuile du joueur qui commence la partie est on vérifie si son chevalet est gagnant ou non (Situation très rare) */
+  printf("\n\nCHOIX : RETIRER UN NUMERO DE TUILE (1 à 15) ? ");
+  scanf("%i",&num_tuile_dep);
+  printf("\n");
+
+  if(num_joueur == 1){
+    empile_enr_tuile(joueur1,J1_p1,pile_J1,N_CHEV,num_tuile_dep-1);
+    affiche_chevalet(joueur1,N_CHEV);
+    issue_partie = regle_combinaison(joueur1,okey);
+  }
+  else if(num_joueur == 2){
+    empile_enr_tuile(joueur2,J2_p2,pile_J2,N_CHEV,num_tuile_dep-1);
+    affiche_chevalet(joueur2,N_CHEV);
+    issue_partie = regle_combinaison(joueur2,okey);
+  }
+  else if(num_joueur == 3){
+    empile_enr_tuile(joueur3,J3_p3,pile_J3,N_CHEV,num_tuile_dep-1);
+    affiche_chevalet(joueur3,N_CHEV);
+    issue_partie = regle_combinaison(joueur3,okey);
+  }
+  else if(num_joueur == 4){
+    empile_enr_tuile(joueur4,J4_p4,pile_J4,N_CHEV,num_tuile_dep-1);
+    affiche_chevalet(joueur4,N_CHEV);
+    issue_partie = regle_combinaison(joueur4,okey);
+  }
+
+  if(issue_partie == 1){
+    printf("\nLe joueur %i a gagné la partie\n",num_joueur);
+    return num_joueur;
+  }
+
+  if(num_joueur == 1){
+    tri_choix = choix_tri(joueur1);
+    if(tri_choix == 2)
+      affiche_chevalet(joueur1,N_CHEV);
+      else if(tri_choix == 1){
+        do{
+          printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
+          scanf("%i",&tri_choix);
+          if(tri_choix == 1)
+            tri_manuel(joueur1);
+        } while(tri_choix == 1);
+      }
+  }
+  else if(num_joueur == 2){
+    tri_choix = choix_tri(joueur2);
+    if(tri_choix == 2)
+      affiche_chevalet(joueur2,N_CHEV);
+      else if(tri_choix == 1){
+        do{
+          printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
+          scanf("%i",&tri_choix);
+          if(tri_choix == 1)
+            tri_manuel(joueur2);
+        } while(tri_choix == 1);
+      }
+  }
+  else if(num_joueur == 3){
+    tri_choix = choix_tri(joueur3);
+    if(tri_choix == 2)
+      affiche_chevalet(joueur3,N_CHEV);
+      else if(tri_choix == 1){
+        do{
+          printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
+          scanf("%i",&tri_choix);
+          if(tri_choix == 1)
+            tri_manuel(joueur3);
+        } while(tri_choix == 1);
+      }
+  }
+  else if(num_joueur == 4){
+    tri_choix = choix_tri(joueur4);
+    if(tri_choix == 2)
+      affiche_chevalet(joueur4,N_CHEV);
+      else if(tri_choix == 1){
+        do{
+          printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
+          scanf("%i",&tri_choix);
+          if(tri_choix == 1)
+            tri_manuel(joueur4);
+        } while(tri_choix == 1);
+      }
+  }
+
+  printf("FIN DE TOUR\n");
+  pause = getchar();
+  while(getchar() != '\n');
+  system("clear");
+
+  return issue_partie;
+}
+
+/**
 * \fn int debut_partie(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur)
 * \brief Débute le première tour de la partie en démarrant avec le joueur qui reçoit une 15 ème tuile
 * \param joueur1
@@ -244,17 +369,8 @@ int choix_tri(t_tuile * chevalet[N_CHEV]){
 extern
 int debut_partie(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur){
 
-  /* Caractère pour faire une pause dans le programme */
-  char pause;
-
-  /* Détermine la tuile à enlever pour le joueur qui commence la partie en premier */
-  int num_tuile_dep;
-
   /* Test si le chevalet du joueur est gagnant ou non */
   int issue_partie = 0;
-
-  /* Détermine le choix de tri ou non */
-  int tri_choix;
 
   /* DEBUT DE PARTIE */
   printf("\n\nTour 1\n");
@@ -262,116 +378,21 @@ int debut_partie(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * j
   /* Determine le joueur qui va débuter la partie en premier */
   if(num_joueur == 1){
     premier_tour_partie(joueur1,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,1);
   }
   else if(num_joueur == 2){
     premier_tour_partie(joueur2,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,2);
   }
   else if(num_joueur == 3){
     premier_tour_partie(joueur3,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,3);
   }
   else if(num_joueur == 4){
     premier_tour_partie(joueur4,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,4);
   }
-
-  /* Puis on retire une tuile du joueur qui commence la partie est on vérifie si son chevalet est gagnant ou non (Situation très rare) */
-  printf("\n\nCHOIX : RETIRER UN NUMERO DE TUILE (1 à 15) ? ");
-  scanf("%i",&num_tuile_dep);
-  printf("\n");
-
-  if(num_joueur == 1){
-    empile_enr_tuile(joueur1,J1_p1,pile_J1,N_CHEV,num_tuile_dep-1);
-    affiche_chevalet(joueur1,N_CHEV);
-    issue_partie = regle_combinaison(joueur1,okey);
-    if(issue_partie == 1){
-      printf("\nLe joueur 1 a gagné la partie\n");
-      return 1;
-    }
-
-    tri_choix = choix_tri(joueur1);
-    if(tri_choix == 2)
-      affiche_chevalet(joueur1,N_CHEV);
-    else if(tri_choix == 1){
-      do{
-        printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
-        scanf("%i",&tri_choix);
-        if(tri_choix == 1)
-          tri_manuel(joueur1);
-      } while(tri_choix == 1);
-    }
-  }
-
-  else if(num_joueur == 2){
-    empile_enr_tuile(joueur2,J2_p2,pile_J2,N_CHEV,num_tuile_dep-1);
-    affiche_chevalet(joueur2,N_CHEV);
-    issue_partie = regle_combinaison(joueur2,okey);
-    if(issue_partie == 1){
-      printf("\nLe joueur 2 a gagné la partie\n");
-      return 2;
-    }
-
-    tri_choix = choix_tri(joueur2);
-    if(tri_choix == 2)
-      affiche_chevalet(joueur2,N_CHEV);
-    else if(tri_choix == 1){
-      do{
-        printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
-        scanf("%i",&tri_choix);
-        if(tri_choix == 1)
-          tri_manuel(joueur2);
-      } while(tri_choix == 1);
-    }
-  }
-
-  else if(num_joueur == 3){
-    empile_enr_tuile(joueur3,J3_p3,pile_J3,N_CHEV,num_tuile_dep-1);
-    affiche_chevalet(joueur3,N_CHEV);
-    issue_partie = regle_combinaison(joueur3,okey);
-    if(issue_partie == 1){
-      printf("\nLe joueur 3 a gagné la partie\n");
-      return 3;
-    }
-
-    tri_choix = choix_tri(joueur3);
-    if(tri_choix == 2)
-      affiche_chevalet(joueur3,N_CHEV);
-    else if(tri_choix == 1){
-      do{
-        printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
-        scanf("%i",&tri_choix);
-        if(tri_choix == 1)
-          tri_manuel(joueur3);
-      } while(tri_choix == 1);
-    }
-  }
-
-  else if(num_joueur == 4){
-    empile_enr_tuile(joueur4,J4_p4,pile_J4,N_CHEV,num_tuile_dep-1);
-    affiche_chevalet(joueur4,N_CHEV);
-    issue_partie = regle_combinaison(joueur4,okey);
-    if(issue_partie == 1){
-      printf("\nLe joueur 4 a gagné la partie\n");
-      return 4;
-    }
-
-    tri_choix = choix_tri(joueur4);
-    if(tri_choix == 2)
-      affiche_chevalet(joueur4,N_CHEV);
-    else if(tri_choix == 1){
-      do{
-        printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
-        scanf("%i",&tri_choix);
-        if(tri_choix == 1)
-          tri_manuel(joueur4);
-      } while(tri_choix == 1);
-    }
-  }
-
-  printf("FIN DE TOUR\n");
-  pause = getchar();
-  while(getchar() != '\n');
-  system("clear");
-
-  return 0;
+  return issue_partie;
 }
 
 /**
@@ -465,7 +486,6 @@ int pioche_vide(t_tuile * jeu[N_T]){
 
   return 1;
 }
-
 
 /**
 * \fn void tour_joueur(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_tuile * J1_p1[],t_tuile * J2_p2[],t_tuile * J3_p3[],t_tuile * J4_p4[],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int cpt_tour,int num_joueur)

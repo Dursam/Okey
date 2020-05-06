@@ -41,7 +41,7 @@ typedef struct s_element {
 
 /**
 * \struct s_pile
-* \brief Définition d'une pile de tuile 
+* \brief Définition d'une pile de tuile
 */
 typedef struct s_pile {
   t_element * premier ; /**< Premier élément de la pile */
@@ -49,7 +49,7 @@ typedef struct s_pile {
 
 /**
 * \def N_T
-* Nombre de tuiles du jeu 
+* Nombre de tuiles du jeu
 */
 #define N_T 106
 
@@ -67,13 +67,13 @@ typedef struct s_pile {
 
 /**
 * \def V_DEL
-* Valeur d'une tuile supprimée 
+* Valeur d'une tuile supprimée
 */
 #define V_DEL 100
 
 /**
 * \def NO_VALUE
-* Valeur tampon qui sert pour la fonction combinaison suite entier 
+* Valeur tampon qui sert pour la fonction combinaison suite entier
 */
 #define NO_VALUE 99
 

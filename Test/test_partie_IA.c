@@ -7,6 +7,7 @@
 #include <combinaison_suite_entiers.h>
 #include <selection_tuile.h>
 #include <partie.h>
+#include <partie_IA.h>
 
 int main(void){
 
@@ -25,7 +26,7 @@ int main(void){
   /* Détermine le numéro de joueur qui commence la partie */
   int num_joueur;
   /* Détermine lequel des joueurs est gagnant */
-  int joueur_gagnant;
+  //int joueur_gagnant;
   /* Test si l'un des chevalets est gagnant au premier tour 1 (Situation très exceptionnel) */
   int issue_partie_tour_1;
 
@@ -72,19 +73,19 @@ int main(void){
   num_joueur = demarrage(jeu,joueur1,joueur2,joueur3,joueur4);
 
   /* Déroulement du premier tour de la partie */
-  issue_partie_tour_1 = debut_partie(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,num_joueur);
+  issue_partie_tour_1 = debut_partie_IA(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,num_joueur);
 
-  if(issue_partie_tour_1 != 0)
+  if(issue_partie_tour_1 != 0){
     issue_partie(issue_partie_tour_1);
-  else{
-
-  /* Déroulement de la partie */
-  joueur_gagnant = partie_en_cours(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
-
-  /* Annonce de l'issue de la partie, un vainqueur ou non */
-  issue_partie(joueur_gagnant);
   }
-  
+
+/*
+   Déroulement de la partie
+  joueur_gagnant = partie_en_cours_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+
+   Annonce de l'issue de la partie, un vainqueur ou non
+  issue_partie(joueur_gagnant);
+*/
   /* Compteurs qui compte le nombre d'élément d'une pile de tuile */
   depiler_toutes_tuiles(pile_J1,pile_J2,pile_J3,pile_J4);
 

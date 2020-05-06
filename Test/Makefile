@@ -15,6 +15,7 @@ fich_obj_test_combinaison_suite_entiers = test_combinaison_suite_entiers.o combi
 fich_obj_test_affichage_tuile = test_affichage_tuile.o affichage_tuile.o init_pile.o init_structure.o
 fich_obj_test_selection_tuile = test_selection_tuile.o selection_tuile.o affichage_tuile.o init_pile.o init_structure.o
 fich_obj_test_partie = test_partie.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
+fich_obj_test_partie_IA = test_partie_IA.o partie_IA.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
 
 # Débogage
 
@@ -31,7 +32,7 @@ fich_obj_patch_combinaison_suite_entiers = patch_combinaison_suite_entiers.o com
 # EXECUTABLE ENLEVER : debogage_combinaison_suite_entiers
 # Ne pas oublier d'enlever le dièse si vous ajoutez un exécutable déjà enlever dans la partie suppression
 
-BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie patch_combinaison_suite_entiers
+BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie patch_combinaison_suite_entiers prog_partie_IA
 
 #
 # Executable
@@ -79,6 +80,12 @@ prog_partie : $(fich_obj_test_partie)
 test_partie.o : test_partie.c partie.h
 	$(CCOBJ) $(CFLAGS) test_partie.c -Wno-unused-but-set-variable -o test_partie.o -I ./
 
+prog_partie_IA : $(fich_obj_test_partie_IA)
+	$(CCLNK) $(CFLAGS) $(fich_obj_test_partie_IA) -o prog_partie_IA
+
+test_partie_IA.o : test_partie_IA.c partie_IA.h
+	$(CCOBJ) $(CFLAGS) test_partie_IA.c -Wno-unused-but-set-variable -o test_partie_IA.o -I ./
+
 #
 # Débogage
 #
@@ -104,7 +111,7 @@ patch_combinaison_suite_entiers.o : patch_combinaison_suite_entiers.c combinaiso
 # Module
 #
 
-OBJ = init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o partie.o
+OBJ = init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o partie.o partie_IA.o
 
 init_structure.o : init_structure.c init_structure.h
 	$(CCOBJ) $(CFLAGS) init_structure.c -o init_structure.o -I ./
@@ -127,6 +134,9 @@ selection_tuile.o : selection_tuile.c selection_tuile.h
 partie.o : partie.c partie.h
 		$(CCOBJ) $(CFLAGS) partie.c -Wno-unused-but-set-variable -o partie.o -I ./
 
+partie_IA.o : partie_IA.c partie_IA.h
+		$(CCOBJ) $(CFLAGS) partie_IA.c -Wno-unused-but-set-variable -o partie_IA.o -I ./
+
 all : $(BIN) $(OBJ)
 
 #
@@ -144,6 +154,7 @@ clean :
 	- rm prog_partie
 #	- rm debogage_combinaison_suite_entiers
 	- rm patch_combinaison_suite_entiers
+	- rm prog_partie_IA
 
 #
 #	Vérification
@@ -158,3 +169,4 @@ clean :
 # ./prog_partie
 # ./debogage_combinaison_suite_entiers
 # ./patch_combinaison_suite_entiers
+# ./prog_partie_IA
