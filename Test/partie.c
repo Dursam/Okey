@@ -225,7 +225,7 @@ int choix_tri(t_tuile * chevalet[N_CHEV]){
 
 /**
 * \fn int tour_1_joueur(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur)
-* \brief Réalise le premier tour d'un joueur 
+* \brief Réalise le premier tour d'un joueur
 * \param joueur1
 * \param joueur2
 * \param joueur3
@@ -263,21 +263,25 @@ int tour_1_joueur(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * 
 
   if(num_joueur == 1){
     empile_enr_tuile(joueur1,J1_p1,pile_J1,N_CHEV,num_tuile_dep-1);
+    affiche_plateau(okey,pile_J3,pile_J2,pile_J4,pile_J1);
     affiche_chevalet(joueur1,N_CHEV);
     issue_partie = regle_combinaison(joueur1,okey);
   }
   else if(num_joueur == 2){
     empile_enr_tuile(joueur2,J2_p2,pile_J2,N_CHEV,num_tuile_dep-1);
+    affiche_plateau(okey,pile_J4,pile_J3,pile_J1,pile_J2);
     affiche_chevalet(joueur2,N_CHEV);
     issue_partie = regle_combinaison(joueur2,okey);
   }
   else if(num_joueur == 3){
     empile_enr_tuile(joueur3,J3_p3,pile_J3,N_CHEV,num_tuile_dep-1);
+    affiche_plateau(okey,pile_J1,pile_J4,pile_J2,pile_J3);
     affiche_chevalet(joueur3,N_CHEV);
     issue_partie = regle_combinaison(joueur3,okey);
   }
   else if(num_joueur == 4){
     empile_enr_tuile(joueur4,J4_p4,pile_J4,N_CHEV,num_tuile_dep-1);
+    affiche_plateau(okey,pile_J2,pile_J1,pile_J3,pile_J4);
     affiche_chevalet(joueur4,N_CHEV);
     issue_partie = regle_combinaison(joueur4,okey);
   }

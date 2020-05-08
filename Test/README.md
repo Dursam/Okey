@@ -6,7 +6,7 @@
 # define N_T 106
 ```
 
-2. Nombre de tuile d'un chevalet
+2. Nombre de tuiles d'un chevalet
 ```
 #define N_CHEV 15
 ```
@@ -21,7 +21,7 @@
 #define V_DEL 100
 ```
 
-5. Valeur tampon qui sert pour la fonction combinaison suite entier
+5. Valeur tampon pour la vérification de combinaisons de tuiles
 ```
 #define NO_VALUE 99
 ```
@@ -47,7 +47,7 @@ typedef struct s_element { t_tuile * tuile; struct s_element * suivant;} t_eleme
 typedef struct s_pile { t_element * premier ;} t_pile;
 ```
 
-### Les fonctions (47)
+### Les fonctions (49)
 #### Fichier init_structure (9)
 1. Initialise le jeu de 106 tuiles
 ```
@@ -120,13 +120,13 @@ void depiler(t_pile * pile);
 void sommet_pile(t_pile * pile,t_tuile ** c);
 ```
 
-15. Compte le nombre d'élément d'une tuile
+15. Compte le nombre d'éléments d'une tuile
 ```
 int compte_element(t_pile * pile);
 ```
 
 #### Fichier affichage_tuile (5)
-16. Affichage des 14/15 tuiles du chevalet
+16. Affichage des 14/15 tuiles d'un chevalet
 ```
 void affiche_chevalet(t_tuile * jeu[],int taille);
 ```
@@ -152,7 +152,7 @@ void tri_rapide(t_tuile * chevalet[],int i,int j);
 ```
 
 #### Fichier combinaison_couleur (3)
-21. Vérifie les tuiles supprimer ou non
+21. Affichage des tuiles supprimées ou non
 ```
 void affiche_tuile(t_tuile * jeu[],int taille);
 ```
@@ -168,7 +168,7 @@ void combinaison_coul(t_tuile * chev[]);
 ```
 
 #### Fichier combinaison_suite (2)
-24. Détecte si dans le chevalet il y a 3 ou 4 fois la même tuile, signifie que le chevalet possède des jokers
+24. Détecte si dans le chevalet il y a 3 ou 4 fois la même tuile, signifie que le chevalet a de(s) joker(s)
 ```
 int detection_rep_joker(t_tuile * chev[]);
 ```
@@ -178,7 +178,7 @@ void combinaison_suite(t_tuile * chev[]);
 ```
 
 #### Fichier selection_tuile (4)
-26. Initialise un tableau de struture de tuile pour enregistrer les tuiles qui seront empilés
+26. Initialise un tableau de structure de tuile pour enregistrer les tuiles qui seront empilées
 ```
 void init_enr_tuile(t_tuile * enr[],int taille);
 ```
@@ -193,23 +193,23 @@ void test_enr_tuile(t_tuile * jeu[N_T],t_tuile * enr[],t_pile * pile,int taille)
 void empile_enr_tuile(t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pile,int taille,int numero);
 ```
 
-29. Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche_pile
+29. Sélectionne une tuile, soit de la pioche ou de la pile à gauche du joueur et retire une tuile du chevalet, version avec affiche_pile
 ```
 void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd);
 ```
 
 #### Fichier partie (13)
-30. Donne une valeur + 1 de la tuile retournée (le okey) à la tuile joker rouge ou noire posséder par le joueur
+30. Donne une valeur + 1 de la tuile retournée (le okey) à la tuile joker rouge ou noire possédé(s) par le joueur
 ```
 void valeur_okey(t_tuile * okey,t_tuile * joker);
 ```
 
-31. Affichage du sommet des piles de tout les joueurs
+31. Affichage du sommet des piles de tout les joueurs, ainsi que le okey et la pioche
 ```
 void affiche_plateau(t_tuile * okey,t_pile * p1,t_pile * p2,t_pile * p3,t_pile * p4);
 ```
 
-32. Commence le premier tour de la partie en fonction du joueur ayant reçu la tuile de demarrage
+32. Commence le premier tour de la partie en fonction du joueur ayant reçu la tuile de démarrage
 ```
 void premier_tour_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int dem);
 ```
@@ -219,7 +219,7 @@ void premier_tour_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pi
 void depiler_toutes_tuiles(t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4);
 ```
 
-34. Vérifie si le chevalet est gagnant (return 1, 0 pour contraire) en utilisant les combinaisons de couleurs et de suite d'entier
+34. Vérifie si le chevalet est gagnant en utilisant les combinaisons de couleurs et de suite d'entier
 ```
 int regle_combinaison(t_tuile * chevalet[N_CHEV],t_tuile * okey);
 ```
@@ -244,45 +244,59 @@ void debut_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t
 void issue_partie(int issue_joueur);
 ```
 
-39. Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche plateau
+39. Sélectionne une tuile, soit de la pioche ou de la pile à gauche du joueur et retire une tuile du chevalet, version avec affiche_plateau
 ```
 void selection_tuile_v2(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd);
 ```
 
-40. Permet de vérifier si le jeu ne posséde plus aucune tuiles,return vrai (1) et faux (0)
+40. Vérifie si le jeu ne possèdent plus aucune tuiles
 ```
 int pioche_vide(t_tuile * jeu[N_T]);
 ```
 
-41. Permet de réaliser le tour d'un joueur
+41. Réalise le tour d'un joueur
 ```
 int tour_joueur(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_tuile * J1_p1[],t_tuile * J2_p2[],t_tuile * J3_p3[],t_tuile * J4_p4[],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int cpt_tour,int num_joueur);
 ```
 
-42. Permet le déroulement de la partie, après que le première joueur désigné commence
+42. Déroule la partie, après que le première joueur désigné commence
 ```
 int partie_en_cours(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_tuile * J1_p1[],t_tuile * J2_p2[],t_tuile * J3_p3[],t_tuile * J4_p4[],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int num_joueur);
 ```
 
-#### Fichier partie_IA (5)
+#### Fichier partie_IA (7)
 
-43. Retourne vrai si la tuile appartient à une combinaison, faux sinon
+43. Vérifie si une tuile appartient à une combinaison
 ```
 int nombre_combinaison_tuile(t_tuile * chevalet[N_CHEV],t_tuile * okey,int ind_tuile,int ind_dep);
+
 ```
 44. L'IA retire une tuile de son chevalet
 ```
 int IA_retire_tuile(t_tuile * chevalet[N_CHEV],t_tuile * okey);
+
 ```
-45. Réalise le premier tour d'une IA
+45. L'IA ajoute une tuile à son chevalet soit en piochant ou soit en prenant la tuile de sa pile à gauche de l'IA
+```
+int IA_ajout_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * okey,t_pile * pile_tuile);
+
+```
+46. Réalise le premier tour d'une IA
 ```
 int tour_1_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur);
+
 ```
-46. Débute le première tour de la partie en démarrant avec le joueur qui reçoit une 15 ème tuile
+47. Débute le première tour de la partie en démarrant avec l'IA qui reçoit une 15 ème tuile
 ```
  int debut_partie_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur);
+
 ```
-47. Permet le déroulement de la partie, après que le première joueur désigné commence
+48. Réalise le tour d'une IA
+```
+int tour_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur);
+
+```
+49. Déroule la partie, après que le première joueur IA désigné commence
 ```
  int partie_en_cours_IA(t_tuile * jeu[N_T], t_tuile * joueur1[N_CHEV], t_tuile * joueur2[N_CHEV], t_tuile * joueur3[N_CHEV], t_tuile * joueur4[N_CHEV], t_tuile * J1_p1[], t_tuile * J2_p2[], t_tuile * J3_p3[], t_tuile * J4_p4[], t_pile * pile_J1, t_pile * pile_J2, t_pile * pile_J3, t_pile * pile_J4, t_tuile * okey, int num_joueur);
 ```
