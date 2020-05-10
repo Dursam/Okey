@@ -16,6 +16,7 @@ int afficher_menu(char menu[4][30], int taille);
 
 int detecter_mouvement(float*x, float*y);
 
+void afficher_regle(void);
 /**
 * \fn void tri_manuel(t_tuile * chevalet[N_CHEV]);
 * \brief Tri manuel d'un chevalet de tuiles

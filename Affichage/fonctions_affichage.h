@@ -12,3 +12,4 @@ void init_affichage();
 void fond_blanc();
 void faire_rendu();
 void quitter_affichage();
+void taille_terminal(int lon,int lar);

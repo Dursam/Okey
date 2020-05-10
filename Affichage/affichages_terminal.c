@@ -11,7 +11,31 @@
 #include <ncurses.h>
 #include <math.h>
 #include <unistd.h>
+#include <sys/ioctl.h>
 
+int taille_reduction(int entier){
+
+  int mod,res;
+  double div;
+
+  mod = entier % 2;
+  res = entier;
+
+  if(mod == 1)
+    res--;
+
+  div = res/2;
+  res = div;
+
+  return res;
+}
+
+void taille_terminal(int lon,int lar){
+  struct winsize win;
+  ioctl(STDOUT_FILENO, TIOCGWINSZ,&win);
+  lon = win.ws_col;
+  lar = win.ws_row;
+}
 
 void detecter_touches(int*running){
    char ch = wgetch(fenetre);
@@ -41,17 +65,35 @@ void menuServeur(char*ip){
 }
 
 int afficher_menu(char list[][30], int taille){
-	int ch, i = 0;
-  //int width = 30;
+
+	int ch,i = 0,lon,lar,blon,blar;
+  FILE * flon,* flar;
+  system("tput cols >> data_colonne.txt");
+  system("tput lines >> data_ligne.txt");
+  flon = fopen("data_colonne.txt","r");
+  fscanf(flon,"%i",&blon);
+  fclose(flon);
+  flar = fopen("data_ligne.txt","r");
+  fscanf(flar,"%i",&blar);
+  fclose(flar);
+  printf("La longueur est de %i\n",blon);
+  printf("La largueur est de %i\n",blar);
+  system("rm data_colonne.txt");
+  system("rm data_ligne.txt");
+
+  lon = taille_reduction(blon);                   // Permet de positionner les touches au centre de l'écran
+  lar = taille_reduction(blar);
+  printf("%i__%i\n",lar,lon);
+
   wclear(fenetre);
 	box( fenetre, 0, 0 ); //initialisation des bordures
 	//affichage des boutons
 	for( i=0; i<taille; i++ ) {
 			if( i == 0 )
-					wattron( fenetre, A_STANDOUT ); //on surligne le premier
+					wattron(fenetre, A_STANDOUT ); //on surligne le premier
 			else
-					wattroff( fenetre, A_STANDOUT );
-			mvwprintw( fenetre, i+12, 30, "%s", list[i] );
+					wattroff(fenetre, A_STANDOUT );
+			mvwprintw( fenetre,i+lar,lon, "%s", list[i] );
 	}
 	wrefresh( fenetre ); //mise à jour de l'écran
 	int running = 0;
@@ -61,7 +103,7 @@ int afficher_menu(char list[][30], int taille){
 
 	//détection de la touche
 	while(( ch = wgetch(fenetre)) != '\n'){
-					mvwprintw( fenetre, running+12, 30, "%s", list[running] );
+					mvwprintw( fenetre, running+lar,lon, "%s", list[running] );
 					switch( ch ) {
 							case KEY_UP:
 													running--;
@@ -73,11 +115,21 @@ int afficher_menu(char list[][30], int taille){
 													break;
 					}
 					wattron( fenetre, A_STANDOUT );
-					mvwprintw( fenetre, running+12, 30, "%s", list[running]);
+					mvwprintw( fenetre, running+lar,lon, "%s", list[running]);
 					wattroff( fenetre, A_STANDOUT );
 	}
 	return running;
 }
+
+/**
+ * \fn void afficher_regle(void)
+ * \brief Affiche les règles du jeu
+ */
+ void afficher_regle(void){
+   fond_blanc();
+   printf("Voici les règles blablablabla\n");
+   faire_rendu();
+ }
 
 /**
 * \fn void permuter(t_tuile * tab[N_CHEV], int i, int j)

@@ -89,6 +89,18 @@ void detecter_touches(int * running){
   SDL_Delay(5);
 }
 
+/**
+ * \fn void afficher_regle(void)
+ * \brief Affiche les règles du jeu
+ */
+void afficher_regle(void){
+  char * buff = malloc(sizeof(char)*256);
+  buff = "Voici les règles blablablabla";
+  fond_blanc();
+  drawText(525, 25, buff, 25, 12);
+  faire_rendu();
+  free(buff);
+}
 
 
 /**

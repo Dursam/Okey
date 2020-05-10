@@ -13,9 +13,10 @@
 #include <unistd.h>
 
 
-
 void drawText (int x, int y, char * z, int a, int b);
 void drawImage (int x, int y, char * z, int a, int b);
+
+
 
 /**
  * \fn void init_colorpairs()
@@ -133,17 +134,16 @@ void quitter_affichage(){
 void init_affichage(){
   initscr(); // initialize Ncurses
   sdl = 0;
-  fenetre = newwin( 24, 80, 0, 0 ); // création d'une fenêtre
+  taille_terminal(SCREEN_WIDTH,SCREEN_HEIGHT); // Récupère la taille de la fenetre du terminal
+  fenetre = newwin( SCREEN_HEIGHT, SCREEN_WIDTH, 0, 0 ); // création d'une fenêtre
   //initialisation des couleurs terminal
   if (has_colors() == FALSE) {
       endwin();
-      puts("Vottre terminal ne supporte pas les couleurs");
+      puts("Votre terminal ne supporte pas les couleurs");
       exit(1);
   }
   start_color();
   init_colorpairs();
-  SCREEN_WIDTH = 80;
-  SCREEN_HEIGHT = 24;
   SPRITE_W = 1;
 }
 

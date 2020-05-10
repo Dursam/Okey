@@ -125,42 +125,58 @@ void mode_local_4_joueurs(void){
 void showMenu(void){
 	//fond_blanc();
 	int running; //la variable qui gère le choix du menu
-	char list[][30] = { "Jouer en local", "Jouer en ligne","Charger scores", "Quitter" };
-	running = afficher_menu(list, 4);
+	//char pause;
+	char list[][30] = {"Jouer en local","Jouer en ligne","Règle du jeu","Quitter"};
+	running = afficher_menu(list,4);
 
-	if(running==0){
-		  char list2[][30] = { "Joueur contre IA", "Joueurs contre joueurs" };
-		  running = afficher_menu(list2, 2);
-			if(running == 1){
+	if(running==0){															// Jouer en local
+		  char list2[][30] = {"Joueur contre IA","Joueurs contre joueurs","Quitter"};
+		  running = afficher_menu(list2, 3);
+			if(running == 0){																				// Joueur contre IA
+				quitter_affichage();
+			}
+			else if(running == 1){																	// Joueurs contre joueurs
 				if(sdl ==0){
 					quitter_affichage();
 				}
 				mode_local_4_joueurs();
 			}
+			else {																									// Quitter
+				quitter_affichage();
+			}
 	}
-
-	else if(running==1){
-		int running =-1;
-		char list3[][30] = { "Héberger une partie", "Rejoindre une partie" };
+	else if(running==1){											  // Jouer en ligne
+		//int running =-1;
+		char list3[][30] = {"2 joueurs et 2 IA","Quitter"};
 		running = afficher_menu(list3, 2);
 
-		if(running == 0){
-			char list4[][30] = { "2 joueurs et 2 IA", "3 joueurs et 1 IA", "4 joeurs" };
-			running = afficher_menu(list4, 1);
+		if(running == 0){																					// 2 joueurs et 2 IA
+			char list4[][30] = {"Héberger une partie","Rejoindre une partie","Quitter"};
+			running = afficher_menu(list4, 3);
+			if(running == 0){											  																		// Héberger une partie
+				quitter_affichage();
+			}
+			else if(running == 1){											  															// Rejoindre une partie
+				quitter_affichage();
+			}
+			else {											  																							// Quitter
+				quitter_affichage();
+			}
 		}
-		else{
-			//rejoindre_partie
+		else{ 																										// Quitter
+			quitter_affichage();
 		}
-		//attendreConnection(running+1);
 	}
+	else if(running==2){												// Règle du jeu
+		afficher_regle();
+		//pause = getchar();
+		//while(getchar() != '\n');
+		sleep(10);
+		quitter_affichage();
 
-	else if(running==2){
-		//delete_player(&Personnage);
+	}
+	else {																	  	// Quitter
 		quitter_affichage();
 	}
-	else if(running==3){
-		//delete_player(&Personnage);
-		quitter_affichage();
-	}
-	quitter_affichage();
+	//quitter_affichage();
 }
