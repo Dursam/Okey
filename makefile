@@ -13,20 +13,19 @@ INIT_DIR=./Initialisation/
 REGLE_DIR=./Regle/
 JEU_DIR=./Jeu/
 RESEAU_DIR=./Reseau/
+SAV_DIR=./Sauvegarde/
 
 PARAM=${1}
 INCLUDE_SDL=-L${SDLLIB_DIR} -lSDL2 -lSDL2_ttf -lSDL2_image -I${SDLINC_DIR}
 INCLUDE_NCURSES=-lncurses
-INCLUDES=-I./ -lm -I${AFF_DIR} -I${MENU_DIR} -I${INIT_DIR} -I${REGLE_DIR} -I${JEU_DIR} -I${RESEAU_DIR}
+INCLUDES=-I./ -lm -I${AFF_DIR} -I${MENU_DIR} -I${INIT_DIR} -I${REGLE_DIR} -I${JEU_DIR} -I${RESEAU_DIR} -I${SAV_DIR}
 
 BIN_SDL=fonctions_sdl.o affichages_sdl.o
 BIN_TERMINAL=fonctions_terminal.o affichages_terminal.o
 #objets indépendants des fichiers d'affichage
-OBJ=init.o regle.o reseau.o
+OBJ=init.o regle.o reseau.o sav.o
 #objets dépendants des fichiers d'affichage
 OBJ_DEP_AFF=jeu.o menu.o main.o
-
-
 
 PROG=programme
 
@@ -56,7 +55,10 @@ init.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) $(INIT_DIR)init.c -o init.o
 regle.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) $(REGLE_DIR)regle.c -Wno-unused-but-set-variable -o regle.o
-
+reseau.o:
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${RESEAU_DIR}reseau.c -Wno-return-type -o reseau.o
+sav.o:
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${SAV_DIR}sav.c -o sav.o
 
 #Fichiers utilisants des fonctions d'affichage
 main.o:
@@ -65,8 +67,7 @@ menu.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${MENU_DIR}menu.c -o menu.o
 jeu.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${JEU_DIR}jeu.c -Wno-unused-but-set-variable -o jeu.o
-reseau.o:
-	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${RESEAU_DIR}reseau.c -Wno-return-type -o reseau.o
+
 
 
 clean:

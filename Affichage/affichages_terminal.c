@@ -76,14 +76,14 @@ int afficher_menu(char list[][30], int taille){
   flar = fopen("data_ligne.txt","r");
   fscanf(flar,"%i",&blar);
   fclose(flar);
-  printf("La longueur est de %i\n",blon);
-  printf("La largueur est de %i\n",blar);
+  //printf("La longueur est de %i\n",blon);
+  //printf("La largueur est de %i\n",blar);
   system("rm data_colonne.txt");
   system("rm data_ligne.txt");
 
   lon = taille_reduction(blon);                   // Permet de positionner les touches au centre de l'écran
   lar = taille_reduction(blar);
-  printf("%i__%i\n",lar,lon);
+  //printf("%i__%i\n",lar,lon);
 
   wclear(fenetre);
 	box( fenetre, 0, 0 ); //initialisation des bordures

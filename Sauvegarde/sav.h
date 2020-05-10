@@ -1,4 +1,4 @@
-#include "../definitions.h"
+#include <jeu.h>
 
 t_fichier * nom_fichier(void);
 

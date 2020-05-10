@@ -102,7 +102,6 @@ void afficher_regle(void){
   free(buff);
 }
 
-
 /**
 * \fn void permuter(t_tuile * tab[N_CHEV], int i, int j)
 * \brief Permute les indices de tuiles d'un chevalet
