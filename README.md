@@ -3,9 +3,9 @@
 Samuel DURAN (_Dursam_), Valentin GIROD (_Guarmanda_) et Taner CELIK (_tancel97_)
 
 ## Gestion de projet
-Voici la [vue micro](https://trello.com/b/gQjKANUW/projet-okey) (06/05/2020)
+Voici la [vue micro](https://trello.com/b/gQjKANUW/projet-okey) (10/05/2020)
 
-Voici le [diagramme de Gantt](https://onedrive.live.com/View.aspx?resid=98EC20023F1E6EC2!116&authkey=!ADXCvBvONsHHCVo) (02/05/2020)
+Voici le [diagramme de Gantt](https://onedrive.live.com/View.aspx?resid=98EC20023F1E6EC2!116&authkey=!ADXCvBvONsHHCVo) (10/05/2020)
 
 ## Le jeu
 - [x] Chevalet de 14/15 tuiles
@@ -20,17 +20,21 @@ Voici le [diagramme de Gantt](https://onedrive.live.com/View.aspx?resid=98EC2002
 
 - [x] Retourner une tuile et désigne le Okey
 
+- [x] Tour d'un joueur ou d'une IA
+
 - [x] Partie de jeu
 
-- [ ] Sauvegarde des scores
+- [x] Sauvegarde des scores
 
 ### Les règles
 
 - [x] Combinaison de 3 ou 4 couleurs différentes d'une même tuile
 
-- [x] Combinaison de 3 suites d'entiers ou plus
+- [x] Combinaison de 3 suites d'entiers ou plus de tuiles de même couleur
 
-- [ ] Système de points et scores
+- [x] Sens du jeu en fonction du joueur qui débute la partie en premier
+
+- [x] Système de points et scores
 
 ### L'interface graphique
 
@@ -42,7 +46,7 @@ Voici le [diagramme de Gantt](https://onedrive.live.com/View.aspx?resid=98EC2002
 
 - [x] Affichage d'une partie à 4 joueurs en local
 
-- [ ] Affichage du terminal et des scores
+- [x] Affichage du terminal et des scores
 
 - [ ] Affichage de la SDL et des scores
 
@@ -50,14 +54,16 @@ Voici le [diagramme de Gantt](https://onedrive.live.com/View.aspx?resid=98EC2002
 
 - [x] Préparation des sockets
 
-- [ ] Hébergement de partie
+- [x] Hébergement de partie
 
-- [ ] Connexion à une partie
+- [x] Connexion à une partie
 
 - [ ] Échange des données de jeu
 
 ### Jeu contre l'ordinateur
 
-- [ ] Choix logique à partir du chevalet
+- [x] Choix logique de l'IA à partir du chevalet
 
-- [ ] Choix logique à partir de tout le jeu
+### Idées et recherches
+
+- [ ] Choix logique de l'IA à partir de tout le jeu
