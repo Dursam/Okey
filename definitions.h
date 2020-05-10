@@ -45,6 +45,15 @@ typedef struct s_pile {
 } t_pile;
 
 /**
+* \struct s_fichier
+* \brief Définition d'un fichier
+*/
+typedef struct s_fichier {
+  FILE * fichier; /**< Le fichier */
+  char * nom; /**< Nom du fichier */
+} t_fichier;
+
+/**
 * \def N_T
 * Nombre de tuiles du jeu
 */
