@@ -16,6 +16,7 @@ fich_obj_test_affichage_tuile = test_affichage_tuile.o affichage_tuile.o init_pi
 fich_obj_test_selection_tuile = test_selection_tuile.o selection_tuile.o affichage_tuile.o init_pile.o init_structure.o
 fich_obj_test_partie = test_partie.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
 fich_obj_test_partie_IA = test_partie_IA.o partie_IA.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
+fich_obj_test_sauvegarde = test_sauvegarde.o sauvegarde.o
 
 # Débogage
 
@@ -32,7 +33,7 @@ fich_obj_patch_combinaison_suite_entiers = patch_combinaison_suite_entiers.o com
 # EXECUTABLE ENLEVER : debogage_combinaison_suite_entiers
 # Ne pas oublier d'enlever le dièse si vous ajoutez un exécutable déjà enlever dans la partie suppression
 
-BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie patch_combinaison_suite_entiers prog_partie_IA
+BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie patch_combinaison_suite_entiers prog_partie_IA prog_sauvegarde
 
 #
 # Executable
@@ -86,6 +87,12 @@ prog_partie_IA : $(fich_obj_test_partie_IA)
 test_partie_IA.o : test_partie_IA.c partie_IA.h
 	$(CCOBJ) $(CFLAGS) test_partie_IA.c -Wno-unused-but-set-variable -o test_partie_IA.o -I ./
 
+prog_sauvegarde : $(fich_obj_test_sauvegarde)
+	$(CCLNK) $(CFLAGS) $(fich_obj_test_sauvegarde) -o prog_sauvegarde
+
+test_sauvegarde.o : test_sauvegarde.c sauvegarde.h
+	$(CCOBJ) $(CFLAGS) test_sauvegarde.c -o test_sauvegarde.o -I ./
+
 #
 # Débogage
 #
@@ -137,6 +144,9 @@ partie.o : partie.c partie.h
 partie_IA.o : partie_IA.c partie_IA.h
 		$(CCOBJ) $(CFLAGS) partie_IA.c -Wno-unused-but-set-variable -o partie_IA.o -I ./
 
+sauvegarde.o : sauvegarde.c sauvegarde.h
+		$(CCOBJ) $(CFLAGS) sauvegarde.c -o sauvegarde.o -I ./
+
 all : $(BIN) $(OBJ)
 
 #
@@ -155,6 +165,8 @@ clean :
 #	- rm debogage_combinaison_suite_entiers
 	- rm patch_combinaison_suite_entiers
 	- rm prog_partie_IA
+	- rm prog_sauvegarde
+	- rm 2020*
 
 #
 #	Vérification
@@ -170,3 +182,4 @@ clean :
 # ./debogage_combinaison_suite_entiers
 # ./patch_combinaison_suite_entiers
 # ./prog_partie_IA
+# ./prog_sauvegarde
