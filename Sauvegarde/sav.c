@@ -1,5 +1,9 @@
 #include <sav.h>
 
+/**
+* \fn t_fichier * nom_fichier(void)
+* \brief Créer une sauvegarde pour une partie
+*/
 t_fichier * nom_fichier(void){
 
   t_fichier * fichier = malloc(sizeof(t_fichier));
@@ -15,6 +19,11 @@ t_fichier * nom_fichier(void){
   return fichier;
 }
 
+/**
+* \fn int numero_partie(t_fichier * fichier)
+* \brief Récupère le numéro de partie
+* \param fichier Un fichier et son nom
+*/
 int numero_partie(t_fichier * fichier){
 
   char buff;
@@ -28,6 +37,16 @@ int numero_partie(t_fichier * fichier){
   return num;
 }
 
+/**
+* \fn void ajout_score(t_fichier * fichier,int num_partie,int s_J1,int s_J2,int s_J3,int s_J4)
+* \brief Ajoute les scores des joueurs de la partie
+* \param fichier Un fichier et son nom
+* \param num_partie Numéro de la partie
+* \param  s_J1 Score du joueur 1
+* \param  s_J2 Score du joueur 2
+* \param  s_J3 Score du joueur 3
+* \param  s_J4 Score du joueur 4
+*/
 void ajout_score(t_fichier * fichier,int num_partie,int s_J1,int s_J2,int s_J3,int s_J4){
 
   fichier->fichier = fopen(fichier->nom,"a");
@@ -35,12 +54,24 @@ void ajout_score(t_fichier * fichier,int num_partie,int s_J1,int s_J2,int s_J3,i
   fclose(fichier->fichier);
 }
 
+/**
+* \fn void charger_partie(t_fichier * fichier)
+* \brief Charge une partie avec un fichier existant
+* \param fichier Un fichier et son nom
+*/
 void charger_partie(t_fichier * fichier){
 
   fichier->fichier = fopen(fichier->nom,"r");
   fclose(fichier->fichier);
 }
 
+/**
+* \fn int calcul_score(t_fichier * fichier,int num_partie,int num_joueur)
+* \brief Calcule le score d'un joueur à partir d'une sauvegarde de partie
+* \param fichier Un fichier et son nom
+* \param num_partie Numéro de la partie
+* \param num_joueur Numéro du joueur de 1 à 4
+*/
 int calcul_score(t_fichier * fichier,int num_partie,int num_joueur){
 
   char buff;
@@ -68,6 +99,12 @@ int calcul_score(t_fichier * fichier,int num_partie,int num_joueur){
   return score;
 }
 
+/**
+* \fn void afficher_scores(t_fichier * fichier,int num_partie)
+* \brief Affiche les scores des joueurs d'une partie
+* \param fichier Un fichier et son nom
+* \param num_partie Numéro de la partie
+*/
 void afficher_scores(t_fichier * fichier,int num_partie){
 
   int s_J1,s_J2,s_J3,s_J4;
@@ -78,4 +115,25 @@ void afficher_scores(t_fichier * fichier,int num_partie){
   s_J4 = calcul_score(fichier,num_partie,4);
 
   printf("\n--Consultation des scores des joueurs--\n\tJ1\tJ2\tJ3\tJ4\n\t%i\t%i\t%i\t%i",s_J1,s_J2,s_J3,s_J4);
+}
+
+/**
+* \fn void maj_sauvegarde(t_fichier * fichier,int num_partie,int num_joueur)
+* \brief Met à jour les scores d'une sauvegarde de partie
+* \param fichier Un fichier et son nom
+* \param num_partie Numéro de la partie
+* \param num_joueur Numéro du joueur, 0 si aucun gagnant
+*/
+void maj_sauvegarde(t_fichier * fichier,int num_partie,int num_joueur){
+
+	if(num_joueur == 0)
+		ajout_score(fichier,num_partie,0,0,0,0);
+	else if(num_joueur == 1)
+		ajout_score(fichier,num_partie,1,0,0,0);
+	else if(num_joueur == 2)
+		ajout_score(fichier,num_partie,0,1,0,0);
+	else if(num_joueur == 3)
+		ajout_score(fichier,num_partie,0,0,1,0);
+	else if(num_joueur == 4)
+		ajout_score(fichier,num_partie,0,0,0,1);
 }

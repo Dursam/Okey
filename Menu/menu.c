@@ -10,11 +10,12 @@
 
 #include <menu.h>
 
+
 /**
 * \fn void mode_4_joueurs(void)
 * \brief Lance le mode de jeu avec 4 joueurs en local
 */
-void mode_local_4_joueurs(void){
+int mode_local_4_joueurs(void){
 
 	/* Le jeu de 106 tuiles */
 	t_tuile * jeu[N_T];
@@ -80,8 +81,10 @@ void mode_local_4_joueurs(void){
 	/* Déroulement du premier tour de la partie */
 	issue_partie_tour_1 = debut_partie(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,num_joueur);
 
+	/* Situation extrêment rare: si le joueur gagne dès le premier tour */
 	if(issue_partie_tour_1 != 0){
 		issue_partie(issue_partie_tour_1);
+		return issue_partie_tour_1;
 	}
 
 	/* Déroulement de la partie */
@@ -116,6 +119,7 @@ void mode_local_4_joueurs(void){
 
 	detruire_tuile(copy_chevalet,taille_tuile(copy_chevalet,sizeof(copy_chevalet)));
 
+	return joueur_gagnant;
 }
 
 /**
@@ -125,7 +129,8 @@ void mode_local_4_joueurs(void){
 int showMenu(void){
 
 	int running, 				 // Gère le choix du menu
-	num_partie; 				 // Récupère le numéro de partie d'une sauvegarde
+	num_partie,					 // Récupère le numéro de partie d'une sauvegarde
+	num_joueur;					 // Le numéro du joueur de 1 à 4, 0 si pas de gagnant
 	char pause;					 // Utilisée pour la section règle
 	t_fichier * fichier; // Fichier qui gère la sauvegarde et les scores
 
@@ -167,7 +172,9 @@ int showMenu(void){
 				if(sdl ==0){
 					quitter_affichage();
 				}
-				mode_local_4_joueurs();
+				num_joueur = mode_local_4_joueurs();
+				maj_sauvegarde(fichier,num_partie,num_joueur);
+				afficher_scores(fichier,num_partie);
 			}
 			else {																	// Quitter
 				//quitter_affichage();
