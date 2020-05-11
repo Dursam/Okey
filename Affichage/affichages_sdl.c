@@ -380,3 +380,40 @@ void affiche_piles(t_tuile * okey, t_pile * pfg, t_pile * pfd, t_pile * pg, t_pi
   printf("\n\n");
 
 }
+
+/**
+* \fn void affiche_chevalet_IA(t_tuile * jeu[], int taille)
+* \brief Affichage des 14/15 tuiles cachés du chevalet d'une IA
+* \param jeu[] Chevalet
+* \param taille Taille du chevalet
+*/
+void affiche_chevalet_IA(t_tuile * jeu[],int taille){
+
+  int i;
+  printf("\033[1;32m\t\b\t1\t2\t3\t4\t5\t6\t7\t\033[00m");
+  printf("\n\t------------------------------------------------------\n");
+
+  for(i = 0;i < taille;i++){
+
+    if(i == 0)
+      printf("\t|");
+    if(i == 14 && jeu[14]->nbr != V_DEL)
+      printf("--------------->");
+
+    if(jeu[i]->nbr == V_DEL)                // Cas d'affichage où la tuile a été supprimée
+      printf("\t");
+    else{                                   // Cas d'affichage pour une tuile quelconque
+        printf("* \033[34;47m__\033[00m\t");
+        if(i == 6)
+          printf("\b\b\b|");
+        if(i == 13)
+          printf("\b\b\b|");
+    }
+    if(i == 6 && jeu[14]->nbr == V_DEL)
+      printf("\n\t|\t\t\t\t\t\t\t\b\b\b|\n\t|");
+    else if(i == 6 && jeu[14]->nbr != V_DEL)
+      printf("\n\t|\t\t\t\t\t\t\t\b\b\b| NOUVELLE TUILE \033[1;32m15\033[00m\n\t|");
+  }
+  printf("\n\t------------------------------------------------------\n");
+  printf("\033[1;32m\t\b\t8\t9\t10\t11\t12\t13\t14\n\033[00m");
+}

@@ -54,3 +54,9 @@ void affiche_sommet_pile(t_pile * pile);
 * \brief Affichage du sommet des piles de tout les joueurs, valeur du okey et une pioche
 */
 void affiche_piles(t_tuile * okey, t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd);
+
+/**
+* \fn void affiche_chevalet_IA(t_tuile * jeu[], int taille)
+* \brief Affichage des 14/15 tuiles cachés du chevalet d'une IA
+*/
+void affiche_chevalet_IA(t_tuile * jeu[],int taille);

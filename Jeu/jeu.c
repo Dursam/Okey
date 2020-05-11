@@ -29,7 +29,6 @@ void premier_tour_partie(t_tuile * chevalet[N_CHEV],t_pile * pile_J1,t_pile * pi
   else if(dem == 4){
     affiche_piles(okey,pile_J2,pile_J1,pile_J3,pile_J4);
   }
-  affiche_chevalet(chevalet,N_CHEV);
 }
 
 /**
@@ -203,18 +202,22 @@ int debut_partie(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * j
   /* Determine le joueur qui va débuter la partie en premier */
   if(num_joueur == 1){
     premier_tour_partie(joueur1,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    affiche_chevalet(joueur1,N_CHEV);
     issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,1);
   }
   else if(num_joueur == 2){
     premier_tour_partie(joueur2,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    affiche_chevalet(joueur2,N_CHEV);
     issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,2);
   }
   else if(num_joueur == 3){
     premier_tour_partie(joueur3,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    affiche_chevalet(joueur3,N_CHEV);
     issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,3);
   }
   else if(num_joueur == 4){
     premier_tour_partie(joueur4,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    affiche_chevalet(joueur4,N_CHEV);
     issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,4);
   }
   return issue_partie;
@@ -613,7 +616,7 @@ int tour_1_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joue
     printf("\n\nLe joueur %i (IA) a retiré la %i ème tuile \n\n",num_joueur,num_tuile_dep+1);
     sleep(3);
     affiche_piles(okey,pile_J3,pile_J2,pile_J4,pile_J1);
-    affiche_chevalet(joueur1,N_CHEV);
+    affiche_chevalet_IA(joueur1,N_CHEV);
   }
   else if(num_joueur == 2){
     num_tuile_dep = IA_retire_tuile(joueur2,okey);
@@ -623,7 +626,7 @@ int tour_1_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joue
     printf("\n\nLe joueur %i (IA) a retiré la %i ème tuile \n\n",num_joueur,num_tuile_dep+1);
     sleep(3);
     affiche_piles(okey,pile_J4,pile_J3,pile_J1,pile_J2);
-    affiche_chevalet(joueur2,N_CHEV);
+    affiche_chevalet_IA(joueur2,N_CHEV);
   }
   else if(num_joueur == 3){
     num_tuile_dep = IA_retire_tuile(joueur3,okey);
@@ -633,7 +636,7 @@ int tour_1_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joue
     printf("\n\nLe joueur %i (IA) a retiré la %i ème tuile \n\n",num_joueur,num_tuile_dep+1);
     sleep(3);
     affiche_piles(okey,pile_J1,pile_J4,pile_J2,pile_J3);
-    affiche_chevalet(joueur3,N_CHEV);
+    affiche_chevalet_IA(joueur3,N_CHEV);
   }
   else if(num_joueur == 4){
     num_tuile_dep = IA_retire_tuile(joueur4,okey);
@@ -643,7 +646,7 @@ int tour_1_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joue
     printf("\n\nLe joueur %i (IA) a retiré la %i ème tuile \n\n",num_joueur,num_tuile_dep+1);
     sleep(3);
     affiche_piles(okey,pile_J2,pile_J1,pile_J3,pile_J4);
-    affiche_chevalet(joueur4,N_CHEV);
+    affiche_chevalet_IA(joueur4,N_CHEV);
   }
 
   if(issue_partie == 1){
@@ -683,18 +686,22 @@ int debut_partie_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile 
   /* Determine le joueur qui va débuter la partie en premier */
   if(num_joueur == 1){
     premier_tour_partie(joueur1,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    affiche_chevalet(joueur1,N_CHEV);
     issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,1);
   }
   else if(num_joueur == 2){
     premier_tour_partie(joueur2,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    affiche_chevalet_IA(joueur2,N_CHEV);
     issue_partie = tour_1_IA(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,2);
   }
   else if(num_joueur == 3){
     premier_tour_partie(joueur3,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    affiche_chevalet_IA(joueur3,N_CHEV);
     issue_partie = tour_1_IA(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,3);
   }
   else if(num_joueur == 4){
     premier_tour_partie(joueur4,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    affiche_chevalet_IA(joueur4,N_CHEV);
     issue_partie = tour_1_IA(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,4);
   }
   sleep(2);
@@ -737,30 +744,30 @@ int tour_IA(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHE
   if(num_joueur == 1){
     tri_rapide(joueur1,0,13);
     affiche_piles(okey,pile_J3,pile_J2,pile_J4,pile_J1);
-    affiche_chevalet(joueur1,N_CHEV);
+    affiche_chevalet_IA(joueur1,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i .\n\n",num_joueur,cpt_tour);
     sleep(2);
     system("clear");
     printf("\nJoueur IA %i - Tour %i\n",num_joueur,cpt_tour);
     affiche_piles(okey,pile_J3,pile_J2,pile_J4,pile_J1);
-    affiche_chevalet(joueur1,N_CHEV);
+    affiche_chevalet_IA(joueur1,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i ..\n\n",num_joueur,cpt_tour);
     sleep(2);
     system("clear");
     printf("\nJoueur IA %i - Tour %i\n",num_joueur,cpt_tour);
     affiche_piles(okey,pile_J3,pile_J2,pile_J4,pile_J1);
-    affiche_chevalet(joueur1,N_CHEV);
+    affiche_chevalet_IA(joueur1,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i ...\n\n",num_joueur,cpt_tour);
     sleep(2);
     choix_ia = IA_ajout_tuile(jeu,joueur1,okey,pile_J4);
     choix_ia == 1 ? printf("\n\nLe joueur %i (IA) a pioché \n\n",num_joueur):printf("\n\nLe joueur %i (IA) a pris la tuile de la pile du Joueur 4 (IA)\n\n",num_joueur);
     affiche_piles(okey,pile_J3,pile_J2,pile_J4,pile_J1);
-    affiche_chevalet(joueur1,N_CHEV);
+    affiche_chevalet_IA(joueur1,N_CHEV);
     sleep(4);
     num_tuile_dep = IA_retire_tuile(joueur1,okey);
     empile_enr_tuile(joueur1,J1_p1,pile_J1,N_CHEV,num_tuile_dep);
     affiche_piles(okey,pile_J3,pile_J2,pile_J4,pile_J1);
-    affiche_chevalet(joueur1,N_CHEV);
+    affiche_chevalet_IA(joueur1,N_CHEV);
     printf("\n\nLe joueur %i (IA) a retiré la %i ème tuile \n\n",num_joueur,num_tuile_dep+1);
     issue_partie = regle_combinaison(joueur1,okey);
     if(issue_partie == 1)
@@ -770,30 +777,30 @@ int tour_IA(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHE
   else if(num_joueur == 2){
     tri_rapide(joueur2,0,13);
     affiche_piles(okey,pile_J4,pile_J3,pile_J1,pile_J2);
-    affiche_chevalet(joueur2,N_CHEV);
+    affiche_chevalet_IA(joueur2,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i .\n\n",num_joueur,cpt_tour);
     sleep(2);
     system("clear");
     printf("\nJoueur IA %i - Tour %i\n",num_joueur,cpt_tour);
     affiche_piles(okey,pile_J4,pile_J3,pile_J1,pile_J2);
-    affiche_chevalet(joueur2,N_CHEV);
+    affiche_chevalet_IA(joueur2,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i ..\n\n",num_joueur,cpt_tour);
     sleep(2);
     system("clear");
     printf("\nJoueur IA %i - Tour %i\n",num_joueur,cpt_tour);
     affiche_piles(okey,pile_J4,pile_J3,pile_J1,pile_J2);
-    affiche_chevalet(joueur2,N_CHEV);
+    affiche_chevalet_IA(joueur2,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i ...\n\n",num_joueur,cpt_tour);
     sleep(2);
     choix_ia = IA_ajout_tuile(jeu,joueur2,okey,pile_J1);
     choix_ia == 1 ? printf("\n\nLe joueur %i (IA) a pioché \n\n",num_joueur):printf("\n\nLe joueur %i (IA) a pris la tuile de la pile du Joueur 1 (IA)\n\n",num_joueur);
     affiche_piles(okey,pile_J4,pile_J3,pile_J1,pile_J2);
-    affiche_chevalet(joueur2,N_CHEV);
+    affiche_chevalet_IA(joueur2,N_CHEV);
     sleep(4);
     num_tuile_dep = IA_retire_tuile(joueur2,okey);
     empile_enr_tuile(joueur2,J2_p2,pile_J2,N_CHEV,num_tuile_dep);
     affiche_piles(okey,pile_J4,pile_J3,pile_J1,pile_J2);
-    affiche_chevalet(joueur2,N_CHEV);
+    affiche_chevalet_IA(joueur2,N_CHEV);
     printf("\n\nLe joueur %i (IA) a retiré la %i ème tuile \n\n",num_joueur,num_tuile_dep+1);
     issue_partie = regle_combinaison(joueur2,okey);
     if(issue_partie == 1)
@@ -803,30 +810,30 @@ int tour_IA(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHE
   else if(num_joueur == 3){
     tri_rapide(joueur3,0,13);
     affiche_piles(okey,pile_J1,pile_J4,pile_J2,pile_J3);
-    affiche_chevalet(joueur3,N_CHEV);
+    affiche_chevalet_IA(joueur3,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i .\n\n",num_joueur,cpt_tour);
     sleep(2);
     system("clear");
     printf("\nJoueur IA %i - Tour %i\n",num_joueur,cpt_tour);
     affiche_piles(okey,pile_J1,pile_J4,pile_J2,pile_J3);
-    affiche_chevalet(joueur3,N_CHEV);
+    affiche_chevalet_IA(joueur3,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i ..\n\n",num_joueur,cpt_tour);
     sleep(2);
     system("clear");
     printf("\nJoueur IA %i - Tour %i\n",num_joueur,cpt_tour);
     affiche_piles(okey,pile_J1,pile_J4,pile_J2,pile_J3);
-    affiche_chevalet(joueur3,N_CHEV);
+    affiche_chevalet_IA(joueur3,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i ...\n\n",num_joueur,cpt_tour);
     sleep(2);
     choix_ia = IA_ajout_tuile(jeu,joueur3,okey,pile_J2);
     choix_ia == 1 ? printf("\n\nLe joueur %i (IA) a pioché \n\n",num_joueur):printf("\n\nLe joueur %i (IA) a pris la tuile de la pile du Joueur 2 (IA)\n\n",num_joueur);
     affiche_piles(okey,pile_J1,pile_J4,pile_J2,pile_J3);
-    affiche_chevalet(joueur3,N_CHEV);
+    affiche_chevalet_IA(joueur3,N_CHEV);
     sleep(4);
     num_tuile_dep = IA_retire_tuile(joueur3,okey);
     empile_enr_tuile(joueur3,J3_p3,pile_J3,N_CHEV,num_tuile_dep);
     affiche_piles(okey,pile_J1,pile_J4,pile_J2,pile_J3);
-    affiche_chevalet(joueur3,N_CHEV);
+    affiche_chevalet_IA(joueur3,N_CHEV);
     printf("\n\nLe joueur %i (IA) a retiré la %i ème tuile \n\n",num_joueur,num_tuile_dep+1);
     issue_partie = regle_combinaison(joueur3,okey);
     if(issue_partie == 1)
@@ -836,30 +843,30 @@ int tour_IA(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHE
   else if(num_joueur == 4){
     tri_rapide(joueur4,0,13);
     affiche_piles(okey,pile_J2,pile_J1,pile_J3,pile_J4);
-    affiche_chevalet(joueur4,N_CHEV);
+    affiche_chevalet_IA(joueur4,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i .\n\n",num_joueur,cpt_tour);
     sleep(2);
     system("clear");
     printf("\nJoueur IA %i - Tour %i\n",num_joueur,cpt_tour);
     affiche_piles(okey,pile_J2,pile_J1,pile_J3,pile_J4);
-    affiche_chevalet(joueur4,N_CHEV);
+    affiche_chevalet_IA(joueur4,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i ..\n\n",num_joueur,cpt_tour);
     sleep(2);
     system("clear");
     printf("\nJoueur IA %i - Tour %i\n",num_joueur,cpt_tour);
     affiche_piles(okey,pile_J2,pile_J1,pile_J3,pile_J4);
-    affiche_chevalet(joueur4,N_CHEV);
+    affiche_chevalet_IA(joueur4,N_CHEV);
     printf("\n\nLe joueur %i (IA) joue le tour %i ...\n\n",num_joueur,cpt_tour);
     sleep(2);
     choix_ia = IA_ajout_tuile(jeu,joueur4,okey,pile_J3);
     choix_ia == 1 ? printf("\n\nLe joueur %i (IA) a pioché \n\n",num_joueur):printf("\n\nLe joueur %i (IA) a pris la tuile de la pile du Joueur 3 (IA)\n\n",num_joueur);
     affiche_piles(okey,pile_J2,pile_J1,pile_J3,pile_J4);
-    affiche_chevalet(joueur4,N_CHEV);
+    affiche_chevalet_IA(joueur4,N_CHEV);
     sleep(4);
     num_tuile_dep = IA_retire_tuile(joueur4,okey);
     empile_enr_tuile(joueur4,J4_p4,pile_J4,N_CHEV,num_tuile_dep);
     affiche_piles(okey,pile_J2,pile_J1,pile_J3,pile_J4);
-    affiche_chevalet(joueur4,N_CHEV);
+    affiche_chevalet_IA(joueur4,N_CHEV);
     printf("\n\nLe joueur %i (IA) a retiré la %i ème tuile \n\n",num_joueur,num_tuile_dep+1);
     issue_partie = regle_combinaison(joueur4,okey);
     if(issue_partie == 1)
