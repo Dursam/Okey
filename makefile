@@ -64,10 +64,9 @@ sav.o:
 main.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) main.c -o main.o
 menu.o:
-	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${MENU_DIR}menu.c -o menu.o
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${MENU_DIR}menu.c -Wno-unused-but-set-variable -o menu.o
 jeu.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${JEU_DIR}jeu.c -Wno-unused-but-set-variable -o jeu.o
-
 
 
 clean:

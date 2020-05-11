@@ -3,12 +3,12 @@
 t_fichier * nom_fichier(void){
 
   t_fichier * fichier = malloc(sizeof(t_fichier));
-  fichier->nom = malloc(sizeof(char)*20);
+  fichier->nom = malloc(sizeof(char)*30);
   __time_t intps;
   struct tm * temps;
   intps = time(NULL);
   temps = localtime(&intps);
-  sprintf(fichier->nom,"2020-%d-%d-%d-%d.txt",temps->tm_mon+1,temps->tm_mday,temps->tm_min,temps->tm_sec);
+  sprintf(fichier->nom,"Sauvegarde/2020-%d-%d-%d-%d.txt",temps->tm_mon+1,temps->tm_mday,temps->tm_min,temps->tm_sec);
   fichier->fichier = fopen(fichier->nom,"w");
   fprintf(fichier->fichier,"Score de la partie : %s\nNuméro\tJ1\tJ2\tJ3\tJ4\n1",fichier->nom);
   fclose(fichier->fichier);
@@ -37,18 +37,7 @@ void ajout_score(t_fichier * fichier,int num_partie,int s_J1,int s_J2,int s_J3,i
 
 void charger_partie(t_fichier * fichier){
 
-  char nom_fichier[256] = " ";
-
-  if(!(fopen(nom_fichier,"r"))){
-    do{
-  printf("\n");
-  system("ls | grep '2020-'");
-  printf("\nNom de la sauvegarde de partie : ");
-  scanf("%s",nom_fichier);
-  fichier->nom = nom_fichier;
   fichier->fichier = fopen(fichier->nom,"r");
-    }while(!(fopen(fichier->nom,"r")));
-  }
   fclose(fichier->fichier);
 }
 

@@ -121,6 +121,80 @@ int afficher_menu(char list[][30], int taille){
 	return running;
 }
 
+char * afficher_sauvegarde(int max_fichier){
+
+	char list_sav1[max_fichier][30],
+  * prefixe_sav = "Sauvegarde/",
+	* nom_sav = malloc(sizeof(char)*30);
+	int ch,i = 0,lon,lar,blon,blar,cpt_fichier = 0;
+  FILE * fichier;
+
+	system("tput cols >> data_colonne.txt");
+  fichier = fopen("data_colonne.txt","r");
+  fscanf(fichier,"%i",&blon);
+  fclose(fichier);
+	system("rm data_colonne.txt");
+
+	system("tput lines >> data_ligne.txt");
+  fichier = fopen("data_ligne.txt","r");
+  fscanf(fichier,"%i",&blar);
+  fclose(fichier);
+  system("rm data_ligne.txt");
+
+	system("ls Sauvegarde/ | grep '2020-' >> data_nbr_max_sav.txt");
+	fichier = fopen("data_nbr_max_sav.txt","r");
+	while(!feof(fichier)){
+		fscanf(fichier,"%s",list_sav1[cpt_fichier]);
+		cpt_fichier++;
+	}
+	fclose(fichier);
+	system("rm data_nbr_max_sav.txt");
+
+	lon = taille_reduction(blon);                   // Permet de positionner les touches au centre de l'écran
+  lar = taille_reduction(blar);
+
+  wclear(fenetre);
+	box(fenetre, 0, 0 ); //initialisation des bordures
+	//affichage des boutons
+	for( i=0; i<max_fichier; i++ ) {
+			if( i == 0 )
+					wattron(fenetre, A_STANDOUT ); //on surligne le premier
+			else
+					wattroff(fenetre, A_STANDOUT );
+			mvwprintw( fenetre,i+lar,lon, "%s", list_sav1[i] );
+	}
+	wrefresh( fenetre ); //mise à jour de l'écran
+	int running = 0;
+	noecho(); //désactivation de l'écho des caratères
+	keypad( fenetre, TRUE ); //on autorise à taper des trucs
+	curs_set( 0 ); //on cache le curseur du terminal
+
+	//détection de la touche
+	while(( ch = wgetch(fenetre)) != '\n'){
+					mvwprintw( fenetre, running+lar,lon, "%s", list_sav1[running] );
+					switch( ch ) {
+							case KEY_UP:
+													running--;
+													running = ( running<0 ) ? max_fichier-1 : running;
+													break;
+							case KEY_DOWN:
+													running++;
+													running = ( running>max_fichier-1 ) ? 0 : running;
+													break;
+					}
+					wattron( fenetre, A_STANDOUT );
+					mvwprintw( fenetre, running+lar,lon, "%s", list_sav1[running]);
+					wattroff( fenetre, A_STANDOUT );
+	}
+  strcpy(nom_sav,prefixe_sav);
+  strcat(nom_sav,list_sav1[running]);
+  /*fond_blanc();
+  printf("Le nom de sauvegarde est %s\n",nom_sav);
+  faire_rendu();
+  sleep(3);*/
+	return nom_sav;
+}
+
 /**
  * \fn void afficher_regle(void)
  * \brief Affiche les règles du jeu

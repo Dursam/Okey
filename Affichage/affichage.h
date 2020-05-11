@@ -14,6 +14,8 @@ void menuServeur(char*ip);
 
 int afficher_menu(char menu[4][30], int taille);
 
+char * afficher_sauvegarde(int max_fichier);
+
 int detecter_mouvement(float*x, float*y);
 
 void afficher_regle(void);

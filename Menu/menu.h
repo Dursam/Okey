@@ -5,7 +5,7 @@
  * \fn void showMenu(void)
  * \brief Gestion et affichage du menu principal
  */
-void showMenu(void);
+int showMenu(void);
 
 /**
 * \fn void mode_4_joueurs(void)

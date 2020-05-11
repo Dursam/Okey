@@ -122,27 +122,55 @@ void mode_local_4_joueurs(void){
  * \fn void showMenu(void)
  * \brief Gestion et affichage du menu principal
  */
-void showMenu(void){
-	//fond_blanc();
-	int running; //la variable qui gère le choix du menu
-	//char pause;
-	char list[][30] = {"Jouer en local","Jouer en ligne","Règle du jeu","Quitter"};
-	running = afficher_menu(list,4);
+int showMenu(void){
 
+	int running, 				 // Gère le choix du menu
+	num_partie; 				 // Récupère le numéro de partie d'une sauvegarde
+	char pause;					 // Utilisée pour la section règle
+	t_fichier * fichier; // Fichier qui gère la sauvegarde et les scores
+
+	char list0[][30] = {"Nouvelle Partie","Charger Partie","Quitter"};
+	running = afficher_menu(list0, 3);
+	if(running==0){															// Nouvelle Partie
+		fichier = nom_fichier();
+		num_partie = numero_partie(fichier);
+	}
+	else if(running==1){											  // Charger Partie
+
+		int nbr_max_sav;
+		FILE * sauvegarde;
+		system("ls Sauvegarde/ | grep '2020-' | wc -l >> data_nbr_max_sav.txt");
+		sauvegarde = fopen("data_nbr_max_sav.txt","r");
+		fscanf(sauvegarde,"%i",&nbr_max_sav);
+		fclose(sauvegarde);
+		system("rm data_nbr_max_sav.txt");
+		fichier = malloc(sizeof(t_fichier));
+		fichier->nom = afficher_sauvegarde(nbr_max_sav);
+		charger_partie(fichier);
+		num_partie = numero_partie(fichier);
+	}
+	else{																				// Quitter
+		quitter_affichage();
+		return 0;
+	}
+
+	num_partie++;
+	char list1[][30] = {"Jouer en local","Jouer en ligne","Règle du jeu","Quitter"};
+	running = afficher_menu(list1,4);
 	if(running==0){															// Jouer en local
 		  char list2[][30] = {"Joueur contre IA","Joueurs contre joueurs","Quitter"};
 		  running = afficher_menu(list2, 3);
-			if(running == 0){																				// Joueur contre IA
-				quitter_affichage();
+			if(running == 0){												// Joueur contre IA
+				//quitter_affichage();
 			}
-			else if(running == 1){																	// Joueurs contre joueurs
+			else if(running == 1){									// Joueurs contre joueurs
 				if(sdl ==0){
-					quitter_affichage();
+					//quitter_affichage();
 				}
 				mode_local_4_joueurs();
 			}
-			else {																									// Quitter
-				quitter_affichage();
+			else {																	// Quitter
+				//quitter_affichage();
 			}
 	}
 	else if(running==1){											  // Jouer en ligne
@@ -150,33 +178,35 @@ void showMenu(void){
 		char list3[][30] = {"2 joueurs et 2 IA","Quitter"};
 		running = afficher_menu(list3, 2);
 
-		if(running == 0){																					// 2 joueurs et 2 IA
+		if(running == 0){													// 2 joueurs et 2 IA
 			char list4[][30] = {"Héberger une partie","Rejoindre une partie","Quitter"};
 			running = afficher_menu(list4, 3);
-			if(running == 0){											  																		// Héberger une partie
-				quitter_affichage();
+			if(running == 0){											  // Héberger une partie
+				//quitter_affichage();
 			}
-			else if(running == 1){											  															// Rejoindre une partie
-				quitter_affichage();
+			else if(running == 1){									// Rejoindre une partie
+				//quitter_affichage();
 			}
-			else {											  																							// Quitter
-				quitter_affichage();
+			else {											  					// Quitter
+				//quitter_affichage();
 			}
 		}
-		else{ 																										// Quitter
-			quitter_affichage();
+		else{ 																		// Quitter
+			//quitter_affichage();
 		}
 	}
 	else if(running==2){												// Règle du jeu
 		afficher_regle();
-		//pause = getchar();
-		//while(getchar() != '\n');
-		sleep(10);
-		quitter_affichage();
-
+		pause = getchar();
+		while(getchar() == '\n');
+			//quitter_affichage();
+		//quitter_affichage();
 	}
 	else {																	  	// Quitter
-		quitter_affichage();
+		//quitter_affichage();
 	}
-	//quitter_affichage();
+	free(fichier->nom);
+	free(fichier);
+	quitter_affichage();
+	return 0;
 }
