@@ -36,7 +36,6 @@ void issue_partie(int issue_joueur);
                                   ,int cpt_tour,int num_joueur)
 * \brief Permet de réaliser le tour d'un joueur
 */
-extern
 int tour_joueur(t_tuile * jeu[N_T]
                                   ,t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV]
                                   ,t_tuile * J1_p1[],t_tuile * J2_p2[],t_tuile * J3_p3[],t_tuile * J4_p4[]
@@ -53,7 +52,6 @@ int tour_joueur(t_tuile * jeu[N_T]
                                   ,int num_joueur)
 * \brief Permet le déroulement de la partie, après que le première joueur désigné commence
 */
-extern
 int  partie_en_cours(t_tuile * jeu[N_T]
                                        ,t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV]
                                        ,t_tuile * J1_p1[],t_tuile * J2_p2[],t_tuile * J3_p3[],t_tuile * J4_p4[]

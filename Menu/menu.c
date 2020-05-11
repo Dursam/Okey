@@ -165,7 +165,7 @@ int showMenu(void){
 			}
 			else if(running == 1){									// Joueurs contre joueurs
 				if(sdl ==0){
-					//quitter_affichage();
+					quitter_affichage();
 				}
 				mode_local_4_joueurs();
 			}
