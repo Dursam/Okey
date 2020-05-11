@@ -631,45 +631,61 @@ int partie_en_cours(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueu
     if(num_joueur == 1){
       /* TOUR JOUEUR 2 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,2);
+      cpt_tour++;
       /* TOUR JOUEUR 3 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,3);
+      cpt_tour++;
       /* TOUR JOUEUR 4 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,4);
+      cpt_tour++;
       /* TOUR JOUEUR 1 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,1);
+      cpt_tour++;
     }
     /* Si le joueur 2 à commencé la partie au tour du joueur 3,4,1 et 2 */
     else if(num_joueur == 2){
       /* TOUR JOUEUR 3 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,3);
+      cpt_tour++;
       /* TOUR JOUEUR 4 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,4);
+      cpt_tour++;
       /* TOUR JOUEUR 1 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,1);
+      cpt_tour++;
       /* TOUR JOUEUR 2 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,2);
+      cpt_tour++;
     }
     /* Si le joueur 3 à commencé la partie au tour du joueur 4,1,2 et 3 */
     else if(num_joueur == 3){
       /* TOUR JOUEUR 4 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,4);
+      cpt_tour++;
       /* TOUR JOUEUR 1 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,1);
+      cpt_tour++;
       /* TOUR JOUEUR 2 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,2);
+      cpt_tour++;
       /* TOUR JOUEUR 3 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,3);
+      cpt_tour++;
     }
     /* Si le joueur 4 à commencé la partie au tour du joueur 1,2,3 et 4 */
     else if(num_joueur == 4){
       /* TOUR JOUEUR 1 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,1);
+      cpt_tour++;
       /* TOUR JOUEUR 2 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,2);
+      cpt_tour++;
       /* TOUR JOUEUR 3 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,3);
+      cpt_tour++;
       /* TOUR JOUEUR 4 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,4);
+      cpt_tour++;
     }
   }
   return 0;
