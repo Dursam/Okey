@@ -9,6 +9,69 @@
 #include <fonctions_affichage.h>
 #include <SDL2/SDL.h>
 
+
+char * afficher_sauvegarde(int max_fichier){
+	return " ";
+}
+
+
+/**
+* \fn void selection_tuile(t_tuile * jeu[N_T], t_tuile * chevalet[N_CHEV], t_tuile * enr[], t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd,t_tuile * okey)
+* \brief Permet de sélection une tuile soit de la pioche ou de la pile de gauche et retire une tuile du chevalet, version avec affiche_pile
+* \param jeu[N_T] Tableau contenant les tuiles
+* \param chevalet[N_CHEV] Chevalet du joueur
+* \param enr[] enregistrement temporaire des tuiles d'un chevalet
+* \param pfg pile fond gauche
+* \param pfd pile fond droit
+* \param pg  pile gauche
+* \param pd  pile droite
+* \param okey la tuile okey
+*/
+void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd,t_tuile * okey){
+
+  int numero,* choix = malloc(sizeof(int));
+
+
+
+  t_tuile * tuile_sommet;
+
+  affiche_piles(okey,pfg,pfd,pg,pd);
+  affiche_chevalet(chevalet,N_CHEV);
+
+  do{
+  printf("CHOIX : PIOCHE(0) OU PILE DE GAUCHE(1) ? ");
+  scanf("%i",choix);
+} while(*choix != 0 && *choix != 1);
+
+
+  if(*choix==0)
+    *chevalet[14] = distribution_pioche(jeu);
+
+  else{
+    sommet_pile(pg,&tuile_sommet);
+    chevalet[14]->nbr = tuile_sommet->nbr;
+    chevalet[14]->clr = tuile_sommet->clr;
+    depiler(pg);
+  }
+
+  affiche_piles(okey,pfg,pfd,pg,pd);
+  affiche_chevalet(chevalet,N_CHEV);
+
+  printf("CHOIX : RETIRER UN NUMERO DE TUILE (1 à 15) ? ");
+  scanf("%i",&numero);
+
+  empile_enr_tuile(chevalet,enr,pd,N_CHEV,numero-1);
+
+  affiche_piles(okey,pfg,pfd,pg,pd);
+  affiche_chevalet(chevalet,N_CHEV);
+
+  free(choix);
+
+  printf("FIN DE TOUR\n");
+  getchar();
+  while(getchar() != '\n');
+}
+
 /**
  * \fn int afficher_menu(char menu[4][30])
  * \brief Gère l'affichage du menu pricipal
@@ -67,26 +130,14 @@ void detecter_touches(int * running){
       case SDL_KEYDOWN:
       {
         const Uint8 *state = SDL_GetKeyboardState(NULL); //en sdl
-        //si c'est la touche d'inventaire
-        if(state[SDL_SCANCODE_I]){
-          //showInventory();
-        }
-        else if(state[SDL_SCANCODE_ESCAPE]){
+        if(state[SDL_SCANCODE_ESCAPE]){
           *running = 0;
         }
         break;
       }
-      case SDL_MOUSEBUTTONDOWN:
-      //quand on clique, si on clique au dessus du sélecteur, on va placer une case.
-      //Sinon, on regarde si on a cliqué dans une case du sélecteur.
-      {
-        int mouse_x, mouse_y;
-        SDL_GetMouseState(&mouse_x, &mouse_y);
-        break;
-      }
     }
   }
-  SDL_Delay(5);
+
 }
 
 /**
@@ -94,12 +145,15 @@ void detecter_touches(int * running){
  * \brief Affiche les règles du jeu
  */
 void afficher_regle(void){
-  char * buff = malloc(sizeof(char)*256);
-  buff = "Voici les règles blablablabla";
   fond_blanc();
-  drawText(525, 25, buff, 25, 12);
+  drawText(525, 25, "Voici les règles blablabla", 25, 12);
   faire_rendu();
-  free(buff);
+  int * running = malloc(sizeof(int));
+	*running = 1;
+	while(running){
+		detecter_touches(running);
+	}
+
 }
 
 /**

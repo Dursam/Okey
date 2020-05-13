@@ -54,7 +54,7 @@ affichages_terminal.o:
 init.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) $(INIT_DIR)init.c -o init.o
 regle.o:
-	$(CCOBJ) $(CFLAGS) $(INCLUDES) $(REGLE_DIR)regle.c -Wno-unused-but-set-variable -o regle.o
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) $(REGLE_DIR)regle.c -o regle.o
 reseau.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${RESEAU_DIR}reseau.c -Wno-return-type -o reseau.o
 sav.o:
@@ -64,7 +64,7 @@ sav.o:
 main.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) main.c -o main.o
 menu.o:
-	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${MENU_DIR}menu.c -Wno-unused-but-set-variable -o menu.o
+	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${MENU_DIR}menu.c -o menu.o
 jeu.o:
 	$(CCOBJ) $(CFLAGS) $(INCLUDES) ${JEU_DIR}jeu.c -Wno-unused-but-set-variable -o jeu.o
 

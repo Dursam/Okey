@@ -1,5 +1,7 @@
-#include <regle.h>
+#include <affichage.h>
+#include <fonctions_affichage.h>
 #include <reseau.h>
+
 
 /**
 * \fn void premier_tour_partie(t_tuile * chevalet[N_CHEV], t_pile * pile_J1, t_pile * pile_J2, t_pile * pile_J3, t_pile * pile_J4, t_tuile * okey, int dem)

@@ -241,11 +241,10 @@ int showMenu(void){
 	int running, 				 // Gère le choix du menu
 	num_partie,					 // Récupère le numéro de partie d'une sauvegarde
 	num_joueur;					 // Le numéro du joueur de 1 à 4, 0 si pas de gagnant
-	char pause;					 // Utilisée pour la section règle
 	t_fichier * fichier; // Fichier qui gère la sauvegarde et les scores
 
-	char list0[][30] = {"Nouvelle Partie","Charger Partie","Quitter"};
-	running = afficher_menu(list0, 3);
+	char list0[][30] = {"Nouvelle Partie","Charger Partie","Règle du jeu","Quitter"};
+	running = afficher_menu(list0, 4);
 	if(running==0){															// Nouvelle Partie
 		fichier = nom_fichier();
 		num_partie = numero_partie(fichier);
@@ -264,14 +263,22 @@ int showMenu(void){
 		charger_partie(fichier);
 		num_partie = numero_partie(fichier);
 	}
+	else if(running ==2){											// Règle du jeu
+			afficher_regle();
+			if(sdl ==0){
+				getchar();
+				while(getchar() == '\n');
+			}
+			return 1;
+	}
 	else{																				// Quitter
 		quitter_affichage();
 		return 0;
 	}
 
 	num_partie++;
-	char list1[][30] = {"Jouer en local","Jouer en ligne","Règle du jeu","Quitter"};
-	running = afficher_menu(list1,4);
+	char list1[][30] = {"Jouer en local","Jouer en ligne","Quitter"};
+	running = afficher_menu(list1,3);
 	if(running==0){															// Jouer en local
 		  char list2[][30] = {"Joueur contre IA","Joueurs contre joueurs","Quitter"};
 		  running = afficher_menu(list2, 3);
@@ -317,13 +324,7 @@ int showMenu(void){
 			//quitter_affichage();
 		}
 	}
-	else if(running==2){												// Règle du jeu
-		afficher_regle();
-		pause = getchar();
-		while(getchar() == '\n');
-			//quitter_affichage();
-		//quitter_affichage();
-	}
+
 	else {																	  	// Quitter
 		//quitter_affichage();
 	}

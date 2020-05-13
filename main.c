@@ -3,6 +3,6 @@
 int main(void){
 
 	init_affichage();
-	showMenu();
+	while (showMenu() ==1);
 	return 0;
 }
