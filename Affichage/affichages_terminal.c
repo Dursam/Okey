@@ -8,6 +8,7 @@
 
 #include <affichage.h>
 #include <fonctions_affichage.h>
+
 #include <ncurses.h>
 #include <math.h>
 #include <unistd.h>
@@ -30,7 +31,6 @@ void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr
 
   int numero,* choix = malloc(sizeof(int));
 
-  char pause;
 
   t_tuile * tuile_sommet;
 
@@ -67,7 +67,7 @@ void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr
   free(choix);
 
   printf("FIN DE TOUR\n");
-  pause = getchar();
+  getchar();
   while(getchar() != '\n');
 }
 
@@ -376,6 +376,39 @@ int choix_tri(t_tuile * chevalet[N_CHEV]){
   return res;
 }
 
+
+/**
+* \fn void affiche_chevalet(t_tuile * tuile)
+* \brief Affichage d'une tuile
+* \param tuile tuile
+*/
+void afficher_tuile(t_tuile * tuile){
+  if(tuile->nbr==13){                  // Cas d'affichage pour tuiles okey rouge et noire
+      if(tuile->clr==noire)
+        printf("OK\033[34;40m__\033[00m\t");
+      else if(tuile->clr==rouge)
+        printf("OK\033[34;41m__\033[00m\t");
+  }
+  else if(tuile->nbr < 9){
+    printf("%i ",(tuile->nbr)+1);
+    switch (tuile->clr){
+      case jaune: printf("\033[34;43m__\033[00m\t");break;
+      case rouge: printf("\033[34;41m__\033[00m\t");break;
+      case noire: printf("\033[34;40m__\033[00m\t");break;
+      case bleu:  printf("\033[34;44m__\033[00m\t");break;
+    }
+  }
+  else{                                // Cas d'affichage pour éviter d'espacer les nombres à 2 chiffres
+    printf("%i",(tuile->nbr)+1);
+    switch (tuile->clr){
+      case jaune: printf("\033[34;43m__\033[00m\t");break;
+      case rouge: printf("\033[34;41m__\033[00m\t");break;
+      case noire: printf("\033[34;40m__\033[00m\t");break;
+      case bleu:  printf("\033[34;44m__\033[00m\t");break;
+    }
+  }
+}
+
 /**
 * \fn void affiche_chevalet(t_tuile * jeu[], int taille)
 * \brief Affichage des 14/15 tuiles du chevalet
@@ -398,33 +431,9 @@ void affiche_chevalet(t_tuile * jeu[],int taille){
 
     if(jeu[i]->nbr == V_DEL)                // Cas d'affichage où la tuile a été supprimée
       printf("\t");
-    else{
-      if(jeu[i]->nbr==13){                  // Cas d'affichage pour tuiles okey rouge et noire
-          if(jeu[i]->clr==noire)
-            printf("OK\033[34;40m__\033[00m\t");
-          else if(jeu[i]->clr==rouge)
-            printf("OK\033[34;41m__\033[00m\t");
-      }
-      else{                                 // Cas d'affichage des tuiles de 1 à 13 des 4 couleurs différentes
-        if(jeu[i]->nbr < 9){
-          printf("%i ",(jeu[i]->nbr)+1);
-          switch (jeu[i]->clr){
-            case jaune: printf("\033[34;43m__\033[00m\t");break;
-            case rouge: printf("\033[34;41m__\033[00m\t");break;
-            case noire: printf("\033[34;40m__\033[00m\t");break;
-            case bleu:  printf("\033[34;44m__\033[00m\t");break;
-          }
-        }
-        else{                                // Cas d'affichage pour éviter d'espacer les nombres à 2 chiffres
-          printf("%i",(jeu[i]->nbr)+1);
-          switch (jeu[i]->clr){
-            case jaune: printf("\033[34;43m__\033[00m\t");break;
-            case rouge: printf("\033[34;41m__\033[00m\t");break;
-            case noire: printf("\033[34;40m__\033[00m\t");break;
-            case bleu:  printf("\033[34;44m__\033[00m\t");break;
-          }
-        }
-      }
+    else{                               // Cas d'affichage des tuiles de 1 à 13 des 4 couleurs différentes
+      afficher_tuile(jeu[i]);
+
       if(i == 6)
         printf("\b\b\b|");
       if(i == 13)
@@ -443,8 +452,9 @@ void affiche_chevalet(t_tuile * jeu[],int taille){
 * \fn void affiche_sommet_pile(t_pile * pile)
 * \brief ffichage du sommet d'une pile
 * \param pile Pile à afficher
+* \param nb_pile Numéro de la pile à afficher
 */
-void affiche_sommet_pile(t_pile * pile){
+void affiche_sommet_pile(t_pile * pile, int nb_pile){
 
   t_tuile * tuile;
 
@@ -453,26 +463,10 @@ void affiche_sommet_pile(t_pile * pile){
   else{
     sommet_pile(pile,&tuile);
 
-    if(tuile->nbr < 9){
-      printf("%i ",(tuile->nbr)+1);
-      switch (tuile->clr){
-        case jaune: printf("\033[34;43m__\033[00m\t");break;
-        case rouge: printf("\033[34;41m__\033[00m\t");break;
-        case noire: printf("\033[34;40m__\033[00m\t");break;
-        case bleu:  printf("\033[34;44m__\033[00m\t");break;
-      }
-    }
-    else{
-      printf("%i",(tuile->nbr)+1);
-      switch (tuile->clr){
-        case jaune: printf("\033[34;43m__\033[00m\t");break;
-        case rouge: printf("\033[34;41m__\033[00m\t");break;
-        case noire: printf("\033[34;40m__\033[00m\t");break;
-        case bleu:  printf("\033[34;44m__\033[00m\t");break;
-      }
-    }
+    afficher_tuile(pile->premier->tuile);
   }
 }
+
 
 /**
 * \fn void affiche_piles(t_tuile * okey, t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd)
@@ -487,40 +481,22 @@ void affiche_sommet_pile(t_pile * pile){
 void affiche_piles(t_tuile * okey, t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd){
 
   printf("\n\t");
-  affiche_sommet_pile(pfg);
+  affiche_sommet_pile(pfg,1);
   printf("\t\t\t\t\t");
-  affiche_sommet_pile(pfd);
+  affiche_sommet_pile(pfd,2);
 
   // Cas d'affichage pour éviter d'espacer les nombres à 2 chiffres
   printf("\n\t\t\t   OKEY\tPIOCHE\n\t\t\t   ");
 
-  if(okey->nbr < 9){
-    printf("%i ",(okey->nbr)+1);
-    switch (okey->clr){
-      case jaune: printf("\033[34;43m__\033[00m\t");break;
-      case rouge: printf("\033[34;41m__\033[00m\t");break;
-      case noire: printf("\033[34;40m__\033[00m\t");break;
-      case bleu:  printf("\033[34;44m__\033[00m\t");break;
-    }
-  }
-  else{
-    printf("%i",(okey->nbr)+1);
-    switch (okey->clr){
-      case jaune: printf("\033[34;43m__\033[00m\t");break;
-      case rouge: printf("\033[34;41m__\033[00m\t");break;
-      case noire: printf("\033[34;40m__\033[00m\t");break;
-      case bleu:  printf("\033[34;44m__\033[00m\t");break;
-    }
-  }
+  afficher_tuile(okey);
 
   printf("\033[34;47m__\033[00m  \033[34;47m__\033[00m\n\n\t");
-  affiche_sommet_pile(pg);
+  affiche_sommet_pile(pg,3);
   printf("\t\t\t\t\t");
-  affiche_sommet_pile(pd);
+  affiche_sommet_pile(pd,4);
   printf("\n\n");
 
 }
-
 /**
 * \fn void affiche_chevalet_IA(t_tuile * jeu[], int taille)
 * \brief Affichage des 14/15 tuiles cachés du chevalet d'une IA

@@ -308,8 +308,6 @@ void affiche_chevalet(t_tuile * jeu[],int taille){
 
   int i;
 
-  printf("\033[1;32m\t\b\t1\t2\t3\t4\t5\t6\t7\t\033[00m");
-  printf("\n\t------------------------------------------------------\n");
   int pixels = pourcent * 25;
   int hauteur = pourcentH * 73;
   drawImage( 0, 0, "chevalet.png", SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -328,9 +326,9 @@ void affiche_chevalet(t_tuile * jeu[],int taille){
     else{
       if(jeu[i]->nbr==13){                  // Cas d'affichage pour tuiles okey rouge et noire
           if(jeu[i]->clr==noire)
-            printf("OK\033[34;40m__\033[00m\t");
+            drawImage( pixels, hauteur, "TON.png", 60, 100);
           else if(jeu[i]->clr==rouge)
-            printf("OK\033[34;41m__\033[00m\t");
+            drawImage( pixels, hauteur, "TOR.png", 60, 100);
       }
       else{
         printf("%s\n", tuileVersImage(jeu[i]));                              // Cas d'affichage des tuiles de 1 à 13 des 4 couleurs différentes
@@ -348,8 +346,6 @@ void affiche_chevalet(t_tuile * jeu[],int taille){
     pixels += pourcent * 7;
   }
   faire_rendu();
-  printf("\n\t------------------------------------------------------\n");
-  printf("\033[1;32m\t\b\t8\t9\t10\t11\t12\t13\t14\n\033[00m");
 
 }
 
@@ -357,34 +353,39 @@ void affiche_chevalet(t_tuile * jeu[],int taille){
 * \fn void affiche_sommet_pile(t_pile * pile)
 * \brief ffichage du sommet d'une pile
 * \param pile Pile à afficher
+* \param nb_pile Numéro de la pile à afficher
 */
-void affiche_sommet_pile(t_pile * pile){
+void affiche_sommet_pile(t_pile * pile, int nb_pile){
 
   t_tuile * tuile;
-
+  float pourcent = (SCREEN_WIDTH/100);
+  float pourcentH = (SCREEN_HEIGHT/100);
+  int pixels;
+  int hauteur;
   if(pile_vide(pile))
     printf("* \033[34;47m__\033[00m\t");
   else{
     sommet_pile(pile,&tuile);
+    switch(nb_pile){
+      case 1:
+        pixels = pourcent * 25;
+        hauteur = pourcentH * 25;
+        break;
+      case 2:
+        pixels = pourcent * 75;
+        hauteur = pourcentH * 25;
+        break;
+      case 3:
+        pixels = pourcent * 25;
+        hauteur = pourcentH * 75;
+        break;
+      case 4:
+        pixels = pourcent * 75;
+        hauteur = pourcentH * 75;
+        break;
 
-    if(tuile->nbr < 9){
-      printf("%i ",(tuile->nbr)+1);
-      switch (tuile->clr){
-        case jaune: printf("\033[34;43m__\033[00m\t");break;
-        case rouge: printf("\033[34;41m__\033[00m\t");break;
-        case noire: printf("\033[34;40m__\033[00m\t");break;
-        case bleu:  printf("\033[34;44m__\033[00m\t");break;
-      }
     }
-    else{
-      printf("%i",(tuile->nbr)+1);
-      switch (tuile->clr){
-        case jaune: printf("\033[34;43m__\033[00m\t");break;
-        case rouge: printf("\033[34;41m__\033[00m\t");break;
-        case noire: printf("\033[34;40m__\033[00m\t");break;
-        case bleu:  printf("\033[34;44m__\033[00m\t");break;
-      }
-    }
+    drawImage( pixels, hauteur, tuileVersImage(tuile), 60, 100);
   }
 }
 
@@ -400,37 +401,19 @@ void affiche_sommet_pile(t_pile * pile){
 */
 void affiche_piles(t_tuile * okey, t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd){
 
-  printf("\n\t");
-  affiche_sommet_pile(pfg);
-  printf("\t\t\t\t\t");
-  affiche_sommet_pile(pfd);
+  affiche_sommet_pile(pfg, 1);
+  affiche_sommet_pile(pfd, 2);
 
   // Cas d'affichage pour éviter d'espacer les nombres à 2 chiffres
   printf("\n\t\t\t   OKEY\tPIOCHE\n\t\t\t   ");
-
-  if(okey->nbr < 9){
-    printf("%i ",(okey->nbr)+1);
-    switch (okey->clr){
-      case jaune: printf("\033[34;43m__\033[00m\t");break;
-      case rouge: printf("\033[34;41m__\033[00m\t");break;
-      case noire: printf("\033[34;40m__\033[00m\t");break;
-      case bleu:  printf("\033[34;44m__\033[00m\t");break;
-    }
-  }
-  else{
-    printf("%i",(okey->nbr)+1);
-    switch (okey->clr){
-      case jaune: printf("\033[34;43m__\033[00m\t");break;
-      case rouge: printf("\033[34;41m__\033[00m\t");break;
-      case noire: printf("\033[34;40m__\033[00m\t");break;
-      case bleu:  printf("\033[34;44m__\033[00m\t");break;
-    }
-  }
+  float pourcent = 50*(SCREEN_WIDTH/100);
+  float pourcentH = 50*(SCREEN_HEIGHT/100);
+  drawImage( pourcent, pourcentH, tuileVersImage(okey), 60, 100);
 
   printf("\033[34;47m__\033[00m  \033[34;47m__\033[00m\n\n\t");
-  affiche_sommet_pile(pg);
+  affiche_sommet_pile(pg, 3);
   printf("\t\t\t\t\t");
-  affiche_sommet_pile(pd);
+  affiche_sommet_pile(pd, 4);
   printf("\n\n");
 
 }

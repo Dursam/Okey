@@ -52,7 +52,7 @@ void affiche_chevalet(t_tuile * jeu[],int taille);
 * \fn void affiche_sommet_pile(t_pile * pile);
 * \brief Affichage du sommet d'une pile
 */
-void affiche_sommet_pile(t_pile * pile);
+void affiche_sommet_pile(t_pile * pile, int nb_pile );
 
 /**
 * \fn void affiche_plateau(t_tuile * okey, t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd)
