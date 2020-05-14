@@ -282,7 +282,8 @@ int showMenu(void){
 	if(running==0){															// Jouer en local
 		  char list2[][30] = {"Joueur contre IA","Joueurs contre joueurs","Quitter"};
 		  running = afficher_menu(list2, 3);
-			if(running == 0){												// Joueur contre IA
+			if(running == 0){
+				fond_blanc();										// Joueur contre IA
 				if(sdl ==0){
 					quitter_affichage();
 				}
@@ -290,7 +291,8 @@ int showMenu(void){
 				maj_sauvegarde(fichier,num_partie,num_joueur);
 				afficher_scores(fichier,num_partie);
 			}
-			else if(running == 1){									// Joueurs contre joueurs
+			else if(running == 1){
+				fond_blanc();									// Joueurs contre joueurs
 				if(sdl ==0){
 					quitter_affichage();
 				}

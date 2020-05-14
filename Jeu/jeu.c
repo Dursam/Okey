@@ -64,6 +64,7 @@ int pioche_vide(t_tuile * jeu[N_T]){
 * \param num_joueur le numéro du joueur de 1 à 4
 */
 int tour_1_joueur(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur){
+
   t_tuile ** joueur;
   t_pile * pile;
   t_tuile ** J_p;
@@ -106,7 +107,7 @@ int tour_1_joueur(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * 
   char pause;
 
   /* Détermine la tuile à enlever pour le joueur qui commence la partie en premier */
-  int num_tuile_dep;
+  int num_tuile_dep=0;
 
   /* Test si le chevalet du joueur est gagnant ou non */
   int issue_partie = 0;
@@ -115,9 +116,12 @@ int tour_1_joueur(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * 
   int tri_choix;
 
   /* Puis on retire une tuile du joueur qui commence la partie est on vérifie si son chevalet est gagnant ou non (Situation très rare) */
-  printf("\n\nCHOIX : RETIRER UN NUMERO DE TUILE (1 à 15) ? ");
-  scanf("%i",&num_tuile_dep);
-  printf("\n");
+  while(num_tuile_dep < 1 || num_tuile_dep >15){
+
+    num_tuile_dep = select_tuile(0);
+  }
+
+
 
   empile_enr_tuile(joueur,J_p,pile,N_CHEV,num_tuile_dep-1);
   affiche_piles(okey,order[0], order[1], order[2], order[3]);
@@ -130,24 +134,27 @@ int tour_1_joueur(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * 
     return num_joueur;
   }
 
-
   tri_choix = choix_tri(joueur);
   if(tri_choix == 2)
     affiche_chevalet(joueur,N_CHEV);
-    else if(tri_choix == 1){
-      do{
-        printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
-        scanf("%i",&tri_choix);
-        if(tri_choix == 1)
-          tri_manuel(joueur);
-      } while(tri_choix == 1);
-    }
+  else if(tri_choix == 1){
+    do{
+      printf("CHOIX : CONTINUER TRI MANUEL(1) OU ARRETER(0) ? ");
+      scanf("%i",&tri_choix);
+      if(tri_choix == 1)
+        tri_manuel(joueur);
+    } while(tri_choix == 1);
+  }
 
 
   printf("FIN DE TOUR\n");
-  pause = getchar();
-  while(getchar() != '\n');
-  system("clear");
+  if(!sdl){
+    pause = getchar();
+    while(getchar() != '\n');
+    system("clear");
+  }else{
+    sleep(2);
+  }
 
   return issue_partie;
 }
@@ -281,6 +288,7 @@ int tour_joueur(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N
   }
   /* TOUR JOUEUR 1 */
     selection_tuile(jeu,joueur,J_p,order[0],order[1],order[2],order[3],okey);
+
     issue_partie = regle_combinaison(joueur,okey);
     if(issue_partie == 1)
       return 1;
@@ -299,11 +307,13 @@ int tour_joueur(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N
 
 
 
-  cpt_tour++;
+
   printf("FIN DE RANGEMENT\n");
-  pause = getchar();
-  while(getchar() != '\n');
-  system("clear");
+  if(!sdl){
+    pause = getchar();
+    while(getchar() != '\n');
+    system("clear");
+  }
 
   return NO_VALUE;
 }
@@ -329,7 +339,7 @@ int tour_joueur(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N
 int partie_en_cours(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_tuile * J1_p1[],t_tuile * J2_p2[],t_tuile * J3_p3[],t_tuile * J4_p4[],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * okey,int num_joueur){
 
     int issue_partie = NO_VALUE;               // Test si le chevalet du joueur est gagnant ou non
-    int cpt_tour = 2;
+    int cpt_tour = 1;
 
     while(issue_partie == NO_VALUE){
     /* Si le joueur 1 à commencé la partie au tour du joueur 2,3,4 et 1 */
@@ -339,8 +349,9 @@ int partie_en_cours(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueu
           for(int i=0; i<4; i++){
             if(tour[i]>4) tour[i] = tour[i] - 4;
             issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,tour[i]);
-            cpt_tour++;
+
           }
+          cpt_tour++;
         }
       }
   }
@@ -606,10 +617,15 @@ int debut_partie_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile 
     joueur = joueur4;
   }
   /* Determine le joueur qui va débuter la partie en premier */
-
-  premier_tour_partie(joueur,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
-  affiche_chevalet(joueur,N_CHEV);
-  issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,num_joueur);
+  if(num_joueur == 1){
+    premier_tour_partie(joueur,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    affiche_chevalet(joueur,N_CHEV);
+    issue_partie = tour_1_joueur(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,num_joueur);
+  }else{
+    premier_tour_partie(joueur,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+    affiche_chevalet_IA(joueur,N_CHEV);
+    issue_partie = tour_1_IA(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,num_joueur);
+  }
   if(sdl == 0) sleep(2);
   printf("FIN DU TOUR 1\n");
   if(sdl == 0) sleep(6);
@@ -815,62 +831,66 @@ int partie_en_cours_IA(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * jo
     if(num_joueur == 1){
       /* TOUR JOUEUR 2 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,2);
-      cpt_tour++;
+
       /* TOUR JOUEUR 3 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,3);
-      cpt_tour++;
+
       /* TOUR JOUEUR 4 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,4);
-      cpt_tour++;
+
       /* TOUR JOUEUR 1 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,1);
-      cpt_tour++;
+
     }
+
     /* Si le joueur 2 à commencé la partie au tour du joueur 3,4,1 et 2 */
     else if(num_joueur == 2){
       /* TOUR JOUEUR 3 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,3);
-      cpt_tour++;
+
       /* TOUR JOUEUR 4 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,4);
-      cpt_tour++;
+
       /* TOUR JOUEUR 1 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,1);
-      cpt_tour++;
+
       /* TOUR JOUEUR 2 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,2);
-      cpt_tour++;
+
     }
+
     /* Si le joueur 3 à commencé la partie au tour du joueur 4,1,2 et 3 */
     else if(num_joueur == 3){
       /* TOUR JOUEUR 4 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,4);
-      cpt_tour++;
+
       /* TOUR JOUEUR 1 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,1);
-      cpt_tour++;
+
       /* TOUR JOUEUR 2 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,2);
-      cpt_tour++;
+
       /* TOUR JOUEUR 3 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,3);
-      cpt_tour++;
+
     }
+
     /* Si le joueur 4 à commencé la partie au tour du joueur 1,2,3 et 4 */
     else if(num_joueur == 4){
       /* TOUR JOUEUR 1 */
       issue_partie = tour_joueur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,1);
-      cpt_tour++;
+
       /* TOUR JOUEUR 2 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,2);
-      cpt_tour++;
+
       /* TOUR JOUEUR 3 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,3);
-      cpt_tour++;
+
       /* TOUR JOUEUR 4 */
       issue_partie = tour_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,cpt_tour,4);
-      cpt_tour++;
+
     }
+    cpt_tour++;
   }
   return 0;
 }

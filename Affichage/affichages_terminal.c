@@ -14,6 +14,14 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 
+int select_tuile(int AutoriserFinTour){
+  int num_tuile_dep;
+  printf("\n\nCHOIX : RETIRER UN NUMERO DE TUILE (1 à 15) ? ");
+  scanf("%i",&num_tuile_dep);
+  printf("\n");
+  return num_tuile_dep;
+}
+
 
 /**
 * \fn void selection_tuile(t_tuile * jeu[N_T], t_tuile * chevalet[N_CHEV], t_tuile * enr[], t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd,t_tuile * okey)

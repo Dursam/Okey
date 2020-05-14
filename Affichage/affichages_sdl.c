@@ -11,9 +11,213 @@
 
 
 char * afficher_sauvegarde(int max_fichier){
-	return " ";
+	float pourcent = (SCREEN_WIDTH/100.0);
+	float pourcentH = (SCREEN_HEIGHT/100.0);
+	fond_blanc();
+	drawText(25 * pourcent, 2*pourcentH, "Choisissez votre sauvegarde", 25, 12);
+
+		char list_sav1[max_fichier][30],
+	  * prefixe_sav = "Sauvegarde/",
+		* nom_sav = malloc(sizeof(char)*30);
+		int i = 0,blon,blar,cpt_fichier = 0;
+	  FILE * fichier;
+
+		system("tput cols >> data_colonne.txt");
+	  fichier = fopen("data_colonne.txt","r");
+	  fscanf(fichier,"%i",&blon);
+	  fclose(fichier);
+		system("rm data_colonne.txt");
+
+		system("tput lines >> data_ligne.txt");
+	  fichier = fopen("data_ligne.txt","r");
+	  fscanf(fichier,"%i",&blar);
+	  fclose(fichier);
+	  system("rm data_ligne.txt");
+
+		system("ls Sauvegarde/ | grep '2020-' >> data_nbr_max_sav.txt");
+		fichier = fopen("data_nbr_max_sav.txt","r");
+		while(!feof(fichier)){
+			fscanf(fichier,"%s",list_sav1[cpt_fichier]);
+			cpt_fichier++;
+		}
+		fclose(fichier);
+		system("rm data_nbr_max_sav.txt");
+		//affichage des boutons
+		int ecart = 2*pourcent;
+		int hauteur = 5*pourcentH;
+		for( i=0; i<max_fichier; i++ ) {
+				drawImage( ecart,hauteur, "button.png", 15*pourcent, 25 );
+				drawText( ecart+6,hauteur+3, list_sav1[i], 20, 10 );
+				ecart +=  16*pourcent;
+				if(ecart+16*pourcent > 100*pourcent){
+					ecart = 2*pourcent;
+					hauteur+= 2*pourcent;
+				}
+		}
+		faire_rendu();
+			SDL_Event e;
+		while(1) {
+			int mouse_x, mouse_y;
+			SDL_GetMouseState(&mouse_x, &mouse_y);
+				if (SDL_WaitEvent(&e) != 0) {
+					switch(e.type) {
+						case SDL_MOUSEBUTTONDOWN:
+						{
+							ecart = 2*pourcent;
+							hauteur = 5*pourcentH;
+							for( i=0; i<max_fichier; i++ ) {
+									if(mouse_x >= ecart && mouse_x <= ecart + 15*pourcent && mouse_y >= hauteur && mouse_y <= hauteur + 25){
+										strcpy(nom_sav,prefixe_sav);
+									  strcat(nom_sav,list_sav1[i]);
+										return nom_sav;
+									}
+									ecart +=  16*pourcent;
+									if(ecart+16*pourcent > 100*pourcent){
+										ecart = 2*pourcent;
+										hauteur+= 2*pourcent;
+									}
+							}
+						}
+					}
+				}
+		}
+		sleep(10);
+		return nom_sav;
 }
 
+char * tuileVersImage(t_tuile * t){
+  char*tuile;
+	if(t->nbr==13){                  // Cas d'affichage pour tuiles okey rouge et noire
+			if(t->clr==noire)
+				return "TON.png";
+			else if(t->clr==rouge)
+				return "TOR.png";
+	}
+   if(t->nbr >9){
+     tuile = malloc(sizeof(char)*9);
+   }else{
+     tuile = malloc(sizeof(char)*8);
+   }
+   tuile[0] = 'T';
+   switch (t->clr){
+     case jaune: tuile[1] = 'J';break;
+     case rouge: tuile[1] = 'R';break;
+     case noire: tuile[1] = 'N';break;
+     case bleu:  tuile[1] = 'B';break;
+  }
+  tuile[2] = '\0';
+  char nb[10];
+  sprintf(nb, "%d", t->nbr+1);
+  strncat(tuile, nb, strlen(nb));
+  strncat(tuile, ".png", 4);
+  return tuile;
+}
+
+/**
+* \fn void affiche_chevalet(t_tuile * jeu[], int taille)
+* \brief Affichage des 14/15 tuiles du chevalet
+* \param jeu[] Chevalet
+* \param taille Taille du chevalet
+*/
+void affiche_chevalet_sans_rendu(t_tuile * jeu[],int taille){
+  float pourcent = (SCREEN_WIDTH/100.0);
+  float pourcentH = (SCREEN_HEIGHT/100.0);
+
+  int i;
+
+  int pixels = pourcent * 25;
+  int hauteur = pourcentH * 66;
+  drawImage( 0, 0, "chevalet.png", SCREEN_WIDTH, SCREEN_HEIGHT);
+  for(i = 0;i < taille;i++){
+    if (i==7){
+      hauteur = pourcentH *82;
+      pixels = pourcent * 25;
+    }
+    if(!(jeu[i]->nbr == V_DEL)){                             // Cas d'affichage des tuiles de 1 à 13 des 4 couleurs différentes
+      drawImage( pixels, hauteur, tuileVersImage(jeu[i]), 60, 100);
+
+    }
+		pixels += pourcent * 7;
+
+  }
+
+
+}
+
+int select_tuile_to_replace(char * tuileDansMains, t_tuile * chevalet[N_CHEV]){
+	SDL_Event e;
+	int running = -1;
+  while(running==-1  || running >=N_CHEV) {
+		int mouse_x, mouse_y;
+		SDL_GetMouseState(&mouse_x, &mouse_y);
+		affiche_chevalet_sans_rendu(chevalet, N_CHEV);
+		drawImage( mouse_x - 30, mouse_y - 50, tuileDansMains, 60, 100);
+		faire_rendu();
+      if (SDL_WaitEvent(&e) != 0) {
+        switch(e.type) {
+          case SDL_MOUSEBUTTONDOWN:
+          {
+
+						float pourcent = (SCREEN_WIDTH/100.0);
+					  float pourcentH = (SCREEN_HEIGHT/100.0);
+
+					  int i;
+					  int pixels = pourcent * 25;
+					  int hauteur = pourcentH * 66;
+					  for(i = 0;i < N_CHEV;i++){
+					    if (i==7){
+					      hauteur = pourcentH *82;
+					      pixels = pourcent * 25;
+					    }
+							if(mouse_x >= pixels && mouse_x <= pixels + 60 && mouse_y >= hauteur && mouse_y <= hauteur + 100){
+								running = i+1;
+							}
+							pixels += pourcent *7;
+					}
+				}
+				break;
+			}
+		}
+	}
+	return running;
+}
+
+int select_tuile(int AutoriserFinTour){
+	float pourcent = (SCREEN_WIDTH/100.0);
+	float pourcentH = (SCREEN_HEIGHT/100.0);
+
+	int mouse_x, mouse_y;
+	SDL_Event e;
+	int running = -1;
+  while(running==-1  || running >=N_CHEV) {
+      if (SDL_WaitEvent(&e) != 0) {
+        switch(e.type) {
+          case SDL_MOUSEBUTTONDOWN:
+          {
+
+            SDL_GetMouseState(&mouse_x, &mouse_y);
+						if(AutoriserFinTour>0 && mouse_x >=pourcent *83 && mouse_x <=pourcent *99 && mouse_y >= pourcentH * 82 && mouse_y <= pourcentH * 91.5 ){
+							return 100;
+						}
+					  int pixels = pourcent * 25;
+					  int hauteur = pourcentH * 66;
+					  for(int i = 0;i < N_CHEV;i++){
+					    if (i==7){
+					      hauteur = pourcentH *82;
+					      pixels = pourcent * 25;
+					    }
+							if(mouse_x >= pixels && mouse_x <= pixels + 60 && mouse_y >= hauteur && mouse_y <= hauteur + 100){
+								running = i+1;
+							}
+							pixels += pourcent *7;
+					}
+				}
+				break;
+			}
+		}
+	}
+	return running;
+}
 
 /**
 * \fn void selection_tuile(t_tuile * jeu[N_T], t_tuile * chevalet[N_CHEV], t_tuile * enr[], t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd,t_tuile * okey)
@@ -29,19 +233,34 @@ char * afficher_sauvegarde(int max_fichier){
 */
 void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr[],t_pile * pfg,t_pile * pfd,t_pile * pg,t_pile * pd,t_tuile * okey){
 
-  int numero,* choix = malloc(sizeof(int));
-
-
-
+  int numero=0,* choix = malloc(sizeof(int));
   t_tuile * tuile_sommet;
 
   affiche_piles(okey,pfg,pfd,pg,pd);
   affiche_chevalet(chevalet,N_CHEV);
 
-  do{
-  printf("CHOIX : PIOCHE(0) OU PILE DE GAUCHE(1) ? ");
-  scanf("%i",choix);
-} while(*choix != 0 && *choix != 1);
+	float pourcent = (SCREEN_WIDTH/100.0);
+	float pourcentH = (SCREEN_HEIGHT/100.0);
+
+	int mouse_x, mouse_y;
+	SDL_Event e;
+
+	while(*choix != 0 && *choix != 1) {
+			if (SDL_WaitEvent(&e) != 0) {
+				switch(e.type) {
+					case SDL_MOUSEBUTTONDOWN:
+					{
+
+						SDL_GetMouseState(&mouse_x, &mouse_y);
+						if( mouse_x >= pourcent * 27.5 && mouse_x <= pourcent * 27.5+60 && mouse_y >= pourcentH * 36.7 && mouse_y <= pourcentH * 36.7+100 ){
+							*choix = 1;
+						}else if( mouse_x >= pourcent * 51 && mouse_x <= pourcent * 51+60 && mouse_y >= pourcentH * 22 && mouse_y <= pourcentH * 22+100 ){
+							*choix = 0;
+						}
+					}
+				}
+			}
+	}
 
 
   if(*choix==0)
@@ -57,19 +276,15 @@ void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr
   affiche_piles(okey,pfg,pfd,pg,pd);
   affiche_chevalet(chevalet,N_CHEV);
 
-  printf("CHOIX : RETIRER UN NUMERO DE TUILE (1 à 15) ? ");
-  scanf("%i",&numero);
+	while(numero < 1 || numero > 15){
+	  numero = select_tuile(0);
+	}
 
   empile_enr_tuile(chevalet,enr,pd,N_CHEV,numero-1);
 
   affiche_piles(okey,pfg,pfd,pg,pd);
   affiche_chevalet(chevalet,N_CHEV);
-
   free(choix);
-
-  printf("FIN DE TOUR\n");
-  getchar();
-  while(getchar() != '\n');
 }
 
 /**
@@ -135,6 +350,8 @@ void detecter_touches(int * running){
         }
         break;
       }
+			case SDL_MOUSEBUTTONDOWN:
+				break;
     }
   }
 
@@ -237,6 +454,8 @@ void tri_rapide(t_tuile * chevalet[], int i, int j) {
     }
 }
 
+
+
 /**
 * \fn int choix_tri(t_tuile * chevalet[N_CHEV])
 * \brief Laisse le choix au joueur de pouvoir faire un tri rapide, un tri manuel ou un pas de tri
@@ -244,54 +463,19 @@ void tri_rapide(t_tuile * chevalet[], int i, int j) {
 */
 int choix_tri(t_tuile * chevalet[N_CHEV]){
 
-  int * choix = malloc(sizeof(int)),res;
+	while(1){
 
-  do{
-  printf("CHOIX : TRI RAPIDE(2) OU TRI MANUEL(1) OU ANNULER(0) ? ");
-  scanf("%i",choix);
-  }while(*choix != 0 && *choix != 1 && *choix != 2);
+		int tuile1 = select_tuile(1)-1;
+		if(tuile1 == 99){
+			return 0;
+		}
+		int tuile2 = select_tuile_to_replace(tuileVersImage(chevalet[tuile1]), chevalet)-1;
+		t_tuile * tuile = chevalet[tuile1];
+		chevalet[tuile1] = chevalet[tuile2];
+		chevalet[tuile2] = tuile;
+		affiche_chevalet(chevalet, N_CHEV);
+	}
 
-  if(*choix == 2){
-    tri_rapide(chevalet,0,13);
-    res = 2;
-  }
-
-  else if(*choix == 1){
-    tri_manuel(chevalet);
-    res = 1;
-  }
-
-  else if(*choix == 0)
-    res = 0;
-
-  free(choix);
-
-  return res;
-}
-
-char * tuileVersImage(t_tuile * t){
-  char*tuile;
-   if(t->nbr >9){
-     tuile = malloc(sizeof(char)*9);
-   }else{
-     tuile = malloc(sizeof(char)*8);
-   }
-   tuile[0] = 'T';
-   switch (t->clr){
-     case jaune: tuile[1] = 'J';break;
-     case rouge: tuile[1] = 'R';break;
-     case noire: tuile[1] = 'N';break;
-     case bleu:  tuile[1] = 'B';break;
-  }
-  tuile[2] = '\0';
-  char nb[10];
-  printf("\nnumero1: %d\n", t->nbr+1);
-  sprintf(nb, "%d", t->nbr+1);
-  printf("\nnumero2: %s\n", nb);
-  strncat(tuile, nb, strlen(nb));
-  strncat(tuile, ".png", 4);
-  printf("tuile: %s\n", tuile);
-  return tuile;
 }
 
 
@@ -302,52 +486,31 @@ char * tuileVersImage(t_tuile * t){
 * \param taille Taille du chevalet
 */
 void affiche_chevalet(t_tuile * jeu[],int taille){
-  fond_blanc();
-  float pourcent = (SCREEN_WIDTH/100);
-  float pourcentH = (SCREEN_HEIGHT/100);
+  float pourcent = (SCREEN_WIDTH/100.0);
+  float pourcentH = (SCREEN_HEIGHT/100.0);
 
   int i;
 
   int pixels = pourcent * 25;
-  int hauteur = pourcentH * 73;
+  int hauteur = pourcentH * 66;
   drawImage( 0, 0, "chevalet.png", SCREEN_WIDTH, SCREEN_HEIGHT);
   for(i = 0;i < taille;i++){
     if (i==7){
-      hauteur = pourcentH *90;
+      hauteur = pourcentH *82;
       pixels = pourcent * 25;
     }
-    if(i == 0)
-      printf("\t|");
-    if(i == 14 && jeu[14]->nbr != V_DEL)
-      printf("--------------->");
+    if(!(jeu[i]->nbr == V_DEL)){                           // Cas d'affichage des tuiles de 1 à 13 des 4 couleurs différentes
+      drawImage( pixels, hauteur, tuileVersImage(jeu[i]), 60, 100);
 
-    if(jeu[i]->nbr == V_DEL)                // Cas d'affichage où la tuile a été supprimée
-      printf("\t");
-    else{
-      if(jeu[i]->nbr==13){                  // Cas d'affichage pour tuiles okey rouge et noire
-          if(jeu[i]->clr==noire)
-            drawImage( pixels, hauteur, "TON.png", 60, 100);
-          else if(jeu[i]->clr==rouge)
-            drawImage( pixels, hauteur, "TOR.png", 60, 100);
-      }
-      else{
-        printf("%s\n", tuileVersImage(jeu[i]));                              // Cas d'affichage des tuiles de 1 à 13 des 4 couleurs différentes
-        drawImage( pixels, hauteur, tuileVersImage(jeu[i]), 60, 100);
-      }
-      if(i == 6)
-        printf("\b\b\b|");
-      if(i == 13)
-        printf("\b\b\b|");
-    }
-    if(i == 6 && jeu[14]->nbr == V_DEL)
-      printf("\n\t|\t\t\t\t\t\t\t\b\b\b|\n\t|");
-    else if(i == 6 && jeu[14]->nbr != V_DEL)
-      printf("\n\t|\t\t\t\t\t\t\t\b\b\b| NOUVELLE TUILE \033[1;32m15\033[00m\n\t|");
-    pixels += pourcent * 7;
+		}
+		pixels += pourcent * 7;
   }
   faire_rendu();
 
 }
+
+
+
 
 /**
 * \fn void affiche_sommet_pile(t_pile * pile)
@@ -358,35 +521,40 @@ void affiche_chevalet(t_tuile * jeu[],int taille){
 void affiche_sommet_pile(t_pile * pile, int nb_pile){
 
   t_tuile * tuile;
-  float pourcent = (SCREEN_WIDTH/100);
-  float pourcentH = (SCREEN_HEIGHT/100);
+  float pourcent = (SCREEN_WIDTH/100.0);
+  float pourcentH = (SCREEN_HEIGHT/100.0);
   int pixels;
   int hauteur;
-  if(pile_vide(pile))
-    printf("* \033[34;47m__\033[00m\t");
-  else{
+  if(!pile_vide(pile)){
     sommet_pile(pile,&tuile);
+	}
     switch(nb_pile){
       case 1:
-        pixels = pourcent * 25;
-        hauteur = pourcentH * 25;
+        pixels = pourcent * 27.5;
+        hauteur = pourcentH * 14.1;
         break;
       case 2:
-        pixels = pourcent * 75;
-        hauteur = pourcentH * 25;
+        pixels = pourcent * 67.3;
+        hauteur = pourcentH * 14.1;
         break;
       case 3:
-        pixels = pourcent * 25;
-        hauteur = pourcentH * 75;
+        pixels = pourcent * 27.5;
+        hauteur = pourcentH * 36.7;
         break;
       case 4:
-        pixels = pourcent * 75;
-        hauteur = pourcentH * 75;
+        pixels = pourcent * 67.3;
+        hauteur = pourcentH * 36.7;
         break;
 
     }
-    drawImage( pixels, hauteur, tuileVersImage(tuile), 60, 100);
-  }
+		if(pile_vide(pile)){
+			drawImage( pixels, hauteur, "NULL.png", 70, 115);
+		}
+		else{
+    drawImage( pixels, hauteur, tuileVersImage(pile->premier->tuile), 70, 115);
+	}
+
+
 }
 
 /**
@@ -405,16 +573,16 @@ void affiche_piles(t_tuile * okey, t_pile * pfg, t_pile * pfd, t_pile * pg, t_pi
   affiche_sommet_pile(pfd, 2);
 
   // Cas d'affichage pour éviter d'espacer les nombres à 2 chiffres
-  printf("\n\t\t\t   OKEY\tPIOCHE\n\t\t\t   ");
-  float pourcent = 50*(SCREEN_WIDTH/100);
-  float pourcentH = 50*(SCREEN_HEIGHT/100);
-  drawImage( pourcent, pourcentH, tuileVersImage(okey), 60, 100);
+  float pourcent = 43.5*(SCREEN_WIDTH/100.0);
+  float pourcentH = 22*(SCREEN_HEIGHT/100.0);
+  drawImage( pourcent, pourcentH, tuileVersImage(okey), 70, 115);
+	 pourcent = 51.5*(SCREEN_WIDTH/100.0);
+	drawImage( pourcent, pourcentH, "PIOCHE.png", 70, 115);
 
-  printf("\033[34;47m__\033[00m  \033[34;47m__\033[00m\n\n\t");
   affiche_sommet_pile(pg, 3);
-  printf("\t\t\t\t\t");
   affiche_sommet_pile(pd, 4);
   printf("\n\n");
+	faire_rendu();
 
 }
 
@@ -426,31 +594,4 @@ void affiche_piles(t_tuile * okey, t_pile * pfg, t_pile * pfd, t_pile * pg, t_pi
 */
 void affiche_chevalet_IA(t_tuile * jeu[],int taille){
 
-  int i;
-  printf("\033[1;32m\t\b\t1\t2\t3\t4\t5\t6\t7\t\033[00m");
-  printf("\n\t------------------------------------------------------\n");
-
-  for(i = 0;i < taille;i++){
-
-    if(i == 0)
-      printf("\t|");
-    if(i == 14 && jeu[14]->nbr != V_DEL)
-      printf("--------------->");
-
-    if(jeu[i]->nbr == V_DEL)                // Cas d'affichage où la tuile a été supprimée
-      printf("\t");
-    else{                                   // Cas d'affichage pour une tuile quelconque
-        printf("* \033[34;47m__\033[00m\t");
-        if(i == 6)
-          printf("\b\b\b|");
-        if(i == 13)
-          printf("\b\b\b|");
-    }
-    if(i == 6 && jeu[14]->nbr == V_DEL)
-      printf("\n\t|\t\t\t\t\t\t\t\b\b\b|\n\t|");
-    else if(i == 6 && jeu[14]->nbr != V_DEL)
-      printf("\n\t|\t\t\t\t\t\t\t\b\b\b| NOUVELLE TUILE \033[1;32m15\033[00m\n\t|");
-  }
-  printf("\n\t------------------------------------------------------\n");
-  printf("\033[1;32m\t\b\t8\t9\t10\t11\t12\t13\t14\n\033[00m");
 }
