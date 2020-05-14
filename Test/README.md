@@ -1,6 +1,49 @@
 # Test et création de fonctions
 ## Samuel DURAN (Dursam) et Valentin GIROD (Guarmanda)
-### A. Les constantes (5):
+### Les programmes de test (10):
+Pour vérifier que les fonctionnalités du jeu puissent se coordonner entre elles, il faut d'abord créer des programmes de test pour les tester unitairement.
+
+1. Tests des structures d'éléments
+Ce premier programme permet de tester la création des 106 tuiles du jeu et de les afficher.
+Lors de la génération avec `make`, il est appelé `prog_structure`.
+
+2. Tests de la pile
+Ce programme permet de tester l'empilement et le dépilement d'une tuile, ainsi que la récupération du sommet de la pile et l'affichage de sa valeur.
+Lors de la génération avec `make`, il est appelé `prog_pile`.
+
+3. Tests d'affichage de la tuile
+Ce programme permet l'affichage des 15 tuiles d'un tableau de tuiles.
+Lors de la génération avec `make`, il est appelé `prog_affichage_tuile`.
+
+4. Tests de la sélection de tuiles
+Ce programme permet d'effectuer le déroulement d'un tour, c'est-à-dire le retrait d'une tuile et le choix d'une autre tuile à partir de la pioche ou d'une pile de tuiles.
+Lors de la génération avec `make`, il est appelé `prog_selection_tuile`.
+
+5. Tests de la combinaison de couleurs
+Ce programme permet de tester une série de 3 ou 4 tuiles de couleurs différentes à partir d'un chevalet et de vérifier la suppression d'une tuile de la série.
+Lors de la génération avec `make`, il est appelé `prog_combinaison_couleur`.
+
+6. Tests de la combinaison de suites d'entiers
+Ce programme permet de tester une suite de 3 entiers minimum d'une même couleur de tuile.
+Lors de la génération avec `make`, il est appelé `prog_combinaison_suite_entiers`.
+
+7. Tests de la partie du jeu
+Ce programme permet de tester le déroulement d'une partie avec 4 joueurs à tour de rôle sur une même machine.
+Lors de la génération avec `make`, il est appelé `prog_partie`.
+
+8. Tests de la partie avec l'IA
+Ce programme permet de tester le déroulement d'une partie avec un joueur et 3 autres joueurs IA sur une même machine à tour de rôle.
+Lors de la génération avec `make`, il est appelé `prog_partie_IA`.
+
+9. Tests de la sauvegarde du jeu
+Ce programme permet de tester la création et le chargement d'une sauvegarde via un fichier local. Le nom du fichier est défini au format `ANNEE-MOIS-JOUR-MINUTES-SECONDES.txt`. Exemple : `2020-05-04-15-53.txt`.
+Lors de la génération avec `make`, il est appelé `prog_sauvegarde`.
+
+10. Tests de la connexion client-réseau (jeu en réseau)
+Ce programme non fonctionnel devait tester le déroulement de la partie entre une machine cliente et serveur. A l'heure actuelle, seule la connexion entre le client et le serveur est opérationnelle.
+Lors de la génération avec `make`, ils sont appelés `prog_client` et `prog_serveur`.
+
+### Les constantes (5):
 1. Nombre de tuiles du jeu
 ```
 # define N_T 106

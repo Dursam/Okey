@@ -26,20 +26,30 @@ int main(void){
   /* La tuile OKEY */
   t_tuile * okey = creer_tuile();
   /* Détermine le numéro de joueur qui commence la partie */
-  //int num_joueur;
+  int num_joueur;
   /* Détermine lequel des joueurs est gagnant */
-  //int joueur_gagnant;
+  int joueur_gagnant;
   /* Test si l'un des chevalets est gagnant au premier tour 1 (Situation très exceptionnel) */
-  //int issue_partie_tour_1;
+  int issue_partie_tour_1;
+  /* Entiers de conversion de donnée */
+  int * val1,val2;
+  /* Socket réseau*/
+  SOCKET sock, ssock;
 
+
+  /* Tentative de connexion */
+  if ((ssock = serveur(sock)) == 0){
+    printf("Vérifier que l'adresse IP de l'un de vos interfaces ethernet soit exact\n");
+    return 0;
+  }
   /* On initialise les joueurs et on leur donne 14 tuiles chacun avec un joueur au hasard qui démarre */
   creer_chevalet(joueur1,N_CHEV);
   creer_chevalet(joueur2,N_CHEV);
-  //creer_chevalet(joueur3,N_CHEV);
-  //creer_chevalet(joueur4,N_CHEV);
+  creer_chevalet(joueur3,N_CHEV);
+  creer_chevalet(joueur4,N_CHEV);
 
-  /* On initialise la copie du chevalet */
-  //creer_chevalet(copy_chevalet,N_CHEV);
+  /* On initialise la poie du chevalet */
+  creer_chevalet(copy_chevalet,N_CHEV);
 
   /* On initialise les enregistrement pour l'empilement des tuiles sur leur piles respectives */
   init_enr_tuile(J1_p1,N_CHEV);
@@ -64,36 +74,44 @@ int main(void){
 
   /* On distribution des tuiles aux 4 joueurs */
   distribution_joueur(jeu,joueur1);
-  //joueur1[14]->nbr = 11;
-  //joueur1[14]->clr = jaune;
-  affiche_chevalet_IA(joueur1,N_CHEV);
-/*
   distribution_joueur(jeu,joueur2);
   distribution_joueur(jeu,joueur3);
   distribution_joueur(jeu,joueur4);
 
-  // On définit le okey
+  /* On définit le okey */
   *okey = distribution_pioche(jeu);
 
-  // on démarre la partie en donnant une tuile supplémentaire à l'un des joueurs au hasard
+  /* On envoit le okey */
+  tuile_to_int(okey,val1);
+  val2 = *val1;
+  send(ssock,val2,sizeof(val2),0);
+
+  /* on démarre la partie en donnant une tuile supplémentaire à l'un des joueurs au hasard */
   num_joueur = demarrage(jeu,joueur1,joueur2,joueur3,joueur4);
 
-  // Déroulement du premier tour de la partie
-  issue_partie_tour_1 = debut_partie_IA(joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,num_joueur);
+  /* Envoit le numéro du joueur au client */
+  send(ssock,num_joueur,sizeof(num_joueur),0);
+
+  /* Déroulement du premier tour de la partie */
+  issue_partie_tour_1 = debut_partie_serveur(ssock,joueur1,joueur2,joueur3,joueur4,pile_J1,pile_J2,pile_J3,pile_J4,J1_p1,J2_p2,J3_p3,J4_p4,okey,num_joueur);
+
+  /* Envoit l'issue du premier tour au client */
+  send(ssock,issue_partie_tour_1,sizeof(issue_partie_tour_1),0);
 
   if(issue_partie_tour_1 != 0){
     issue_partie(issue_partie_tour_1);
+    return 0;
   }
 
-  // Déroulement de la partie
-  joueur_gagnant = partie_en_cours_IA(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
+  /* Déroulement de la partie */
+  //joueur_gagnant = partie_en_cours_serveur(jeu,joueur1,joueur2,joueur3,joueur4,J1_p1,J2_p2,J3_p3,J4_p4,pile_J1,pile_J2,pile_J3,pile_J4,okey,num_joueur);
 
-  // Annonce de l'issue de la partie, un vainqueur ou non
-  issue_partie(joueur_gagnant);
+  /* Annonce de l'issue de la partie, un vainqueur ou non */
+  //issue_partie(joueur_gagnant);
 
-  // Compteurs qui compte le nombre d'élément d'une pile de tuile
+  /* Compteurs qui compte le nombre d'élément d'une pile de tuile */
   depiler_toutes_tuiles(pile_J1,pile_J2,pile_J3,pile_J4);
-*/
+
   /* On détruit les tuiles des piles gauche et droite */
   free(pile_J1);
   free(pile_J2);
@@ -117,4 +135,6 @@ int main(void){
 
   detruire_tuile(copy_chevalet,taille_tuile(copy_chevalet,sizeof(copy_chevalet)));
 
+  shutdown(ssock,2);
+  deconnexion(ssock);
 }
