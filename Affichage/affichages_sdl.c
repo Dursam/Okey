@@ -332,30 +332,6 @@ int afficher_menu(char menu[][30], int taille){
 }
 
 
-/**
- * \fn void detecter_touches(int * running)
- * \brief Gère les touche échap pour le menu et i pour l'inventaire
- * \param[in] l'état du jeu à modifier si le joueur appuis sur échap
- */
-void detecter_touches(int * running){
-  SDL_Event e;
-  while(SDL_PollEvent(&e)) {
-    switch(e.type) {
-      //la gestion du clavier hors déplacements se fait ici
-      case SDL_KEYDOWN:
-      {
-        const Uint8 *state = SDL_GetKeyboardState(NULL); //en sdl
-        if(state[SDL_SCANCODE_ESCAPE]){
-          *running = 0;
-        }
-        break;
-      }
-			case SDL_MOUSEBUTTONDOWN:
-				break;
-    }
-  }
-
-}
 
 /**
  * \fn void afficher_regle(void)
@@ -367,9 +343,7 @@ void afficher_regle(void){
   faire_rendu();
   int * running = malloc(sizeof(int));
 	*running = 1;
-	while(running){
-		detecter_touches(running);
-	}
+
 
 }
 

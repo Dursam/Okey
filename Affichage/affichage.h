@@ -15,7 +15,6 @@ void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr
 
 int select_tuile(int AutoriserFinTour);
 
-void detecter_touches(int*running);
 
 void menuServeur(char*ip);
 

@@ -103,18 +103,7 @@ void taille_terminal(int lon,int lar){
   lar = win.ws_row;
 }
 
-void detecter_touches(int*running){
-   char ch = wgetch(fenetre);
- 	switch( ch ) {
- 			case 'i':
- 									//showInventory();
- 									break;
- 			case 27:
- 									*running = 0;
-                   wclear(fenetre);
- 									break;
-   }
- }
+
 
 void menuServeur(char*ip){
 
