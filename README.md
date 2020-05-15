@@ -75,7 +75,7 @@ Règles du jeu :
 Comment jouer :  
 
 - Vous disposez d'un chevalet qui comporte 14 tuiles.
-- Arrangez ces tuiles de sorte à ce que ceux-ci forment une suite de nombre de la même couleur ou une série d'une suite de nombre mais de couleurs différentes.
+- Arrangez ces tuiles de sorte à ce que ceux-ci forment une suite de nombre de la même couleur ou une série d'un même nombre mais de couleurs différentes.
 - Vous ne pouvez avoir de double dans une même suite ou série mais vous pouvez jouer une tuile que vous avez en double dans une autre suite ou série.
 - Vous devez avoir minimum 3 tuiles par suite ou série.
 - Vous devez utiliser toutes vos tuiles dans votre jeu pour avoir un chevalet gagnant.
