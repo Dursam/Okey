@@ -74,6 +74,7 @@ int main(void){
 
   detruire_tuile(joueur,taille_tuile(joueur,sizeof(joueur)));
 
+  /* Déconnexion */
   deconnexion(csock);
 
   return 0;

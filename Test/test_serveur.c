@@ -135,6 +135,7 @@ int main(void){
 
   detruire_tuile(copy_chevalet,taille_tuile(copy_chevalet,sizeof(copy_chevalet)));
 
+  /* Déconnexion */
   shutdown(ssock,2);
   deconnexion(ssock);
 }

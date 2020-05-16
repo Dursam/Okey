@@ -10,6 +10,11 @@
 #include <partie_IA.h>
 #include <reseau.h>
 
+/**
+* \fn SOCKET serveur (SOCKET sock)
+* \brief Ouverture d'un port, le serveur attends une demande de connexion
+* \param sock Socket réseau
+*/
 SOCKET serveur (SOCKET sock){
 
   SOCKADDR_IN sin;
@@ -60,6 +65,11 @@ SOCKET serveur (SOCKET sock){
 		perror("Socket");
 }
 
+/**
+* \fn SOCKET client (SOCKET sock)
+* \brief Connexion d'un client au près d'un serveur, entre son adresse IP
+* \param sock Socket réseau
+*/
 SOCKET client (SOCKET sock) {
 
   // Adresse IP du serveur
@@ -87,6 +97,11 @@ SOCKET client (SOCKET sock) {
 
 }
 
+/**
+* \fn void deconnexion (SOCKET sock)
+* \brief Déconnecte une socket réseau, client ou serveur
+* \param sock Socket réseau
+*/
 void deconnexion (SOCKET sock){
   printf("Fermeture de la socket Client et Serveur\n");
   closesocket(sock);
@@ -129,6 +144,11 @@ void affiche_chevalet_IA(t_tuile * jeu[],int taille){
   printf("\033[1;32m\t\b\t8\t9\t10\t11\t12\t13\t14\n\033[00m");
 }
 
+/**
+* \fn void affiche_chevalet_factice(int mode)
+* \brief Affichage de 14/15 tuiles factices
+* \param mode 1 sans 15 ème tuile, 2 avec.
+*/
 void affiche_chevalet_factice(int mode){
 
   int i;
@@ -160,6 +180,11 @@ void affiche_chevalet_factice(int mode){
   printf("\033[1;32m\t\b\t8\t9\t10\t11\t12\t13\t14\n\033[00m");
 }
 
+/**
+* \fn void affiche_sommet_reseau(t_tuile * tuile)
+* \brief Affichage de la tuile du sommet d'une pile, la tuile provient du serveur
+* \param tuile Le sommet de la pile
+*/
 void affiche_sommet_reseau(t_tuile * tuile){
 
   if(tuile == NULL)
@@ -186,6 +211,15 @@ void affiche_sommet_reseau(t_tuile * tuile){
   }
 }
 
+/**
+* \fn void affiche_piles_reseau(t_tuile * okey,t_tuile * sommet_p1,t_tuile * sommet_p2,t_tuile * sommet_p3,t_tuile * sommet_p4)
+* \brief Affichage des sommets des piles et de la tuile Okey
+* \param okey La tuile Okey
+* \param sommet_p1 La tuile sommet de la pile 1
+* \param sommet_p2 La tuile sommet de la pile 2
+* \param sommet_p3 La tuile sommet de la pile 3
+* \param sommet_p4 La tuile sommet de la pile 4
+*/
 void affiche_piles_reseau(t_tuile * okey,t_tuile * sommet_p1,t_tuile * sommet_p2,t_tuile * sommet_p3,t_tuile * sommet_p4){
 
   printf("\n\t");
@@ -223,7 +257,14 @@ void affiche_piles_reseau(t_tuile * okey,t_tuile * sommet_p1,t_tuile * sommet_p2
 
 }
 
-void tuile_to_int(t_tuile * tuile,int *entier){
+
+/**
+* \fn void tuile_to_int(t_tuile * tuile,int * entier)
+* \brief Convertit une tuile en une donnée sous forme d'entier
+* \param tuile Une tuile quelconque
+* \param entier Un entier
+*/
+void tuile_to_int(t_tuile * tuile,int * entier){
 
   if(tuile->clr == jaune){
     if(tuile->nbr == V_DEL)
@@ -263,7 +304,13 @@ void tuile_to_int(t_tuile * tuile,int *entier){
     *entier = 62;
 }
 
-void int_to_tuile(t_tuile * tuile,int *entier){
+/**
+* \fn void int_to_tuile(t_tuile * tuile,int * entier)
+* \brief Interprète et convertit un entier en tuile
+* \param tuile Une tuile quelconque
+* \param entier Un entier
+*/
+void int_to_tuile(t_tuile * tuile,int * entier){
 
   if(*entier >= 1 && *entier <= 13){
     tuile->clr = jaune;
@@ -323,6 +370,16 @@ void int_to_tuile(t_tuile * tuile,int *entier){
   }
 }
 
+/**
+* \fn void affiche_1_factice(t_tuile * okey,t_tuile * sommet_J1,t_tuile * sommet_J2,t_tuile * sommet_J3,t_tuile * sommet_J4,int num_joueur)
+* \brief Affichage des sommets des piles et de la tuile Okey en fonction du numéro du joueur
+* \param okey La tuile Okey
+* \param sommet_J1 La tuile sommet de la pile 1
+* \param sommet_J2 La tuile sommet de la pile 2
+* \param sommet_J3 La tuile sommet de la pile 3
+* \param sommet_J4 La tuile sommet de la pile 4
+* \param num_joueur Le numéro du joueur
+*/
 void affiche_1_factice(t_tuile * okey,t_tuile * sommet_J1,t_tuile * sommet_J2,t_tuile * sommet_J3,t_tuile * sommet_J4,int num_joueur){
 
   if(num_joueur == 1)
@@ -335,6 +392,18 @@ void affiche_1_factice(t_tuile * okey,t_tuile * sommet_J1,t_tuile * sommet_J2,t_
     affiche_piles_reseau(okey,sommet_J2,sommet_J1,sommet_J3,sommet_J4);
 }
 
+/**
+* \fn void tour_1_client(SOCKET csock,t_tuile * joueur[N_CHEV],t_tuile * okey,t_tuile * sommet_J1,t_tuile * sommet_J2,t_tuile * sommet_J3,t_tuile * sommet_J4,int num_joueur)
+* \brief Réalise le tour 1 côté client
+* \param csock
+* \param joueur[N_CHEV] Chevalet du joueur
+* \param okey La tuile Okey
+* \param sommet_J1 La tuile sommet de la pile 1
+* \param sommet_J2 La tuile sommet de la pile 2
+* \param sommet_J3 La tuile sommet de la pile 3
+* \param sommet_J4 La tuile sommet de la pile 4
+* \param num_joueur Le numéro du joueur
+*/
 void tour_1_client(SOCKET csock,t_tuile * joueur[N_CHEV],t_tuile * okey,t_tuile * sommet_J1,t_tuile * sommet_J2,t_tuile * sommet_J3,t_tuile * sommet_J4,int num_joueur){
   /* Caractère pour faire une pause dans le programme */
   char pause;
@@ -412,6 +481,18 @@ void tour_1_client(SOCKET csock,t_tuile * joueur[N_CHEV],t_tuile * okey,t_tuile 
     recv(csock,reponse,sizeof(reponse), 0);
 }
 
+/**
+* \fn int tour_1_serveur(SOCKET ssock,t_tuile * joueur2[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J2_p2[N_CHEV],t_tuile * okey,int num_joueur)
+* \brief Réalise le tour 1 côté serveur
+* \param ssock
+* \param joueur2[N_CHEV] Chevalet du joueur2
+* \param okey La tuile Okey
+* \param sommet_J1 La tuile sommet de la pile 1
+* \param sommet_J2 La tuile sommet de la pile 2
+* \param sommet_J3 La tuile sommet de la pile 3
+* \param sommet_J4 La tuile sommet de la pile 4
+* \param num_joueur Le numéro du joueur
+*/
 int tour_1_serveur(SOCKET ssock,t_tuile * joueur2[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J2_p2[N_CHEV],t_tuile * okey,int num_joueur){
 
   /* Détermine la tuile à enlever pour le joueur qui commence la partie en premier */
@@ -499,6 +580,26 @@ int tour_1_serveur(SOCKET ssock,t_tuile * joueur2[N_CHEV],t_pile * pile_J1,t_pil
   return issue_partie;
 }
 
+/**
+* \fn int debut_partie_serveur(SOCKET ssock,t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur)
+* \brief Réalise le début de la partie côté serveur
+* \param ssock
+* \param joueur1
+* \param joueur2
+* \param joueur3
+* \param joueur4
+* \param J1_p1
+* \param J2_p2
+* \param J3_p3
+* \param J4_p4
+* \param pile_J1
+* \param pile_J2
+* \param pile_J3
+* \param pile_J4
+* \param num_joueur le numéro du joueur de 1 à 4
+* \param okey la tuile okey
+* \param num_joueur Le numéro du joueur
+*/
 int debut_partie_serveur(SOCKET ssock,t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur){
 
   /* Test si le chevalet du joueur est gagnant ou non */
@@ -557,7 +658,19 @@ int debut_partie_serveur(SOCKET ssock,t_tuile * joueur1[N_CHEV],t_tuile * joueur
   return issue_partie;
 }
 
-int debut_partie_client(SOCKET csock,t_tuile * joueur,t_tuile * sommet_J1,t_tuile * sommet_J2,t_tuile * sommet_J3,t_tuile * sommet_J4,t_tuile * okey,int num_joueur){
+/**
+* \fn debut_partie_client(SOCKET csock,t_tuile * joueur[N_CHEV],t_tuile * sommet_J1,t_tuile * sommet_J2,t_tuile * sommet_J3,t_tuile * sommet_J4,t_tuile * okey,int num_joueur)
+* \brief Réalise le début de la partie côté client
+* \param csock
+* \param joueur
+* \param okey La tuile Okey
+* \param sommet_J1 La tuile sommet de la pile 1
+* \param sommet_J2 La tuile sommet de la pile 2
+* \param sommet_J3 La tuile sommet de la pile 3
+* \param sommet_J4 La tuile sommet de la pile 4
+* \param num_joueur Le numéro du joueur
+*/
+int debut_partie_client(SOCKET csock,t_tuile * joueur[N_CHEV],t_tuile * sommet_J1,t_tuile * sommet_J2,t_tuile * sommet_J3,t_tuile * sommet_J4,t_tuile * okey,int num_joueur){
 
   /* Test si le chevalet du joueur est gagnant ou non */
   int issue_partie = 0;
