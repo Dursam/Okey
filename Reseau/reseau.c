@@ -1,10 +1,18 @@
+/**
+* \file reseau.c
+* \brief Fichier contenant les fonctions de reseau
+* \author Samuel DURAN
+* \version 1.0
+* \date 30 Janvier 2020
+*/
+
 #include <reseau.h>
 
-void attendreConnection(int joueurs){
-	printf("En attente de connection de %d joueurs", joueurs);
-	//connec(joueurs);
-}
-
+/**
+* \fn SOCKET serveur (SOCKET sock)
+* \brief Ouverture d'un port, le serveur attends une demande de connexion
+* \param sock Socket réseau
+*/
 SOCKET serveur (SOCKET sock){
 
   SOCKADDR_IN sin;
@@ -55,6 +63,11 @@ SOCKET serveur (SOCKET sock){
 		perror("Socket");
 }
 
+/**
+* \fn SOCKET client (SOCKET sock)
+* \brief Connexion d'un client au près d'un serveur, entre son adresse IP
+* \param sock Socket réseau
+*/
 SOCKET client (SOCKET sock) {
 
   // Adresse IP du serveur
@@ -82,6 +95,11 @@ SOCKET client (SOCKET sock) {
 
 }
 
+/**
+* \fn void deconnexion (SOCKET sock)
+* \brief Déconnecte une socket réseau, client ou serveur
+* \param sock Socket réseau
+*/
 void deconnexion (SOCKET sock){
   printf("Fermeture de la socket Client et Serveur\n");
   closesocket(sock);

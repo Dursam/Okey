@@ -3,10 +3,8 @@
 * \brief Fichier contenant les fonctions de combinaison de couleur
 * \author Samuel DURAN
 * \version 1.0
-* \date 12 avril 2020
+* \date 21 avril 2020
 */
-
-
 
 #include <init.h>
 
@@ -17,13 +15,13 @@
 int compte_coul_diff(int tab_coul[4]);
 
 /**
-* \fn void combinaison_coul(t_tuile * chev[])
+* \fn void regle_coul(t_tuile * chev[])
 * \brief Vérifie les ensembles de combinaisons de 3 ou 4 couleurs
 */
 void regle_coul(t_tuile * chev[]);
 
 /**
-* \fn void combinaison_suite(t_tuile * chev[])
+* \fn void regle_suite(t_tuile * chev[])
 * \brief Vérifie les ensembles de combinaisons à partir de 3 suites d'entiers
 */
 void regle_suite(t_tuile * chev[]);

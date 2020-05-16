@@ -1,3 +1,11 @@
+/**
+* \file partie_IA.h
+* \brief Fichier contenant les fonctions pour une partie d'IA
+* \author Samuel DURAN
+* \version 1.0
+* \date 02 Mai 2020
+*/
+
 #ifndef _PARTIE_IA_H_
 #define _PARTIE_IA_H_
 

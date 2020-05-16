@@ -1,3 +1,10 @@
+/**
+ * \file menu.h
+ * \brief Menu principal du jeu
+ * \author Duran Samuel Girod Valentin
+ * \date 12 mars 2019
+ */
+
 #include <sav.h>
 #include <fonctions_affichage.h>
 

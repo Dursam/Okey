@@ -1,4 +1,11 @@
 /* Fichier contenant les fonctions principaux pour lancer une partie de Okey */
+/**
+* \file partie.c
+* \brief Fichier contenant les fonctions principales pour lancer une partie de Okey
+* \author Samuel DURAN
+* \version 1.0
+* \date 12 avril 2020
+*/
 
 #include <init_structure.h>
 #include <init_pile.h>

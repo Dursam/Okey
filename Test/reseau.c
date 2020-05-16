@@ -1,4 +1,11 @@
 /* Fichier contenant les fonctions principaux pour lancer une partie de Okey en réseau */
+/**
+* \file reseau.c
+* \brief Fichier contenant les fonctions de reseau
+* \author Samuel DURAN
+* \version 1.0
+* \date 30 Janvier 2020
+*/
 
 #include <init_structure.h>
 #include <init_pile.h>

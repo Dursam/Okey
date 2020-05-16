@@ -1,3 +1,11 @@
+/**
+* \file sauvegarde.h
+* \brief Fichier contenant les fonctions de sauvegarde et de score
+* \author Samuel DURAN
+* \version 1.0
+* \date 10 mai 2020
+*/
+
 #ifndef _SAUVEGARDE_H_
 #define _SAUVEGARDE_H_
 

@@ -1,3 +1,11 @@
+/**
+* \file jeu.h
+* \brief Fichier contenant les fonctions principales pour lancer une partie de Okey
+* \author Samuel DURAN Valentin GIROD
+* \version 1.0
+* \date 21 avril 2020
+*/
+
 #include <affichage.h>
 #include <fonctions_affichage.h>
 #include <reseau.h>

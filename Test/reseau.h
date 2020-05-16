@@ -1,3 +1,11 @@
+/**
+* \file reseau.h
+* \brief Fichier contenant les fonctions de reseau
+* \author Samuel DURAN
+* \version 1.0
+* \date 30 Janvier 2020
+*/
+
 #ifndef _RESEAU_H_
 #define _RESEAU_H_
 
