@@ -2,7 +2,7 @@
  * \file fonctions_terminal.c
  * \brief Fonctions de gestion terminal
  * \author Girod Valentin
- * \date 12 mars 2019
+ * \date 30 Avril 2020
  *
  * Contient les fonctions d'affichage et de gestion de fenêtres en terminal
  *
@@ -19,8 +19,10 @@ void drawImage (int x, int y, char * z, int a, int b);
 
 
 /**
- * \fn void init_colorpairs()
- * \brief
+ * \fn int colornum(int fg, int bg)
+ * \brief Retourne le numéro de couleur
+ * \param fg
+ * \param bg
  */
 int colornum(int fg, int bg)
 {
@@ -35,7 +37,8 @@ int colornum(int fg, int bg)
 
 /**
  * \fn void curs_color()
- * \brief transforme un nombre en une couleur ncurses
+ * \brief Transforme un nombre en une couleur ncurses
+ * \param fg
  */
 short curs_color(int fg)
 {
@@ -62,7 +65,7 @@ short curs_color(int fg)
 
 /**
  * \fn void is_bold()
- * \brief vérifie si le texte est déjà surligné
+ * \brief Vérifie si le texte est déjà surligné
  */
 int is_bold(int fg)
 {
@@ -76,7 +79,7 @@ int is_bold(int fg)
 
 /**
  * \fn void init_colorpairs()
- * \brief initialise les couleurs ncurses
+ * \brief Initialise les couleurs ncurses
  */
 void init_colorpairs(void)
 {

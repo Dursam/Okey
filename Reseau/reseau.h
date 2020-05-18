@@ -1,3 +1,11 @@
+/**
+* \file reseau.h
+* \brief Fichier contenant les fonctions de reseau
+* \author Samuel DURAN
+* \version 1.0
+* \date 30 Janvier 2020
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -19,7 +27,20 @@ typedef struct sockaddr_in SOCKADDR_IN;
 typedef struct sockaddr SOCKADDR;
 typedef struct in_addr IN_ADDR;
 
-void attendreConnection(int joueurs);
+/**
+* \fn SOCKET serveur (SOCKET sock)
+* \brief Ouverture d'un port, le serveur attends une demande de connexion
+*/
 SOCKET serveur (SOCKET sock);
+
+/**
+* \fn SOCKET client (SOCKET sock)
+* \brief Connexion d'un client au près d'un serveur, entre son adresse IP
+*/
 SOCKET client (SOCKET sock);
+
+/**
+* \fn void deconnexion (SOCKET sock)
+* \brief Déconnecte une socket réseau, client ou serveur
+*/
 void deconnexion (SOCKET sock);

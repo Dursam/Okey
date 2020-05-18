@@ -1,5 +1,3 @@
-#include <init.h>
-
 /**
 * \file init_structure.c
 * \brief Fichier contenant les fonctions d'initialisation pour les tableaux de structures et pour les piles
@@ -7,6 +5,8 @@
 * \version 1.0
 * \date 21 avril 2020
 */
+
+#include <init.h>
 
 /**
 * \fn void init_tuile(t_tuile * jeu[N_T])

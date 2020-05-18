@@ -1,7 +1,4 @@
 /* Fichier contenant les fonctions principaux de sauvegarde et de score */
-
-#include "./sauvegarde.h"
-
 /**
 * \file sauvegarde.c
 * \brief Fichier contenant les fonctions de sauvegarde et de score
@@ -10,6 +7,7 @@
 * \date 10 mai 2020
 */
 
+#include "./sauvegarde.h"
 /**
 * \fn t_fichier * nom_fichier(void)
 * \brief Créer une sauvegarde pour une partie

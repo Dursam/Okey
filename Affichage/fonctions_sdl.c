@@ -2,7 +2,7 @@
  * \file fonctions_sdl.c
  * \brief Fonctions de gestion SDL
  * \author Girod Valentin
- * \date mars 2019
+ * \date 30 Avril 2020
  *
  * Contient les fonctions d'affichage et de gestion de fenêtres SDL, ainsi que le chargement/déchargement des images
  *

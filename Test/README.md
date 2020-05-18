@@ -1,6 +1,52 @@
 # Test et création de fonctions
 ## Samuel DURAN (Dursam) et Valentin GIROD (Guarmanda)
-### A. Les constantes (5):
+
+### Les programmes de test (10):
+
+Pour vérifier que les fonctionnalités du jeu puissent se coordonner entre elles, il faut d'abord créer des programmes de test pour les tester unitairement.
+
+1. Tests des structures d'éléments
+Ce premier programme permet de tester la création des 106 tuiles du jeu et de les afficher.
+Lors de la génération avec `make`, il est appelé `prog_structure`.
+
+2. Tests de la pile
+Ce programme permet de tester l'empilement et le dépilement d'une tuile, ainsi que la récupération du sommet de la pile et l'affichage de sa valeur.
+Lors de la génération avec `make`, il est appelé `prog_pile`.
+
+3. Tests d'affichage de la tuile
+Ce programme permet l'affichage des 15 tuiles d'un tableau de tuiles.
+Lors de la génération avec `make`, il est appelé `prog_affichage_tuile`.
+
+4. Tests de la sélection de tuiles
+Ce programme permet d'effectuer le déroulement d'un tour, c'est-à-dire le retrait d'une tuile et le choix d'une autre tuile à partir de la pioche ou d'une pile de tuiles.
+Lors de la génération avec `make`, il est appelé `prog_selection_tuile`.
+
+5. Tests de la combinaison de couleurs
+Ce programme permet de tester une série de 3 ou 4 tuiles de couleurs différentes à partir d'un chevalet et de vérifier la suppression d'une tuile de la série.
+Lors de la génération avec `make`, il est appelé `prog_combinaison_couleur`.
+
+6. Tests de la combinaison de suites d'entiers
+Ce programme permet de tester une suite de 3 entiers minimum d'une même couleur de tuile.
+Lors de la génération avec `make`, il est appelé `prog_combinaison_suite_entiers`.
+
+7. Tests de la partie du jeu
+Ce programme permet de tester le déroulement d'une partie avec 4 joueurs à tour de rôle sur une même machine.
+Lors de la génération avec `make`, il est appelé `prog_partie`.
+
+8. Tests de la partie avec l'IA
+Ce programme permet de tester le déroulement d'une partie avec un joueur et 3 autres joueurs IA sur une même machine à tour de rôle.
+Lors de la génération avec `make`, il est appelé `prog_partie_IA`.
+
+9. Tests de la sauvegarde du jeu
+Ce programme permet de tester la création et le chargement d'une sauvegarde via un fichier local. Le nom du fichier est défini au format `ANNEE-MOIS-JOUR-MINUTES-SECONDES.txt`. Exemple : `2020-05-04-15-53.txt`.
+Lors de la génération avec `make`, il est appelé `prog_sauvegarde`.
+
+10. Tests de la connexion client-réseau (jeu en réseau)
+Ce programme non fonctionnel devait tester le déroulement de la partie entre une machine cliente et serveur. A l'heure actuelle, seule la connexion entre le client et le serveur est opérationnelle.
+Lors de la génération avec `make`, ils sont appelés `prog_client` et `prog_serveur`.
+
+### Les constantes (5):
+
 1. Nombre de tuiles du jeu
 ```
 # define N_T 106
@@ -27,6 +73,7 @@
 ```
 
 ### Les structures (4):
+
 1. Définition de la couleur
 ```
 typedef enum {jaune,rouge,noire,bleu} t_couleur;
@@ -47,7 +94,8 @@ typedef struct s_element { t_tuile * tuile; struct s_element * suivant;} t_eleme
 typedef struct s_pile { t_element * premier ;} t_pile;
 ```
 
-### Les fonctions (49)
+### Les fonctions (64)
+
 #### Fichier init_structure (9)
 1. Initialise le jeu de 106 tuiles
 ```
@@ -265,7 +313,6 @@ int partie_en_cours(t_tuile * jeu[N_T],t_tuile * joueur1[N_CHEV],t_tuile * joueu
 ```
 
 #### Fichier partie_IA (7)
-
 43. Vérifie si une tuile appartient à une combinaison
 ```
 int nombre_combinaison_tuile(t_tuile * chevalet[N_CHEV],t_tuile * okey,int ind_tuile,int ind_dep);
@@ -299,4 +346,80 @@ int tour_IA(t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur
 49. Déroule la partie, après que le première joueur IA désigné commence
 ```
  int partie_en_cours_IA(t_tuile * jeu[N_T], t_tuile * joueur1[N_CHEV], t_tuile * joueur2[N_CHEV], t_tuile * joueur3[N_CHEV], t_tuile * joueur4[N_CHEV], t_tuile * J1_p1[], t_tuile * J2_p2[], t_tuile * J3_p3[], t_tuile * J4_p4[], t_pile * pile_J1, t_pile * pile_J2, t_pile * pile_J3, t_pile * pile_J4, t_tuile * okey, int num_joueur);
+```
+
+#### Fichier reseau (15)
+50. Ouverture d'un port, le serveur attends une demande de connexion
+```
+SOCKET serveur (SOCKET sock);
+```
+
+51. Connexion d'un client au près d'un serveur, entre son adresse IP
+```
+SOCKET client (SOCKET sock);
+```
+
+52. Déconnecte une socket réseau, client ou serveur
+```
+void deconnexion (SOCKET sock);
+```
+
+53. Affichage des 14/15 tuiles cachés du chevalet d'une IA
+```
+void affiche_chevalet_IA(t_tuile * jeu[],int taille);
+```
+
+54. Affichage de 14/15 tuiles factices
+```
+void affiche_chevalet_factice(int mode);
+```
+
+55. Affichage de la tuile du sommet d'une pile, la tuile provient du serveur
+```
+void affiche_sommet_reseau(t_tuile * tuile);
+```
+
+56. Affichage des sommets des piles et de la tuile Okey
+```
+void affiche_piles_reseau(t_tuile * okey,t_tuile * sommet_p1,t_tuile * sommet_p2,t_tuile * sommet_p3,t_tuile * sommet_p4);
+```
+
+57. Affichage des 14/15 tuiles cachés du chevalet d'une IA
+```
+void affiche_chevalet_IA(t_tuile * jeu[], int taille);
+```
+
+58. Convertit une tuile en une donnée sous forme d'entier
+```
+void tuile_to_int(t_tuile * tuile,int * entier);
+```
+
+59. Interprète et convertit un entier en tuile
+```
+void int_to_tuile(t_tuile * tuile,int * entier);
+```
+
+60. Affichage des sommets des piles et de la tuile Okey en fonction du numéro du joueur
+```
+void affiche_1_factice(t_tuile * okey,t_tuile * sommet_J1,t_tuile * sommet_J2,t_tuile * sommet_J3,t_tuile * sommet_J4,int num_joueur);
+```
+
+61. Réalise le tour 1 côté client (Fonctionne pas)
+```
+void tour_1_client(SOCKET csock,t_tuile * joueur[N_CHEV],t_tuile * okey,t_tuile * sommet_J1,t_tuile * sommet_J2,t_tuile * sommet_J3,t_tuile * sommet_J4,int num_joueur);
+```
+
+62. Réalise le tour 1 côté serveur (Fonctionne pas)
+```
+int tour_1_serveur(SOCKET ssock,t_tuile * joueur2[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J2_p2[N_CHEV],t_tuile * okey,int num_joueur);
+```
+
+63. Réalise le début de la partie côté serveur (Fonctionne pas)
+```
+int debut_partie_serveur(SOCKET ssock,t_tuile * joueur1[N_CHEV],t_tuile * joueur2[N_CHEV],t_tuile * joueur3[N_CHEV],t_tuile * joueur4[N_CHEV],t_pile * pile_J1,t_pile * pile_J2,t_pile * pile_J3,t_pile * pile_J4,t_tuile * J1_p1[N_CHEV],t_tuile * J2_p2[N_CHEV],t_tuile * J3_p3[N_CHEV],t_tuile * J4_p4[N_CHEV],t_tuile * okey,int num_joueur);
+```
+
+64. Réalise le début de la partie côté client (Fonctionne pas)
+```
+int debut_partie_client(SOCKET csock,t_tuile * joueur[N_CHEV],t_tuile * sommet_J1,t_tuile * sommet_J2,t_tuile * sommet_J3,t_tuile * sommet_J4,t_tuile * okey,int num_joueur);
 ```

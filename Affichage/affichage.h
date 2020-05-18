@@ -15,7 +15,6 @@ void selection_tuile(t_tuile * jeu[N_T],t_tuile * chevalet[N_CHEV],t_tuile * enr
 
 int select_tuile(int AutoriserFinTour);
 
-
 void menuServeur(char*ip);
 
 int afficher_menu(char menu[4][30], int taille);
@@ -35,7 +34,7 @@ void tri_manuel(t_tuile * chevalet[N_CHEV]);
 * \fn void tri_rapide(t_tuile * chevalet[], int i, int j);
 * \brief Tri rapide d'un chevalet de tuiles
 */
-void tri_rapide(t_tuile * chevalet[], int i, int j) ;
+void tri_rapide(t_tuile * chevalet[], int i, int j);
 
 /**
 * \fn int choix_tri(t_tuile * chevalet[N_CHEV])
@@ -53,7 +52,7 @@ void affiche_chevalet(t_tuile * jeu[],int taille);
 * \fn void affiche_sommet_pile(t_pile * pile);
 * \brief Affichage du sommet d'une pile
 */
-void affiche_sommet_pile(t_pile * pile, int nb_pile );
+void affiche_sommet_pile(t_pile * pile, int nb_pile);
 
 /**
 * \fn void affiche_plateau(t_tuile * okey, t_pile * pfg, t_pile * pfd, t_pile * pg, t_pile * pd)

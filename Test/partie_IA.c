@@ -1,3 +1,11 @@
+/**
+* \file partie_IA.c
+* \brief Fichier contenant les fonctions pour une partie d'IA
+* \author Samuel DURAN
+* \version 1.0
+* \date 02 Mai 2020
+*/
+
 /* Fichier contenant les fonctions principaux pour lancer une partie de Okey avec IA */
 
 #include <init_structure.h>

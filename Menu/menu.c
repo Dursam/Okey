@@ -3,9 +3,6 @@
  * \brief Menu principal du jeu
  * \author Duran Samuel Girod Valentin
  * \date 12 mars 2019
- *
- * Menu principal
- *
  */
 
 #include <menu.h>

@@ -1,8 +1,7 @@
 /**
  * \file      affichages_sdl.c
- * \author    Girod Valentin
- * \version   1.0
- * \date     Mars 2019
+ * \author    Samuel DURAN Valentin GIROD
+ * \date     \date 30 Avril 2020
  * \brief    Contient toutes les fonctions d'affichage du jeu en sdl
  */
 #include <affichage.h>

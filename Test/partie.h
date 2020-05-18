@@ -1,8 +1,3 @@
-#ifndef _PARTIE_H_
-#define _PARTIE_H_
-
-#include <commun.h>
-
 /**
 * \file partie.h
 * \brief Fichier contenant les fonctions principales pour lancer une partie de Okey
@@ -10,6 +5,11 @@
 * \version 1.0
 * \date 12 avril 2020
 */
+
+#ifndef _PARTIE_H_
+#define _PARTIE_H_
+
+#include <commun.h>
 
 /**
 * \fn void valeur_okey(t_tuile * okey, t_tuile * joker)

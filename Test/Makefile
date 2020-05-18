@@ -17,7 +17,8 @@ fich_obj_test_selection_tuile = test_selection_tuile.o selection_tuile.o afficha
 fich_obj_test_partie = test_partie.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
 fich_obj_test_partie_IA = test_partie_IA.o partie_IA.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
 fich_obj_test_sauvegarde = test_sauvegarde.o sauvegarde.o
-fich_obj_test_reseau = test_reseau.o reseau.o partie_IA.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
+fich_obj_test_client = test_client.o reseau.o partie_IA.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
+fich_obj_test_serveur = test_serveur.o reseau.o partie_IA.o partie.o init_structure.o init_pile.o combinaison_couleur.o combinaison_suite_entiers.o affichage_tuile.o selection_tuile.o
 # Débogage
 
 fich_obj_debogage_combinaison_suite_entiers = debogage_combinaison_suite_entiers.o combinaison_suite_entiers.o combinaison_couleur.o init_pile.o init_structure.o
@@ -33,7 +34,7 @@ fich_obj_patch_combinaison_suite_entiers = patch_combinaison_suite_entiers.o com
 # EXECUTABLE ENLEVER : debogage_combinaison_suite_entiers
 # Ne pas oublier d'enlever le dièse si vous ajoutez un exécutable déjà enlever dans la partie suppression
 
-BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie patch_combinaison_suite_entiers prog_partie_IA prog_sauvegarde prog_reseau
+BIN = prog_structure prog_pile prog_combinaison_couleur prog_combinaison_suite_entiers prog_affichage_tuile prog_selection_tuile prog_partie patch_combinaison_suite_entiers prog_partie_IA prog_sauvegarde prog_client prog_serveur
 
 #
 # Executable
@@ -93,11 +94,17 @@ prog_sauvegarde : $(fich_obj_test_sauvegarde)
 test_sauvegarde.o : test_sauvegarde.c sauvegarde.h
 	$(CCOBJ) $(CFLAGS) test_sauvegarde.c -o test_sauvegarde.o -I ./
 
-prog_reseau : $(fich_obj_test_reseau)
-	$(CCLNK) $(CFLAGS) $(fich_obj_test_reseau) -o prog_reseau
+prog_client : $(fich_obj_test_client)
+	$(CCLNK) $(CFLAGS) $(fich_obj_test_client) -o prog_client
 
-test_reseau.o : test_reseau.c reseau.h
-	$(CCOBJ) $(CFLAGS) test_reseau.c -o test_reseau.o -I ./
+test_client.o : test_client.c reseau.h
+	$(CCOBJ) $(CFLAGS) test_client.c -Wno-unused-but-set-variable -Wno-unused-variable -Wno-incompatible-pointer-types -Wno-uninitialized -Wno-maybe-unitialized -Wno-int-conversion -Wno-conversion -o test_client.o -I ./
+
+prog_serveur : $(fich_obj_test_serveur)
+	$(CCLNK) $(CFLAGS) $(fich_obj_test_serveur) -o prog_serveur
+
+test_serveur.o : test_serveur.c reseau.h
+	$(CCOBJ) $(CFLAGS) test_serveur.c -Wno-unused-but-set-variable -Wno-unused-variable -Wno-incompatible-pointer-types -Wno-uninitialized -Wno-maybe-unitialized -Wno-int-conversion -Wno-conversion -o test_serveur.o -I ./
 
 #
 # Débogage
@@ -154,7 +161,7 @@ sauvegarde.o : sauvegarde.c sauvegarde.h
 		$(CCOBJ) $(CFLAGS) sauvegarde.c -o sauvegarde.o -I ./
 
 reseau.o : reseau.c reseau.h
-		$(CCOBJ) $(CFLAGS) reseau.c -Wno-return-type -o reseau.o -I ./
+		$(CCOBJ) $(CFLAGS) reseau.c -Wno-unused-but-set-variable -Wno-unused-variable -Wno-incompatible-pointer-types -Wno-uninitialized -Wno-maybe-unitialized -Wno-conversion -Wno-int-conversion -Wno-return-type -o reseau.o -I ./
 
 all : $(BIN) $(OBJ)
 
@@ -176,7 +183,8 @@ clean :
 	- rm prog_partie_IA
 	- rm prog_sauvegarde
 	- rm 2020*
-	- rm prog_reseau
+	- rm prog_client
+	- rm prog_serveur
 
 #
 #	Vérification
@@ -193,4 +201,5 @@ clean :
 # ./patch_combinaison_suite_entiers
 # ./prog_partie_IA
 # ./prog_sauvegarde
-# ./prog_reseau
+# ./prog_client
+# ./prog_serveur

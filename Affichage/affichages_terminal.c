@@ -1,8 +1,7 @@
 /**
 * \file affichage_tuile.c
 * \brief Fichier contenant les fonctions d'affichages
-* \author Samuel DURAN Girod Valentin
-* \version 1.0
+* \author Samuel DURAN Valentin GIROD
 * \date 12 avril 2020
 */
 
