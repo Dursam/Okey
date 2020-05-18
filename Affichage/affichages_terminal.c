@@ -136,8 +136,8 @@ int afficher_menu(char list[][30], int taille){
   system("rm data_colonne.txt");
   system("rm data_ligne.txt");
 
-  lon = taille_reduction(blon);                   // Permet de positionner les touches au centre de l'écran
-  lar = taille_reduction(blar);
+  lon = taille_reduction(blon)-8;                   // Permet de positionner les touches au centre de l'écran
+  lar = taille_reduction(blar)-1;
   //printf("%i__%i\n",lar,lon);
 
   wclear(fenetre);
@@ -256,8 +256,42 @@ char * afficher_sauvegarde(int max_fichier){
  */
  void afficher_regle(void){
    fond_blanc();
-   printf("Voici les règles blablablabla\n");
-   faire_rendu();
+   system("tput cols >> data_colonne.txt");
+   int blon;
+    FILE * fichier = fopen("data_colonne.txt","r");
+    fscanf(fichier,"%i",&blon);
+    fclose(fichier);
+   system("rm data_colonne.txt");
+   int lon = taille_reduction(blon)-8;                   // Permet de positionner les touches au centre de l'écran
+  mvwprintw(fenetre, 0,lon, "Règles du jeu : ");
+
+  mvwprintw(fenetre, 1,0, "Comment jouer :");
+  mvwprintw(fenetre, 2,4, "- Vous disposez d'un chevalet qui comporte 14 tuiles.");
+  mvwprintw(fenetre, 3,4, "- Arrangez ces tuiles pour que celles-ci forment une suite de nombres");
+  mvwprintw(fenetre, 4,6,  "de même couleur ou une série du même nombre et de couleurs différentes");
+  mvwprintw(fenetre, 5,4, "- Vous ne pouvez avoir de double dans une même suite ou série mais vous");
+  mvwprintw(fenetre, 6,6, "pouvez jouer une tuile en double dans une autre suite ou série.");
+  mvwprintw(fenetre, 7,4, "- Vous devez avoir minimum 3 tuiles par suite ou série.");
+  mvwprintw(fenetre, 8,4, "- Vous devez utiliser toutes vos tuiles dans vos combinaisons") ;
+
+  mvwprintw(fenetre, 9,0,"Déroulement début/fin de tour : ") ;
+  mvwprintw(fenetre, 10,4, "- Piochez une tuile ou ramassez celle de la pile à votre gauche");
+  mvwprintw(fenetre, 11,4, "- A la fin de votre tour, défaussez une tuile. Vous pourrez ensuite ");
+  mvwprintw(fenetre, 12,6, "ranger votre chevalet.");
+  mvwprintw(fenetre, 13,4, "- La partie se termine lorsqu'un joueur a complété son chevalet ou que la");
+  mvwprintw(fenetre, 14,6, "pioche est vide.");
+
+  mvwprintw(fenetre, 15,0,"Système de points et condition de victoire :") ;
+  mvwprintw(fenetre, 16,4, "- Chaque joueur commence avec 0 point");
+  mvwprintw(fenetre, 17,4, "- Un joueur marque un point seulement si il gagne une manche");
+  mvwprintw(fenetre, 18,4, "- A vous de décider du nombre de point maximum") ;
+
+  mvwprintw(fenetre, 19,0,"Tuiles Spéciales :");
+  mvwprintw(fenetre, 20,4, "- Au début de la manche, une tuile est retournée face visible.");
+  mvwprintw(fenetre, 20,6,"C'est le Okey, qui remplace les deux tuiles joker du jeu. ") ;
+
+  mvwprintw(fenetre, 22,lon-12," Prenez votre temps et bonne partie ! \n") ;
+  faire_rendu();
  }
 
 /**

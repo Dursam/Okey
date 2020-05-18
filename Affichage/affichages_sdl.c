@@ -339,10 +339,36 @@ int afficher_menu(char menu[][30], int taille){
  */
 void afficher_regle(void){
   fond_blanc();
-  drawText(525, 25, "Voici les règles blablabla", 25, 12);
-  faire_rendu();
-  int * running = malloc(sizeof(int));
-	*running = 1;
+  drawText(SCREEN_WIDTH/2-100, 25, "Règles du jeu : ", 25, 12);
+	drawText(50, 60, "Comment jouer :", 25, 12);
+drawText(100, 80, "- Vous disposez d'un chevalet qui comporte 14 tuiles.", 25, 12);
+drawText(100, 100, "- Arrangez ces tuiles pour que celles-ci forment une suite de nombres", 25, 12);
+drawText(100, 120, "de même couleur ou une série du même nombre et de couleurs différentes", 25, 12);
+drawText(100, 140, "- Vous ne pouvez avoir de double dans une même suite ou série mais vous", 25, 12);
+drawText(100, 160, "pouvez jouer une tuile en double dans une autre suite ou série.", 25, 12);
+drawText(100, 180, "- Vous devez avoir minimum 3 tuiles par suite ou série.", 25, 12);
+drawText(100, 200, "- Vous devez utiliser toutes vos tuiles dans vos combinaisons", 25, 12);
+drawText(50, 260, "Déroulement début/fin de tour : ", 25, 12);
+drawText(100, 280,  "- Piochez une tuile ou ramassez celle de la pile à votre gauche", 25, 12);
+drawText(100, 300, "- A la fin de votre tour, défaussez une tuile. Vous pourrez ensuite ", 25, 12);
+drawText(100, 320, "ranger votre chevalet.", 25, 12);
+drawText(100, 340, "- La partie se termine lorsqu'un joueur a complété son chevalet ou que la", 25, 12);
+drawText(100, 360,"pioche est vide.", 25, 12);
+drawText(50, 400, "Système de points et condition de victoire :", 25, 12);
+drawText(100, 420, "- Chaque joueur commence avec 0 point", 25, 12);
+drawText(100, 440,"- Un joueur marque un point seulement si il gagne une manche", 25, 12);
+drawText(100, 460, "- A vous de décider du nombre de point maximum", 25, 12);
+drawText(50, 500, "Tuiles Spéciales :", 25, 12);
+drawText(100, 520, "- Au début de la manche, une tuile est retournée face visible.", 25, 12);
+drawText(100, 540, "C'est le Okey, qui remplace les deux tuiles joker du jeu. ", 25, 12);
+drawText(SCREEN_WIDTH/2-200, 580, " Prenez votre temps et bonne partie !", 25, 12);
+
+
+	faire_rendu();
+	sleep(20);
+
+
+
 
 
 }
